@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ----- SMOOTH SCROLL ----- */
+html{
+    scroll-behavior: smooth;
+}
+
+body{
+    background-color: #fff;
+    color: #000;
+}
+
+@font-face {
+    font-family: "openSansBold";
+    src: url("./assets/Police/OpenSans-Bold.ttf");
+}
+
+@font-face {
+    font-family: "openSansMedium";
+    src: url("./assets/Police/OpenSans-Regular.ttf");
+}
+
+@font-face {
+    font-family: "openSansSemiBold";
+    src: url("./assets/Police/OpenSans-SemiBold.ttf");
+}
+
+
+/* ----- CHANGE THE SCROLL BAR DESIGN ----- */
+::-webkit-scrollbar{
+    width: 8px;
+    border-radius: 25px;
+}
+::-webkit-scrollbar-track{
+    background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb{
+    background: #ccc;
+    border-radius: 1.875rem;
+}
+::-webkit-scrollbar-thumb:hover{
+    background: #bbb;
+}
+
+input[type="number"] ::-webkit-inner-spin-button {
+    
+    -webkit-appearance: none;
+}
+
+input[type="number"] ::-webkit-outer-spin-button {
+    
+    -webkit-appearance: none;
+}
