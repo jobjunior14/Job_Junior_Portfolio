@@ -1,17 +1,39 @@
-import jobLogoDark from '../assets/navBar/jobLogoDark.jpg';
+import jobProfil1 from '../assets/home/jobProfil1.png'
+import webDev from '../assets/home/webDev.png'
 import { useLangContext } from '../changeLang';
 import { Link } from 'react-router-dom';
 import SkillsAndTech from './utils/skillsAndTechComp';
+import { useState } from 'react';
 
 export default function Acceuil () {
 
     const {lang} = useLangContext();
 
+    const [servicesDetails, setServicesDetails] = useState ({
+        frontEnd: true,
+        backEnd: false,
+        dbManagement: false,
+        maintenance: false
+    });
+
+    const serviceDetailsUnique = {
+        frontEnd: false,
+        backEnd: false,
+        dbManagement: false,
+        maintenance: false
+    }
+
+    const handleServicesDetails = (name) => {
+
+        setServicesDetails ({...serviceDetailsUnique, [name]: true});
+    };
+
     const translation = {
+
         en: {
             welcomeText: <span>A <br /><span className=' text-myRed'>Real</span> <br /> Dream</span>,
             welcomeName: "I'm",
-            aboutME: <span>I&apos;am a <Link className=' text-myRed underline dark:text-red-500'>FrontEnd</Link> & <Link className='text-myRed underline dark:text-red-500'>Backend</Link> developper since 2 years now. <br /> I&apos;m passionate about web developement
+            aboutME: <span>I&apos;am a <Link className=' text-myRed underline dark:text-red-500'>Front-end</Link> & <Link className='text-myRed underline dark:text-red-500'>Back-end</Link> developper since 2 years now. <br /> I&apos;m passionate about web developement
             using  <em> <strong> MERN</strong></em> (MongoDb, ExpressJs, React & NodeJs) technologies and we hope we&apos;re gonna make your dreams come true building better applications
             </span>,
             getInText: 'Get in touch',
@@ -24,12 +46,20 @@ export default function Acceuil () {
             completsProjects: <span>6+ projects <br /> <span className='text-[0.8rem] sm:text-[1rem] dark:text-whiteTheme text-blackTheme'>completed</span></span>,
             servicesDetails: "What kind of service do you want ?",
             ourServices: "Our services",
+            interessed: "Interested",
+            interessedDetails: <span>Front-end<span className='text-myRed'> |</span> Back-end <br /><span className='text-myRed'> |</span> DB-Management <br className='sm:hidden'/> <span className='text-myRed'> |</span> Maintenance</span>,
+            frontEndDetails: "We put our years of experience at your disposition to develop the front-end of your application ( the visible part to the customers and the possible interactions) with the latest technologies to give you a better and modern service",
+            backEndDetails: "We put our years of experience at your disposition to develop the back-end of your application ( the invvisible part to the customers and their data) with the latest technologies to give you a better and modern service",
+            dataBaseTitle: "Data Base",
+            dataBaseDetails: "We ensure the implementation of database management systems for your company, business by make easy their handling and accessibility for a fast and efficient operation for your application",
+            maintenanceDetails: "By being professional, we offer you our services for the maintenance of your application dosen't matter if it on backend or frontend; we ensure his upadate with the latest available technologies"
+
         },
 
         fr: {
             welcomeText: <span>Un <br /> <span className='text-myRed'>Rêve</span> <br /> Véritable</span>,
             welcomeName: "Je suis",
-            aboutME: <span>Je suis un <Link className=' text-myRed underline dark:text-red-500'>FrontEnd</Link> & <Link className='text-myRed underline dark:text-red-500'>Backend</Link> developpeur depuis maintenant 2 ans. <br /> Je suis passionné du web développement
+            aboutME: <span>Je suis un <Link className=' text-myRed underline dark:text-red-500'>Front-end</Link> & <Link className='text-myRed underline dark:text-red-500'>Back-end</Link> developpeur depuis maintenant 2 ans. <br /> Je suis passionné du web développement
             en utilisant les technologies  <em> <strong> MERN</strong></em> (MongoDb, ExpressJs, React & NodeJs) et nous espérons que nous rendrons vos rêves réels en batissant des applications solide et durable
             </span>,
             getInText: 'Contactez-moi',
@@ -41,7 +71,14 @@ export default function Acceuil () {
             satisfedClients: <span>4+ clients <br /> <span className='text-[0.8rem] sm:text-[1rem] dark:text-whiteTheme text-blackTheme'>satisfait</span></span>,
             completsProjects: <span>6+ projets <br /> <span className='text-[0.8rem] sm:text-[1rem] dark:text-whiteTheme text-blackTheme'>complétés</span></span>,
             servicesDetails: "Quel genre de service voulez-vous ?",
-            ourServices: "Nos services"
+            ourServices: "Nos services",
+            interessed: "Interessé",
+            interessedDetails: <span>Front-end<span className='text-myRed'> |</span> Back-end <br /><span className='text-myRed'> |</span> Management-BD <br className='sm:hidden'/> <span className='text-myRed'> |</span> Maintenance</span>,
+            frontEndDetails: "Nous mettons à votre disposition nos années d'expérience pour devellopper le front-end de votre application (la partie visible par les clients et les intéraction possible) avec les dernières téchnologies pour vous permetre un meilleur service et morderne",
+            backEndDetails: "Nous mettons à votre disposition nos années d'expérience pour devellopper le back-end de votre application (la partie invisible par les clients et leurs données) avec les dernières téchnologies pour vous permetre un meilleur service et morderne",
+            dataBaseTitle: "Base des données",
+            dataBaseDetails: "Nous assurons la mise en place des systèmes de gestion de base des données pour votre entreprise, busness en facilitant leurs manipulation et leur accessibilité pour un fonctionnement rapide et efficace de votre entreprise ou busness",
+            maintenanceDetails: "Tout en étant professionnel, nous vous offrons nos services pour le maintient de votre application que cela puisse etre du coté front-end ou back-end; nous assurons sa mise à jour avec le temps avec les dernière téchnologies"
 
         }
     }
@@ -69,7 +106,7 @@ export default function Acceuil () {
                     <section className="w-full flex justify-center items-center gap-5">
 
                         <figure className=" w-[20%] h-0 round  rounded-full overflow-hidden relative" style={{paddingTop: 'calc( 20% * (1/1))'}} >
-                            <img src={jobLogoDark} alt="" className=' object-cover absolute top-0 w-full h-full'  />
+                            <img src={jobProfil1} alt="" className=' object-cover absolute top-0 w-full h-full'  />
                         </figure>
 
                         <figcaption className='w-[70%] font-semibold text-[1.5rem] md:text-[1.5rem] text-start dark:text-gray-50 text-blackTheme '> <span className='text-[0.8rem] sm:text-[0.6rem] md:text-[0.8rem]'> Hey! {translation[lang].welcomeName}</span> Job Junior</figcaption>
@@ -81,7 +118,7 @@ export default function Acceuil () {
                     </p>
 
                     <div className='w-fll justify-center items-center flex'>
-                        <Link className=' bg-myRed px-4 py-2 font-openSansSemiBold text-[0.875rem] sm:text-[0.7rem] md:text-[0.875rem] rounded-2xl text-white '>{translation[lang].getInText}</Link>
+                        <Link className=' bg-myRed px-4 py-[6px] font-openSansSemiBold text-[0.875rem] sm:text-[0.7rem] md:text-[0.875rem] rounded-2xl text-white '>{translation[lang].getInText}</Link>
                     </div>
 
                 </section>
@@ -108,9 +145,9 @@ export default function Acceuil () {
                 
                 <div className='w-full flex flex-col gap-20  border-gray-300 rounded-xl py-14 justify-center items-center '>
 
-                    {/* frontend section  */}
+                    {/* front-end section  */}
                     <section className='flex flex-col gap-8 sm:gap-10 justify-center items-center w-full'>
-                        <h3 className='px-5 py-3 w-full md:py-2 md:px-6 bg-gray-500 rounded-xl font-openSansSemiBold text-gray-50 text-[1.2rem] md:text-[1.5rem]  '>Frontend</h3>
+                        <h3 className='px-5 py-3 w-full md:py-2 md:px-6 bg-gray-500 rounded-xl font-openSansSemiBold text-gray-50 text-[1.2rem] md:text-[1.5rem]  '>Front-end</h3>
 
                         <section className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-1 gap-y-5 sm:gap-y-8 justify-between items-center text-center relative w-full'>
 
@@ -127,7 +164,7 @@ export default function Acceuil () {
                             />
 
                             <SkillsAndTech
-                                svgPath={ <svg height="50" className=' rounded-xl' preserveAspectRatio="xMidYMid" viewBox="0 0 256 154" width="50" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><linearGradient id="a" x1="-2.777778%" x2="100%" y1="32%" y2="67.555556%"><stop offset="0" stop-color="#2298bd"/><stop offset="1" stop-color="#0ed7b5"/></linearGradient><path d="m128 0c-34.1333333 0-55.4666667 17.0666667-64 51.2 12.8-17.0666667 27.7333333-23.4666667 44.8-19.2 9.737481 2.4343704 16.697363 9.4985481 24.401067 17.3184 12.549689 12.7383704 27.07437 27.4816 58.798933 27.4816 34.133333 0 55.466667-17.0666667 64-51.2-12.8 17.0666667-27.733333 23.4666667-44.8 19.2-9.737481-2.4343704-16.697363-9.4985481-24.401067-17.3184-12.549689-12.7383704-27.07437-27.4816-58.798933-27.4816zm-64 76.8c-34.1333333 0-55.46666667 17.0666667-64 51.2 12.8-17.066667 27.7333333-23.466667 44.8-19.2 9.7374815 2.43437 16.697363 9.498548 24.4010667 17.3184 12.5496889 12.73837 27.0743703 27.4816 58.7989333 27.4816 34.133333 0 55.466667-17.066667 64-51.2-12.8 17.066667-27.733333 23.466667-44.8 19.2-9.737481-2.43437-16.697363-9.498548-24.401067-17.3184-12.549689-12.7383704-27.07437-27.4816-58.798933-27.4816z" fill="url(#a)"/></svg>}
+                                svgPath={ <svg height="50" className=' rounded-xl' preserveAspectRatio="xMidYMid" viewBox="0 0 256 154" width="50" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"><linearGradient id="a" x1="-2.777778%" x2="100%" y1="32%" y2="67.555556%"><stop offset="0" stopColor="#2298bd"/><stop offset="1" stopColor="#0ed7b5"/></linearGradient><path d="m128 0c-34.1333333 0-55.4666667 17.0666667-64 51.2 12.8-17.0666667 27.7333333-23.4666667 44.8-19.2 9.737481 2.4343704 16.697363 9.4985481 24.401067 17.3184 12.549689 12.7383704 27.07437 27.4816 58.798933 27.4816 34.133333 0 55.466667-17.0666667 64-51.2-12.8 17.0666667-27.733333 23.4666667-44.8 19.2-9.737481-2.4343704-16.697363-9.4985481-24.401067-17.3184-12.549689-12.7383704-27.07437-27.4816-58.798933-27.4816zm-64 76.8c-34.1333333 0-55.46666667 17.0666667-64 51.2 12.8-17.066667 27.7333333-23.466667 44.8-19.2 9.7374815 2.43437 16.697363 9.498548 24.4010667 17.3184 12.5496889 12.73837 27.0743703 27.4816 58.7989333 27.4816 34.133333 0 55.466667-17.066667 64-51.2-12.8 17.066667-27.733333 23.466667-44.8 19.2-9.737481-2.43437-16.697363-9.498548-24.401067-17.3184-12.549689-12.7383704-27.07437-27.4816-58.798933-27.4816z" fill="url(#a)"/></svg>}
                                 percentage={80}
                             />
 
@@ -141,15 +178,14 @@ export default function Acceuil () {
                                 percentage={10}
                             />
 
-                        
                         </section>
 
                     </section>
 
                    
-                    {/* Backend section  */}
+                    {/* Back-end section  */}
                     <section className='flex flex-col gap-8 sm:gap-10 justify-center items-center w-full'>
-                        <h3 className='px-5 py-3 w-full md:py-2 md:px-6 bg-gray-500 rounded-xl font-openSansSemiBold text-gray-50 text-[1.2rem] md:text-[1.5rem]  '>Backend</h3>
+                        <h3 className='px-5 py-3 w-full md:py-2 md:px-6 bg-gray-500 rounded-xl font-openSansSemiBold text-gray-50 text-[1.2rem] md:text-[1.5rem]  '>Back-end</h3>
 
                         <section className='grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-x-1 gap-y-5 sm:gap-y-8 justify-between items-center text-center relative w-full'>
 
@@ -184,9 +220,6 @@ export default function Acceuil () {
                                 percentage={14}
                             />
 
-                          
-
-                        
                         </section>
 
                     </section>
@@ -244,7 +277,7 @@ export default function Acceuil () {
             </section>
 
             {/* services  */}
-            <section>
+            <section className='w-full pb-10 flex flex-col gap-14 relative'>
 
                 {/* title  */}
                 <div className='w-full flex flex-col gap-4 '>
@@ -260,17 +293,83 @@ export default function Acceuil () {
                     <h1 className='text-left text-[2rem] sm:text-[2.5rem] md:text-[2.8rem] font-openSansBold dark:text-gray-50 text-gray-800'> {translation[lang].ourServices}</h1>
                 </div> 
 
+                {/* image and web dev title  */}
                 <section className='w-full h-fit overflow-hidden relative'>
 
-                    <section className='w-full h-0  bg-slate-300 overflow-hidden' style={{paddingTop: "calc(100% * (3/4))", clipPath: "polygon(0% 100%, 0% 0%, 100% 100% )", rotate: "0deg"}}  >
+                    {/* the clipping image  */}
+                    <section className='w-full h-0 webDevSection  overflow-hidden' style={{clipPath: "polygon(0% 100%, 0% 0%, 100% 100% )"}}  >
+
+                        <img src={webDev} alt="" className='w-full h-full absolute top-0 object-cover object-left-bottom rounded-xl' />
+                    </section>
+
+                    {/* set the border color  */}
+                    <div className='w-full h-full broder border-r-2 border-gray-500 absolute top-0 border-t-2 border-t-gray-500 rounded-xl'>
+
+                    </div>
+
+                    {/* the text in the image  */}
+                    <section className='absolute h-full w-full top-0 right-0 rounded-xl  flex flex-col gap-5 sm:gap-6 md:gap-7 lg:gap-8 dark:bg-opacity-10 dark:bg-gray-100 bg-gray-500 bg-opacity-10 py-4 px-5 sm:py-6 sm:px-8 md:py-10 md:px-14 lg:px-14 lg:py-14 items-end' style={{clipPath: "polygon(100% 100%, 0% 0%, 100% 0% )"}}>
+
+                        <h1 className='text-blackTheme dark:text-whiteTheme text-[1.2rem] md:text-[1.5rem] font-openSansBold leading-5 md:leading-6' >Web Developpement</h1>
+
+                        <p className=' text-right font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] text-gray-400'> {translation[lang].interessedDetails} </p>
+                        <Link className=' bg-myRed px-4 py-[6px] font-openSansSemiBold text-[0.875rem] rounded-2xl text-white '>{translation[lang].interessed}</Link>
 
                     </section>
-                        <h1 className='absolute top-0 text-white right-0' >Hey jsjsleiufusdjgjghfilgug</h1>
 
-                    {/* <section className='w-full h-0  bg-slate-300 overflow-hidden' style={{paddingTop: "calc(100% * (3/4))", clipPath: "polygon(100% 100%, 0% 0%, 100% 0% )", rotate: "0deg"}}  >
+                </section>
 
-                    </section> */}
+                <section className='w-full flex flex-col mt-5 justify-center items-center relative'>
+                    
+                    <figure className='w-full h-full -top-5 absolute flex justify-between px-[10%] md:px-[18%] lg:px-[22%]'>
 
+                        <svg onClick={() => handleServicesDetails('frontEnd')} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={` ${servicesDetails.frontEnd ? 'dark:text-white text-gray-900 scale-[1.35]' : 'dark:text-gray-300 text-gray-700 bg-opacity-60'} dark:bg-gray-900 bg-gray-100 w-10 h-10  rounded-full p-2 cursor-pointer duration-200 hover:bg-opacity-100`}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25m18 0A2.25 2.25 0 0 0 18.75 3H5.25A2.25 2.25 0 0 0 3 5.25m18 0V12a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 12V5.25" />
+                        </svg>
+
+                        <svg onClick={() => handleServicesDetails('backEnd')} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={` ${servicesDetails.backEnd ? 'dark:text-white text-gray-900 scale-[1.35]' : 'dark:text-gray-300 text-gray-700 bg-opacity-60'} dark:bg-gray-900 bg-gray-100 w-10 h-10 rounded-full p-2 cursor-pointer duration-200 hover:bg-opacity-100`}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 14.25h13.5m-13.5 0a3 3 0 0 1-3-3m3 3a3 3 0 1 0 0 6h13.5a3 3 0 1 0 0-6m-16.5-3a3 3 0 0 1 3-3h13.5a3 3 0 0 1 3 3m-19.5 0a4.5 4.5 0 0 1 .9-2.7L5.737 5.1a3.375 3.375 0 0 1 2.7-1.35h7.126c1.062 0 2.062.5 2.7 1.35l2.587 3.45a4.5 4.5 0 0 1 .9 2.7m0 0a3 3 0 0 1-3 3m0 3h.008v.008h-.008v-.008Zm0-6h.008v.008h-.008v-.008Zm-3 6h.008v.008h-.008v-.008Zm0-6h.008v.008h-.008v-.008Z" />
+                        </svg>
+
+                        <svg onClick={() => handleServicesDetails('dbManagement')} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={` ${servicesDetails.dbManagement ? 'dark:text-white text-gray-900 scale-[1.35]' : 'dark:text-gray-300 text-gray-700 bg-opacity-60'} dark:bg-gray-900 bg-gray-100 w-10 h-10 rounded-full p-2 cursor-pointer duration-200 hover:bg-opacity-100`}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
+                        </svg>
+
+
+                        <svg onClick={() => handleServicesDetails('maintenance')} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={` ${servicesDetails.maintenance ? 'dark:text-white text-gray-900 scale-[1.35]' : 'dark:text-gray-300 text-gray-700 bg-opacity-60'} dark:bg-gray-900 bg-gray-100 w-10 h-10 rounded-full p-2 cursor-pointer duration-200 hover:bg-opacity-100`}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 0 0 4.486-6.336l-3.276 3.277a3.004 3.004 0 0 1-2.25-2.25l3.276-3.276a4.5 4.5 0 0 0-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437 1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008Z" />
+                        </svg>
+
+                    </figure>
+
+                    <figcaption className='w-full h-[19rem] pt-20 pb-14 dark:bg-whiteTheme bg-blackTheme px-5 sm:px-[5%] md:px-[10%] lg:px-[14%] flex flex-col items-center rounded-xl overflow-hidden'>
+
+                        <div className={`w-full duration-300 justify-center items-center h-full flex flex-col gap-5 ${servicesDetails.frontEnd ? 'translate-y-[0]' : 'translate-y-[260%]'}`}>
+                            <h4 className='font-openSansSemiBold text-[0.875rem] dark:text-gray-900 text-gray-100 '> Front-end</h4>
+                            <p className=' font-openSansMedium text-[0.875rem] dark:text-gray-900 text-gray-100'>{translation[lang].frontEndDetails}</p>
+                            <Link className=' border-myRed border px-4 py-[6px] font-openSansSemiBold text-[0.8rem] rounded-2xl text-white dark:text-black '>{translation[lang].interessed}</Link>
+
+                        </div>
+                        <div className={`w-full duration-300 justify-center items-center h-full flex flex-col gap-5 ${servicesDetails.backEnd ? 'translate-y-[-100%]' : 'translate-y-[160%]'}`}>
+                            <h4 className='font-openSansSemiBold text-[0.875rem] dark:text-gray-900 text-gray-100 '> Back-end</h4>
+                            <p className=' font-openSansMedium text-[0.875rem] dark:text-gray-900 text-gray-100'>{translation[lang].backEndDetails}</p>
+                            <Link className=' border-myRed border px-4 py-[6px] font-openSansSemiBold text-[0.8rem] rounded-2xl text-white dark:text-black '>{translation[lang].interessed}</Link>
+
+                        </div>
+                        <div className={`w-full duration-300 justify-center items-center h-full flex flex-col gap-5 ${servicesDetails.dbManagement ? 'translate-y-[-200%]' : 'translate-y-[60%]'}`}>
+                            <h4 className='font-openSansSemiBold text-[0.875rem] dark:text-gray-900 text-gray-100 '> {translation[lang].dataBaseTitle}</h4>
+                            <p className=' font-openSansMedium text-[0.875rem] dark:text-gray-900 text-gray-100'>{translation[lang].dataBaseDetails}</p>
+                            <Link className=' border-myRed border px-4 py-[6px] font-openSansSemiBold text-[0.8rem] rounded-2xl text-white dark:text-black '>{translation[lang].interessed}</Link>
+
+                        </div>
+                        <div className={`w-full duration-300 justify-center items-center h-full flex flex-col gap-5 ${servicesDetails.maintenance ? 'translate-y-[-300%]' : 'translate-y-[-40%]'}`}>
+                            <h4 className='font-openSansSemiBold text-[0.875rem] dark:text-gray-900 text-gray-100 '> Maintenance</h4>
+                            <p className=' font-openSansMedium text-[0.875rem] dark:text-gray-900 text-gray-100'>{translation[lang].maintenanceDetails}</p>
+                            <Link className=' border-myRed border px-4 py-[6px] font-openSansSemiBold text-[0.8rem] rounded-2xl text-white dark:text-black '>{translation[lang].interessed}</Link>
+
+                        </div>
+
+                    </figcaption>
                 </section>
                 
             </section>

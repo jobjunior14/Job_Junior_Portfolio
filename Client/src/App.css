@@ -4,3 +4,15 @@
   padding: 0px;
   text-align: center;
 }
+
+
+.webDevSection {
+  padding-top: calc(100%);
+}
+
+@media (min-width: 640px) {
+
+  .webDevSection {
+    padding-top: calc(55%);
+  }
+}
