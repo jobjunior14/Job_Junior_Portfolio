@@ -3,6 +3,7 @@ import webDev from '../assets/home/webDev.png'
 import { useLangContext } from '../changeLang';
 import { Link } from 'react-router-dom';
 import SkillsAndTech from './utils/skillsAndTechComp';
+import Projects from './utils/projects';
 import { useState } from 'react';
 
 export default function Acceuil () {
@@ -61,6 +62,16 @@ export default function Acceuil () {
             allProjects: "All projects",
             chooseUsDetails: "Choose us one, choose us forever",
             chooseUsTitle: "Why choose us",
+            confidentiality: <span>We ensure <span className='text-myRed'>confidentialtie</span> of our customers through and after the developement of applications</span>,
+            adaptability: <span> <span className='text-myRed'>Adaptablity</span> across all devices is one of our priority with Working with mobile first methode</span>,
+            updating: <span>We keep <span className='text-myRed'>updating</span> our applications through time with latest technologies according to your needs</span>,
+            scalable: <span><span className='text-myRed'>Scalable</span> according to your needs. We ensurure the addition of features in the application </span>,
+            questionsDetails: "Maybe you will found your answers here",
+            questionsTitles : "Any questions",
+            howWeProceed : "How we proceed ?",
+            howWeProceedAnswer: <span>
+
+            </span>
 
         },
 
@@ -95,9 +106,25 @@ export default function Acceuil () {
             allProjects: "Tous les projets",
             chooseUsDetails: "Choisissez-nous une fois, choisissez-nous toujours",
             chooseUsTitle: "Pourquoi nous choisir",
+            confidentiality: <span>Nous assurons la <span className='text-myRed'>confidentialité</span> de nos clients pendant et après le developpement des applications</span>,
+            adaptability: <span> L&apos;<span className='text-myRed'>adaptabilité</span> à travers tous les appareils est l&apos;un de nos priorités avec la methode working with mobile first</span>,
+            updating: <span>Nous tennons à la<span className=' text-myRed'> mise à jour </span>des nos applications dans le temps avec les dernières technologies selon vos besoins</span>,
+            scalable: <span>Nous assurons l&apos;<span className='text-myRed'>évolution</span> des applications en y ajoutant des fonctionalités selon vos besoins</span>,
+            questionsDetails: "Peut-être que vous trouverez vos réponses ici",
+            questionsTitles: "Avez vous des questions",
+            howWeProceed: "Comment procédons-nous ?",
+            howWeProceedAnswer: <span>
+
+            </span>
 
         }
     };
+
+    const [toggleText, setToggleText] = useState ({a: false, b: false, c: false, d: false, e: false, f: false, g: false, h: false});
+
+    const handleToggleText = (alphabet) => {
+        setToggleText(prev => ({...prev, [alphabet]: prev[alphabet] ? false : true}));
+    }
 
     return (
         <main className=" w-full px-[5%] lg:px-[14%]  py-10 sm:py-14 gap-20 md:gap-28 relative flex flex-col sm:gap-20">
@@ -154,7 +181,7 @@ export default function Acceuil () {
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                         </svg>
 
-                        <h3 className=' font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] text-gray-400'> {translation[lang].careerDetails}</h3>
+                        <h3 className=' font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-gray-500'> {translation[lang].careerDetails}</h3>
                     </div>
 
                     <h1 className='text-left text-[2rem] sm:text-[2.5rem] md:text-[2.8rem] font-openSansBold dark:text-gray-50 text-gray-800'> {translation[lang].career}</h1>
@@ -204,7 +231,7 @@ export default function Acceuil () {
                         </svg>
 
 
-                        <h3 className=' font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] text-gray-400'> {translation[lang].servicesDetails}</h3>
+                        <h3 className=' font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-gray-500'> {translation[lang].servicesDetails}</h3>
                     </div>
 
                     <h1 className='text-left text-[2rem] sm:text-[2.5rem] md:text-[2.8rem] font-openSansBold dark:text-gray-50 text-gray-800'> {translation[lang].ourServices}</h1>
@@ -229,7 +256,7 @@ export default function Acceuil () {
 
                         <h1 className='text-blackTheme dark:text-whiteTheme text-[1.2rem] md:text-[1.5rem] font-openSansBold leading-5 md:leading-6' >Web Developpement</h1>
 
-                        <p className=' text-right font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] text-gray-400'> {translation[lang].interessedDetails} </p>
+                        <p className=' text-right font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-gray-500'> {translation[lang].interessedDetails} </p>
                         <Link className=' bg-myRed hover:bg-opacity-80 duration-200 px-4 py-[6px] font-openSansSemiBold text-[0.875rem] rounded-2xl text-white '>{translation[lang].interessed}</Link>
 
                     </section>
@@ -307,16 +334,16 @@ export default function Acceuil () {
                         <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 0 0 .75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 0 0-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0 1 12 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 0 1-.673-.38m0 0A2.18 2.18 0 0 1 3 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 0 1 3.413-.387m7.5 0V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25v.894m7.5 0a48.667 48.667 0 0 0-7.5 0M12 12.75h.008v.008H12v-.008Z" />
                         </svg>
 
-                        <h3 className=' font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] text-gray-400'> {translation[lang].projectDetails}</h3>
+                        <h3 className=' font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-gray-500'> {translation[lang].projectDetails}</h3>
                     </div>
                     
                     <div className=' flex justify-between items-center'>
-                    <h1 className='text-left text-[2rem] sm:text-[2.5rem] md:text-[2.8rem] font-openSansBold dark:text-gray-50 text-gray-800'>{translation[lang].projectTitle} </h1>
+                        <h1 className='text-left text-[2rem] sm:text-[2.5rem] md:text-[2.8rem] font-openSansBold dark:text-gray-50 text-gray-800'>{translation[lang].projectTitle} </h1>
 
-                    <Link className=' flex items-center hover:text-blue-500 duration-200 px-4 py-[2px] font-openSansSemiBold text-[0.875rem] rounded-2xl dark:text-whiteTheme text-blackTheme '>{translation[lang].allProjects} <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-myRed font-openSansBold">
-                    <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                    </svg>
-                    </Link>
+                        <Link className=' flex items-center hover:text-blue-500 duration-200 py-[2px] font-openSansSemiBold text-[0.875rem] rounded-2xl dark:text-whiteTheme text-blackTheme '>{translation[lang].allProjects} <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-myRed font-openSansBold">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                        </svg>
+                        </Link>
 
                     </div>
                 </div>
@@ -324,41 +351,29 @@ export default function Acceuil () {
                 {/* some project  */}
                 <section className='w-full grid gap-10 grid-col-1 sm:grid-cols-2 items-center'>
                     
-                    <div className='w-full flex flex-col'>
+                    <Projects
+                        images={webDev}
+                        title={"Dego Bar"}
+                        text={"As a management application, this project was building at the start to deployement by myself. My contribution was to design...."}
+                        linkContent={translation[lang].SeeMore}
 
-                        <figure className='w-full h-0 webDevSection relative'>
-                            <img src={webDev} alt="image of degoBar project" className='h-full w-full absolute top-0 object-cover rounded-t-xl' />
-                        </figure>
+                    />
+                    <Projects
+                        images={webDev}
+                        title={"Dego Bar"}
+                        text={"As a management application, this project was building at the start to deployement by myself. My contribution was to design...."}
+                        linkContent={translation[lang].SeeMore}
 
-                        <figcaption className='dark:bg-whiteTheme bg-blackTheme flex flex-col gap-3 py-5 rounded-b-xl justify-start items-start px-[15%]'>
-                            <h4 className='font-openSansSemiBold text-[1rem] dark:text-gray-900 text-gray-100 text-left'> Dego Bar</h4>
-                            <p className=' font-openSansMedium text-[0.875rem] dark:text-gray-900 text-gray-100 text-left'>As a management application, this project was building at the start to deployement by myself. My contribution was to design the application and working from front-end to back-end...
-                            
-                            </p>
-                                <Link className=' hover:text-blue-500 duration-200 py-[2px] gap-1 font-openSansSemiBold text-[0.875rem] rounded-2xl text-whiteTheme dark:text-blackTheme flex items-center '>{translation[lang].SeeMore} <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 text-myRed">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
-                                    </svg>
-                                </Link>
-                        </figcaption>
-                    </div>
+                    />
+                    
+                    <Projects
+                        images={webDev}
+                        title={"Dego Bar"}
+                        text={"As a management application, this project was building at the start to deployement by myself. My contribution was to design...."}
+                        linkContent={translation[lang].SeeMore}
 
-                    <div className='w-full flex flex-col'>
+                    />
 
-                        <figure className='w-full h-0 webDevSection relative'>
-                            <img src={webDev} alt="image of degoBar project" className='h-full w-full absolute top-0 object-cover rounded-t-xl' />
-                        </figure>
-
-                        <figcaption className='dark:bg-whiteTheme bg-blackTheme flex flex-col gap-3 py-5 rounded-b-xl justify-start items-start px-[15%]'>
-                            <h4 className='font-openSansSemiBold text-[1rem] dark:text-gray-900 text-gray-100 text-left'> Dego Bar</h4>
-                            <p className=' font-openSansMedium text-[0.875rem] dark:text-gray-900 text-gray-100 text-left'>As a management application, this project was building at the start to deployement by myself. My contribution was to design the application and working from front-end to back-end...
-                            
-                            </p>
-                                <Link className=' hover:text-blue-500 duration-200 py-[2px] gap-1 font-openSansSemiBold text-[0.875rem] rounded-2xl text-whiteTheme dark:text-blackTheme flex items-center '>{translation[lang].SeeMore} <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 text-myRed">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
-                                    </svg>
-                                </Link>
-                        </figcaption>
-                    </div>
                 </section>
             </section>
 
@@ -374,16 +389,161 @@ export default function Acceuil () {
 
 
 
-                        <h3 className=' font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] text-gray-400'> {translation[lang].chooseUsDetails}</h3>
+                        <h3 className=' font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-gray-500 text-left'> {translation[lang].chooseUsDetails}</h3>
                     </div>
 
                     <h1 className='text-left text-[2rem] sm:text-[2.5rem] md:text-[2.8rem] font-openSansBold dark:text-gray-50 text-gray-800'> {translation[lang].chooseUsTitle} ?</h1>
                 </div> 
 
+                <section className=' grid grid-cols-1 sm:grid-cols-2 justify-between items-center gap-x-5 gap-y-10'>
+
+                    <div className='w-full justify-center items-start flex flex-row gap-3'>
+
+                        <div className='flex w-[30%] h-auto items-center justify-center'>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-[65%] h-[65%] text-myRed ">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+                            </svg>
+                        </div>
+
+
+                        <div className='flex w-full justify-start flex-col h-24 gap-1 '>
+
+                            <div className='w-full flex '>
+                                <div className='flex w-[50%]  h-[2px] dark:bg-whiteTheme bg-blackTheme'>
+                                    
+                                </div>
+                            </div>
+
+                            <p className='font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-gray-500 text-left w-[90%]'>{translation[lang].confidentiality} </p>
+                        </div>
+
+                    </div>
+
+                    <div className='w-full justify-center items-start flex flex-row gap-3'>
+
+                        <div className='flex w-[30%] h-auto items-center justify-center'>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-[65%] h-[65%] text-myRed ">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
+                            </svg>
+                        </div>
+
+
+                        <div className='flex w-full justify-start flex-col h-24 gap-1 '>
+
+                            <div className='w-full flex '>
+                                <div className='flex w-[50%]  h-[2px] dark:bg-whiteTheme bg-blackTheme'>
+                                    
+                                </div>
+                            </div>
+
+                            <p className='font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-gray-500 text-left w-[90%]'> {translation[lang].adaptability} </p>
+                        </div>
+
+                    </div>
+
+
+                    <div className='w-full justify-center items-start flex flex-row gap-3'>
+
+                        <div className='flex w-[30%] h-auto items-center justify-center'>
+                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-[65%] h-[65%] text-myRed ">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5" />
+                            </svg>
+                        </div>
+
+
+                        <div className='flex w-full justify-start flex-col h-24 gap-1 '>
+
+                            <div className='w-full flex '>
+                                <div className='flex w-[50%]  h-[2px] dark:bg-whiteTheme bg-blackTheme'>
+                                    
+                                </div>
+                            </div>
+
+                            <p className='font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-gray-500 text-left w-[90%]'>{translation[lang].updating}</p>
+                        </div>
+
+                    </div>
+
+
+                    <div className='w-full justify-center items-start flex flex-row gap-3'>
+
+                        <div className='flex w-[30%] h-auto items-center justify-center'>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-[65%] h-[65%] text-myRed">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+                            </svg>
+                        </div>
+
+
+                        <div className='flex w-full justify-start flex-col h-24 gap-1 '>
+
+                            <div className='w-full flex '>
+                                <div className='flex w-[50%]  h-[2px] dark:bg-whiteTheme bg-blackTheme'>
+                                    
+                                </div>
+                            </div>
+
+                            <p className='font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-gray-500 text-left w-[90%]'> {translation[lang].scalable} </p>
+                        </div>
+
+                    </div>
+
+                </section>
                 
             </section>
 
+            {/* frequently posed questions */}
+            <section className='w-full pb-10 flex flex-col gap-14'>
+                
+                {/* title  */}
+                <div className='w-full flex flex-col gap-4 '>
+                    <div className='w-full flex gap-3 items-center '>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 text-myRed">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
+                        </svg>
 
+                        <h3 className=' font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-gray-500 text-left'> {translation[lang].questionsDetails}</h3>
+                    </div>
+
+                    <h1 className='text-left text-[2rem] sm:text-[2.5rem] md:text-[2.8rem] font-openSansBold dark:text-gray-50 text-gray-800'> {translation[lang].questionsTitles} ?</h1>
+                </div> 
+
+                <section className='flex flex-col w-full justify-center items-center gap-5'>
+
+                    <div className='w-full flex flex-col md:flex-row gap-1'>
+                        
+                        {/* questions  */}
+                        <div className=' h-10 w-full md:w-[30%]'>
+                            <h4 className='font-openSansBold text-[1rem] dark:text-whiteTheme text-blackTheme text-left '> {translation[lang].howWeProceed}</h4>
+                            
+                        </div>
+
+                        {/* answer  */}
+                        <div className={` w-full md:w-[70%] ${toggleText.a ? 'h-40' : "h-28"} duration-200  relative border border-blackTheme dark:border-whiteTheme rounded-xl`}>
+
+                            <div className='w-full h-full p-2'>
+
+                                <h4 className=' font-openSansMedium text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-gray-500 text-left'>{translation[lang].howWeProceedAnswer}</h4>
+                            </div>
+
+                            {/* icone to toggle text  */}
+                            <div onClick={() => handleToggleText('a')} className={`w-full absolute bottom-0 bg-gradient-to-t from-slate-500 h-8 flex justify-center items-center rounded-xl cursor-pointer`}>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-5 h-5 text-blackTheme dark:text-whiteTheme duration-200 ${toggleText.a ? 'rotate-180' : "rotate-0"}`}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 5.25 7.5 7.5 7.5-7.5m-15 6 7.5 7.5 7.5-7.5" />
+                                </svg>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+
+                </section>
+            </section>
+
+
+
+            
 
         </main>
     )
