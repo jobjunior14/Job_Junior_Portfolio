@@ -1,9 +1,11 @@
+/* eslint-disable react/no-unescaped-entities */
 import jobProfil1 from '../assets/home/jobProfil1.png'
 import webDev from '../assets/home/webDev.png'
 import { useLangContext } from '../changeLang';
 import { Link } from 'react-router-dom';
 import SkillsAndTech from './utils/skillsAndTechComp';
 import Projects from './utils/projects';
+import QuestionResponseToggleText from './utils/questionsComp';
 import { useState } from 'react';
 
 export default function Acceuil () {
@@ -35,7 +37,7 @@ export default function Acceuil () {
             welcomeText: <span>A <br /><span className=' text-myRed'>Real</span> <br /> Dream</span>,
             welcomeName: <span>Hey! I&apos;m Job Junior a <span className='text-myRed'>Full-stack</span> developper</span>,
             aboutME: <span> Briging ideas to life, skilled in <Link className=' underline hover:text-blue-500 duration-200 '>Front-end</Link> & <Link className=' underline hover:text-blue-500 duration-200 '>Back-end</Link> developpement, using MERN (MongoDB, ExpressJs, ReactJS, NodeJS) technologies we build
-            mordern and functionnal applications crafting user-friendly interfaces and robust back-ends according to your demands. <br /> <Link className=' underline duration-200 flex items-end gap-1 hover:text-blue-500'>Read more <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 flex">
+            mordern and functionnal applications crafting user-friendly interfaces and robust back-ends according to your demands. <br /> <br /> <Link className=' underline duration-200 flex items-end gap-1 hover:text-blue-500'>Read more <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 flex">
             <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
             </svg></Link>
             </span>,
@@ -68,8 +70,62 @@ export default function Acceuil () {
             scalable: <span><span className='text-myRed'>Scalable</span> according to your needs. We ensurure the addition of features in the application </span>,
             questionsDetails: "Maybe you will found your answers here",
             questionsTitles : "Any questions",
-            howWeProceed : "How we proceed ?",
+            howWeProceed : "How you proceed ?",
             howWeProceedAnswer: <span>
+
+                <span className=' font-openSansSemiBold'>1. Understand the client&apos;s needs</span>: Before explaining anything, we need to understand the client&apos;s needs and objectives for the web project. <br /> <br />
+
+                <span className=' font-openSansSemiBold'>2. Present an overview</span>: Start by explaining to the client the web development process as a whole, emphasizing the different stages from design to deployment. <br /> <br />
+
+                <span className=' font-openSansSemiBold'>3. Explanation of technologies used</span>: Describe the programming languages, frameworks, and tools that we will use to develop the project. Make sure to speak in simple and accessible terms for the client. <br /> <br />
+
+                <span className=' font-openSansSemiBold'>4. Communication of workflow</span>: Explain how we plan to work on the project, including follow-up meetings, timelines, and expected deliverables at each stage. <br /> <br />
+
+                <span className=' font-openSansSemiBold'> 5. Presentation of mockups and prototypes</span>: Show the client mockups or prototypes of the design and user interface so they can visualize what the final product will look like. <br /> <br />
+
+                <span className=' font-openSansSemiBold'>6. Demo of key features</span>: If possible, offer a demonstration of the project&apos;s main features to give the client a concrete idea of what to expect. <br /> <br />
+
+                <span className=' font-openSansSemiBold'>7. Discussion on testing and quality</span>: Explain how we ensure code and feature quality through automated testing and quality checks. <br /> <br />
+
+                <span className=' font-openSansSemiBold'> 8. Transparency on updates and issues</span>: Inform the client how we will keep them informed of project progress and how we handle any issues or potential delays. <br /> <br />
+
+                <span className=' font-openSansSemiBold'> 9. Commitment to maintenance and support</span>: Finish by explaining how we will provide ongoing support after the project launch, including security updates and bug fixes. <br /> <br />
+
+                <span className=' font-openSansSemiBold'> 10. Answer questions and gather feedback</span>: Invite the client to ask questions and provide feedback to ensure they understand the process and are satisfied with the development plans. <br /> <br />
+            </span>,
+            frameworkQuestion: "What frameworks or libraries are you familiar with ?",
+            frameworkAnswer: <span>
+                As a full-stack web developer specializing in the MERN stack, I&apos;m familiar with the following frameworks and libraries:  <br /> <br />
+
+                <span className=" font-openSansSemiBold"> MongoDB</span>: A popular NoSQL database that stores data in a flexible, JSON-like format. I use it to design and manage databases for my applications. <br /> <br />
+                <span className=' font-openSansSemiBold'> Express</span>.js: A minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications. I use it to set up my server and define my API endpoints. <br /> <br />
+                <span className=' font-openSansSemiBold'> React.js</span>: A JavaScript library for building user interfaces, particularly single-page applications. I use it to create interactive UIs using a component-based architecture. <br /> <br />
+                <span className=' font-openSansSemiBold'> Node.js</span>: A JavaScript runtime built on Chrome&apos;s V8 JavaScript engine. I use it to write server-side JavaScript, allowing me to use the same language on the front-end and back-end. <br /> <br />
+
+                In addition to these, I&apos;m also familiar with several other libraries and tools that complement the MERN stack: <br /> <br />
+
+                <span className=' font-openSansSemiBold'>Redux</span>: A predictable state container for JavaScript apps. I use it alongside React to manage the state of my applications more predictably and effectively. <br /> <br />
+                <span className=' font-openSansSemiBold'>MySql</span>: A popular SQL database that store data in tables.
+                <span className=' font-openSansSemiBold'>Mongoose</span>: An Object Data Modeling (ODM) library for MongoDB and Node.js. I use it to model my application data and manage relationships between data. <br /> <br />
+                <span className=' font-openSansSemiBold'> Webpack, Babel and viteJs </span>: These are used together to bundle JavaScript files and transpile ES6 JavaScript into a version that can be understood by most browsers. <br /> <br />
+                <span className=' font-openSansSemiBold'> Jest and Enzyme </span>: Testing libraries for JavaScript and React. I use them to write unit and integration tests for my applications. <br /> <br />
+                <span>ESLint and Prettier </span>: Code linter and formatter. I use them to enforce a consistent coding style and catch potential bugs and issues. <br /> <br />
+
+            </span>,
+            problemSolvingQuestion:" How do you approach problem-solving when you encounter a bug or issue ?",
+            problemSolvingAnswer: <span>
+
+                1. <span className=' font-openSansSemiBold'>Identify the Problem</span>: The first step is to understand the problem. This could involve reproducing the error, reading error messages, or using debugging tools. <br /> <br />
+
+                2. <span className=' font-openSansSemiBold'>Isolate the Issue</span>: Once I've identified the problem, I try to isolate it. This could mean creating a minimal, reproducible example, or commenting out sections of code to see if the problem persists. <br /> <br />
+
+                3. <span className=' font-openSansSemiBold'>Research</span>: If the problem isn't immediately clear, I'll do some research. This could involve reading documentation, looking at Stack Overflow, or searching for similar issues on GitHub. <br /> <br />
+
+                4. <span className=' font-openSansSemiBold'>Try Solutions</span>: Once I have a potential solution, I'll try it out. If it doesn't work, I'll revise my understanding of the problem and try something else. <br /> <br />
+
+                5. <span className=' font-openSansSemiBold'>Test</span>: After implementing a solution, I'll thoroughly test it to make sure it not only solves the original problem but also doesn't introduce new ones. <br /> <br />
+
+                6. <span className=' font-openSansSemiBold'>Review and Learn</span>: Finally, I'll review what went wrong and how I solved it. This helps me learn from the experience and become a better developer. <br /> <br />
 
             </span>
 
@@ -79,9 +135,9 @@ export default function Acceuil () {
             welcomeText: <span>Un <br /> <span className='text-myRed'>Rêve</span> <br /> Véritable</span>,
             welcomeName: <span>Hey! je suis Job Junior un developpeur <span className='text-myRed'>Full-stack</span></span>,
             aboutME: <span> Amenant les idées à la vie, talantueux en développement <Link className=' underline hover:text-blue-500 duration-200 '>Front-end</Link> & <Link className=' underline hover:text-blue-500 duration-200 '>Back-end</Link> , utilisant les téchnologies MERN (MongoDB, ExpressJs, ReactJS, NodeJS) nous bâtissons
-            des applications fonctionnelles et mordernes contruisant des interfaces utilisateur amicales et des back-ends robutes accorder à vos demandes. <Link className=' underline flex items-end gap-1 hover:text-blue-500 duration-200'>Lire plus <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 flex">
-            <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
-            </svg></Link>
+                des applications fonctionnelles et mordernes contruisant des interfaces utilisateur amicales et des back-ends robutes accorder à vos demandes. <Link className=' underline flex items-end gap-1 hover:text-blue-500 duration-200'>Lire plus <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 flex">
+                <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
+                </svg></Link>
             </span>,
             getInText: 'Contactez-moi',
             skills: <span>Compétances <span className='dark:text-gray-500 text-gray-400'> & </span> <br className='sm:hidden' /> Tech.</span>,
@@ -112,10 +168,63 @@ export default function Acceuil () {
             scalable: <span>Nous assurons l&apos;<span className='text-myRed'>évolution</span> des applications en y ajoutant des fonctionalités selon vos besoins</span>,
             questionsDetails: "Peut-être que vous trouverez vos réponses ici",
             questionsTitles: "Avez vous des questions",
-            howWeProceed: "Comment procédons-nous ?",
+            howWeProceed: "Comment procédez-vous ?",
             howWeProceedAnswer: <span>
 
+                <span className=' font-openSansSemiBold'> 1. Comprendre les besoins du client</span> : Avant toute explication, nous devons comprendre les besoins et les objectifs du client pour le projet web. <br /> <br />
+
+                <span className=' font-openSansSemiBold'> 2. Présenter une vision globale</span> : Nous commençons par expliquer au client le processus de développement web dans son ensemble, en mettant l&apos;accent sur les différentes étapes, de la conception à la mise en production. <br /> <br />
+
+                <span className=' font-openSansSemiBold'> 3. Explication des technologies utilisées</span> : Nous décrivons les langages de programmation, les frameworks et les outils que nous utiliserons pour développer le projet. Assurons-nous de parler dans des termes simples et accessibles pour le client. <br /> <br />
+
+                <span className=' font-openSansSemiBold '> 4. Communication du flux de travail</span> : Nous expliquons comment nous planifions de travailler sur le projet, y compris les réunions de suivi, les délais et les livrables attendus à chaque étape. <br /> <br />
+
+                <span className=' font-openSansSemiBold'> 5. Présentation des maquettes et des prototypes</span> : Nous montrons au client des maquettes ou des prototypes du design et de l&apos;interface utilisateur pour qu&apos;il puisse visualiser à quoi ressemblera le produit final. <br /> <br />
+
+                <span className=' font-openSansSemiBold'> 6. Démo des fonctionnalités clés</span> : Si possible, nous proposons une démonstration des fonctionnalités principales du projet pour donner au client un aperçu concret de ce à quoi il peut s&apos;attendre. <br /> <br />
+
+                <span className=' font-openSansSemiBold'> 7. Discussion sur les tests et la qualité</span> : Nous expliquons comment nous assurons la qualité du code et des fonctionnalités à travers des tests automatisés et des vérifications de qualité. <br /> <br />
+
+                <span className=' font-openSansSemiBold'> 8. Transparence sur les mises à jour et les problèmes</span> : Nous informons le client de la manière dont nous allons le tenir informé des progrès du projet et de la façon dont nous gérons les problèmes ou les retards éventuels. <br /> <br />
+
+                <span className=' font-openSansSemiBold'> 9. Engagement envers la maintenance et le support</span> : Nous terminons en expliquant comment nous fournirons un soutien continu après le lancement du projet, y compris les mises à jour de sécurité et les correctifs de bogues. <br /> <br />
+
+                <span className=' font-openSansSemiBold'> 10. Répondre aux questions et obtenir des retours</span> : Nous invitons le client à poser des questions et à fournir des commentaires pour nous assurer qu&apos;il comprend bien le processus et qu&apos;il est satisfait des plans de développement. <br /> <br />
+            </span>,
+            frameworkQuestion: "Avec quels frameworks ou librairies  êtes vous familier ?",
+            frameworkAnswer: <span>
+                En tant que développeur web full-stack spécialisé dans les technologies MERN, je suis familier avec les frameworks et les bibliothèques suivants : <br /> <br />
+
+                <span className=' font-openSansSemiBold'> MongoDB</span> : Une base de données NoSQL populaire qui stocke les données dans un format flexible, similaire à JSON. Je l&apos;utilise pour concevoir et gérer les bases de données de mes applications. <br /> <br />
+                <span className=' font-openSansSemiBold'>Express.js </span> : Un framework d&apos;application web minimal et flexible pour Node.js qui offre un ensemble robuste de fonctionnalités pour les applications web et mobiles. Je l&apos;utilise pour configurer mon serveur et définir mes points de terminaison API. <br /> <br />
+                <span className=' font-openSansSemiBold'> React.js</span> : Une bibliothèque JavaScript pour construire des interfaces utilisateur, en particulier des applications à page unique. Je l&apos;utilise pour créer des interfaces utilisateur interactives en utilisant une architecture basée sur des composants. <br /> <br />
+                <span className=' font-openSansSemiBold '>Node.js </span> : Un environnement d&apos;exécution JavaScript construit sur le moteur JavaScript V8 de Chrome. Je l&apos;utilise pour écrire du JavaScript côté serveur, ce qui me permet d&apos;utiliser le même langage sur le front-end et le back-end. <br /> <br />
+
+                En plus de ceux-ci, je suis également familier avec plusieurs autres bibliothèques et outils qui complètent la pile MERN : <br /> <br />
+                <span className=' font-openSansSemiBold'>MySql</span> : Une base des données relations qui stock les données dans des tableaux
+                <span className=' font-openSansSemiBold'> Redux</span> : Un conteneur d&apos;état prévisible pour les applications JavaScript. Je l&apos;utilise avec React pour gérer l&apos;état de mes applications de manière plus prévisible et efficace. <br /> <br />
+                <span className=' font-openSansSemiBold'> Mongoose</span> : Une bibliothèque de modélisation de données d&apos;objet (ODM) pour MongoDB et Node.js. Je l&apos;utilise pour modéliser les données de mon application et gérer les relations entre les données. <br /> <br />
+                <span className=' font-openSansSemiBold'> Webpack, ViteJS and Babel</span> : Ils sont utilisés ensemble pour regrouper les fichiers JavaScript et transpiler le JavaScript ES6 en une version qui peut être comprise par la plupart des navigateurs. <br /> <br />
+                <span className=' font-openSansSemiBold'> Jest et Enzyme</span> : Bibliothèques de tests pour JavaScript et React. Je les utilise pour écrire des tests unitaires et d&apos;intégration pour mes applications. <br /> <br />
+                <span className=' font-openSansSemiBold '> ESLint et Prettier</span> : Linter de code et formatteur. Je les utilise pour imposer un style de codage cohérent et détecter les bugs et problèmes potentiels. <br /> <br />
+            </span>,
+            problemSolvingQuestion: "Comment approchez-vous la résolution des problèmes lors de la rencontre de ces derniers ?",
+            problemSolvingAnswer: <span>
+
+                1. <span className=' font-openSansSemiBold'> Identifier le Problème</span> : La première étape consiste à comprendre le problème. Cela pourrait impliquer de reproduire l'erreur, de lire les messages d'erreur, ou d'utiliser des outils de débogage. <br /> <br />
+
+                2. <span className=' font-openSansSemiBold'> Isoler le Problème </span> : Une fois que j'ai identifié le problème, j'essaie de l'isoler. Cela pourrait signifier créer un exemple minimal et reproductible, ou commenter des sections de code pour voir si le problème persiste. <br /> <br />
+
+                3. <span className=' font-openSansSemiBold '>Recherche</span> : Si le problème n'est pas immédiatement clair, je ferai des recherches. Cela pourrait impliquer de lire la documentation, de regarder sur Stack Overflow, ou de chercher des problèmes similaires sur GitHub. <br /> <br />
+
+                4. <span className=' font-openSansSemiBold '>Essayer des Solutions</span> : Une fois que j'ai une solution potentielle, je l'essaierai. Si cela ne fonctionne pas, je réviserai ma compréhension du problème et j'essaierai autre chose. <br /> <br />
+
+                5. <span className=' font-openSansSemiBold '>Test</span> : Après avoir mis en œuvre une solution, je la testerai soigneusement pour m'assurer qu'elle résout non seulement le problème initial, mais qu'elle n'en introduit pas de nouveaux. <br /> <br />
+
+                6. <span className=' font-openSansSemiBold '>Revoir et Apprendre</span> : Enfin, je reverrai ce qui a mal tourné et comment je l'ai résolu. Cela m'aide à apprendre de l'expérience et à devenir un meilleur développeur. <br /> <br />
+
             </span>
+
 
         }
     };
@@ -507,35 +616,34 @@ export default function Acceuil () {
                     <h1 className='text-left text-[2rem] sm:text-[2.5rem] md:text-[2.8rem] font-openSansBold dark:text-gray-50 text-gray-800'> {translation[lang].questionsTitles} ?</h1>
                 </div> 
 
-                <section className='flex flex-col w-full justify-center items-center gap-5'>
+                <section className='flex flex-col w-full justify-center items-center gap-10'>
 
-                    <div className='w-full flex flex-col md:flex-row gap-1'>
-                        
-                        {/* questions  */}
-                        <div className=' h-10 w-full md:w-[30%]'>
-                            <h4 className='font-openSansBold text-[1rem] dark:text-whiteTheme text-blackTheme text-left '> {translation[lang].howWeProceed}</h4>
-                            
-                        </div>
-
-                        {/* answer  */}
-                        <div className={` w-full md:w-[70%] ${toggleText.a ? 'h-40' : "h-28"} duration-200  relative border border-blackTheme dark:border-whiteTheme rounded-xl`}>
-
-                            <div className='w-full h-full p-2'>
-
-                                <h4 className=' font-openSansMedium text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-gray-500 text-left'>{translation[lang].howWeProceedAnswer}</h4>
-                            </div>
-
-                            {/* icone to toggle text  */}
-                            <div onClick={() => handleToggleText('a')} className={`w-full absolute bottom-0 bg-gradient-to-t from-slate-500 h-8 flex justify-center items-center rounded-xl cursor-pointer`}>
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-5 h-5 text-blackTheme dark:text-whiteTheme duration-200 ${toggleText.a ? 'rotate-180' : "rotate-0"}`}>
-                                <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 5.25 7.5 7.5 7.5-7.5m-15 6 7.5 7.5 7.5-7.5" />
-                                </svg>
-
-                            </div>
-                        </div>
+                    <QuestionResponseToggleText 
+                        question={translation[lang].howWeProceed}
+                        answer={translation[lang].howWeProceedAnswer}
+                        handler={handleToggleText}
+                        value = 'a'
+                        toggledValue={toggleText.a}
+                    />
 
 
-                    </div>
+                    <QuestionResponseToggleText 
+                        question={translation[lang].frameworkQuestion}
+                        answer={translation[lang].frameworkAnswer}
+                        handler={handleToggleText}
+                        value = 'b'
+                        toggledValue={toggleText.b}
+                    />
+
+                    <QuestionResponseToggleText 
+                        question={translation[lang].problemSolvingQuestion}
+                        answer={translation[lang].problemSolvingAnswer}
+                        handler={handleToggleText}
+                        value = 'c'
+                        toggledValue={toggleText.c}
+                    />
+
+
 
 
                 </section>

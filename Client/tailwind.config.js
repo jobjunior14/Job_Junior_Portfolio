@@ -23,7 +23,17 @@ export default {
         sliderInfinite: {
           '0%' : {transform: 'translateX(0)'},
           '100%' : { transform: 'translateX(-100%)'}
+        },
+
+        annimateToggleTextAcceuil: {
+          '0%':  {height: '28rem'},
+          '50%': {height: '60rem'},
+          '100%': {height: 'fit-content'}
         }
+      },
+
+      animation: {
+        annimateToggleTextAcceuil: ' annimateToggleTextAcceuil 2s ease-in-out linear'
       }
     },
   },

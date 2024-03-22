@@ -14,11 +14,12 @@ export default function NavBar () {
     const homeLink = useMatch('/');
     const projectsLink = useMatch('/projects');
     const contactsLink = useMatch('/contacts');
-
-    const tanslation = {
+    
+    // text in the navbar (in french and english) 
+    const translation = {
         en: {
             home: 'Home',
-            projets: 'Projets',
+            projets: 'Projects',
             contacts: 'Contacts',
         },
 
@@ -41,6 +42,7 @@ export default function NavBar () {
         }
     }
 
+    
     const handleNav = () => {
         setToggleNav(prev => prev ? false : true);
     }
@@ -52,24 +54,23 @@ export default function NavBar () {
                 <img src={ theme === 'dark' ? jobLogoWhite : jobLogoDark} alt="Logo Job Junior" className="w-10 lg:w-14" />
             </figure>
 
-
             <div className={`w-full sm:hidden absolute z-50 flex ${toggleNav ? 'h-[100vh]' : 'h-0'} overflow-hidden duration-500 delay-100 ease-out top-14 transition-[height] bg-myRed justify-center items-center gap-8 `}>
 
                 <ul className={`w-full fixed flex flex-col ${toggleNav ? 'h-[100vh]' : 'h-0'} overflow-hidden duration-[1s] delay-200 top-14 transition-[height] justify-center items-center gap-8 bg-white  `}>
                     <li className="flex flex-col justify-center items-center">
-                        <NavLink className={({isActive}) => isActive ? 'font-openSansSemiBold text-xl text-black' : 'font-openSansMedium text-xl text-black'} to={'/'}>{tanslation[lang].home}</NavLink>
+                        <NavLink className={({isActive}) => isActive ? 'font-openSansSemiBold text-xl text-black' : 'font-openSansMedium text-xl text-black'} to={'/'}>{translation[lang].home}</NavLink>
                         <div className={` ${homeLink ? 'w-5' : 'w-0'} rounded-full duration-300 h-[3px] bg-myRed  `}>
 
                         </div> 
                     </li>
                     <li className="flex flex-col justify-center items-center">
-                        <NavLink className={({isActive}) => isActive ? 'font-openSansSemiBold text-xl text-black' : 'font-openSansMedium text-xl text-black'} to={'/projects'}>{tanslation[lang].projets}</NavLink>
+                        <NavLink className={({isActive}) => isActive ? 'font-openSansSemiBold text-xl text-black' : 'font-openSansMedium text-xl text-black'} to={'/projects'}>{translation[lang].projets}</NavLink>
                         <div className={` ${projectsLink ? 'w-5' : 'w-0'} rounded-full duration-300 h-[3px] bg-myRed  `}>
 
                         </div> 
                     </li>
                     <li className="flex flex-col justify-center items-center">
-                        <NavLink className={({isActive}) => isActive ? 'font-openSansSemiBold text-xl text-black' : 'font-openSansMedium text-xl text-black'} to={'/contacts'}>{tanslation[lang].contacts}</NavLink>
+                        <NavLink className={({isActive}) => isActive ? 'font-openSansSemiBold text-xl text-black' : 'font-openSansMedium text-xl text-black'} to={'/contacts'}>{translation[lang].contacts}</NavLink>
                         <div className={` ${contactsLink ? 'w-5' : 'w-0'} rounded-full duration-300 h-[3px] bg-myRed  `}>
 
                         </div> 
@@ -83,19 +84,19 @@ export default function NavBar () {
                
                 <ul className={`w-full flex  duration-[1s] top-14 transition-[height] justify-center items-center gap-8 md:gap-14 lg:gap-20 `}>
                     <li className="flex flex-col justify-center items-center">
-                        <NavLink className={({isActive}) => isActive ? 'font-openSansSemiBold text-[1rem] dark:text-black text-white' : 'font-openSansMedium text-[1rem] dark:text-black text-white'} to={'/'}>{tanslation[lang].home}</NavLink>
+                        <NavLink className={({isActive}) => isActive ? 'font-openSansSemiBold text-[1rem] dark:text-black text-white' : 'font-openSansMedium text-[1rem] dark:text-black text-white'} to={'/'}>{translation[lang].home}</NavLink>
                         <div className={` ${homeLink ? 'w-4' : 'w-0'} rounded-full duration-300 h-[2px] bg-myRed `}>
 
                         </div>                    
                     </li>
                     <li className="flex flex-col justify-center items-center">
-                        <NavLink className={({isActive}) => isActive ? 'font-openSansSemiBold text-[1rem] dark:text-black text-white' : 'font-openSansMedium text-[1rem] dark:text-black text-white'} to={'/projects'}>{tanslation[lang].projets}</NavLink>
+                        <NavLink className={({isActive}) => isActive ? 'font-openSansSemiBold text-[1rem] dark:text-black text-white' : 'font-openSansMedium text-[1rem] dark:text-black text-white'} to={'/projects'}>{translation[lang].projets}</NavLink>
                         <div className={` ${projectsLink ? 'w-4' : 'w-0'} rounded-full duration-300 h-[2px] bg-myRed `}>
 
                         </div>                    
                     </li>
                     <li className="flex flex-col justify-center items-center">
-                        <NavLink className={({isActive}) => isActive ? 'font-openSansSemiBold text-[1rem] dark:text-black text-white' : 'font-openSansMedium text-[1rem] dark:text-black text-white'} to={'/contacts'}>{tanslation[lang].contacts}</NavLink>
+                        <NavLink className={({isActive}) => isActive ? 'font-openSansSemiBold text-[1rem] dark:text-black text-white' : 'font-openSansMedium text-[1rem] dark:text-black text-white'} to={'/contacts'}>{translation[lang].contacts}</NavLink>
                         <div className={` ${contactsLink ? 'w-4' : 'w-0'} rounded-full duration-300 h-[2px] bg-myRed `}>
 
                         </div>                    
@@ -136,8 +137,8 @@ export default function NavBar () {
             
             </div>
 
-             {/* comme action nous aurons deux petits barres et les deux se rejoindront au milieu */}
-             {/* une fois activer  */}
+            {/* comme action nous aurons deux petits barres et les deux se rejoindront au milieu */}
+            {/* une fois activer  */}
             <div onClick={handleNav} className={`w-14 p-1 sm:hidden flex cursor-pointer flex-col justify-center items-center  duration-200 ${!toggleNav ? 'gap-3' : 'gap-0'} mx-[5%] lg:mx-[10%] `}>
 
                 <div className=" w-4 rounded-full duration-300 h-[2px] dark:bg-black bg-white ">

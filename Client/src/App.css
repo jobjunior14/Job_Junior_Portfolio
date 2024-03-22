@@ -16,3 +16,12 @@
     padding-top: calc(55%);
   }
 }
+
+
+.dark .socialMediaIcones {
+  fill: black
+}
+
+.socialMediaIcones {
+  fill: white;
+}
