@@ -29,10 +29,23 @@ export default {
           '0%':  {height: '28rem'},
           '50%': {height: '60rem'},
           '100%': {height: 'fit-content'}
+        },
+
+        toggleTheme: {
+          '0%': {width: '0%'},
+          '10%': {width: '100%'},
+          '40%': {width: '100%'},
+          '50%': {width: '0%'},
+
+          '90': {width: '100%'},
+
+
+          '100%': {width: '0%'}
         }
       },
 
       animation: {
+        toggleTheme: 'toggleTheme 5s forwards infinite ',
         annimateToggleTextAcceuil: ' annimateToggleTextAcceuil 2s ease-in-out linear'
       }
     },

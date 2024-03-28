@@ -5,6 +5,7 @@ import Acceuil from './components/acceuil';
 import { Outlet } from 'react-router-dom';
 import { LangProvider } from './changeLang';
 import Footer from './components/footer';
+import Projets from './components/projets';
 function App() {
 
  
@@ -17,6 +18,7 @@ function App() {
           <Route path='/' element = {<SharedNav/>}>
 
             <Route index element= {<Acceuil/>}/>
+            <Route path='projects' element= {<Projets/>}/>
             
           </Route>
         </Routes>

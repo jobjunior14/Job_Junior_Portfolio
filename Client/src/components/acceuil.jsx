@@ -6,11 +6,13 @@ import { Link } from 'react-router-dom';
 import SkillsAndTech from './utils/skillsAndTechComp';
 import Projects from './utils/projects';
 import QuestionResponseToggleText from './utils/questionsComp';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Acceuil () {
 
     const {lang} = useLangContext();
+    const [indexOnScroll, setIndexOnScroll] = useState(0);
+
 
     const [servicesDetails, setServicesDetails] = useState ({
         frontEnd: true,
@@ -37,9 +39,7 @@ export default function Acceuil () {
             welcomeText: <span>A <br /><span className=' text-myRed'>Real</span> <br /> Dream</span>,
             welcomeName: <span>Hey! I&apos;m Job Junior a <span className='text-myRed'>Full-stack</span> developper</span>,
             aboutME: <span> Briging ideas to life, skilled in <Link className=' underline hover:text-blue-500 duration-200 '>Front-end</Link> & <Link className=' underline hover:text-blue-500 duration-200 '>Back-end</Link> developpement, using MERN (MongoDB, ExpressJs, ReactJS, NodeJS) technologies we build
-            mordern and functionnal applications crafting user-friendly interfaces and robust back-ends according to your demands. <br /> <br /> <Link className=' underline duration-200 flex items-end gap-1 hover:text-blue-500'>Read more <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 flex">
-            <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
-            </svg></Link>
+            mordern and functionnal applications crafting user-friendly interfaces and robust back-ends according to your demands. <br /> <Link className=' underline duration-200 flex items-end gap-1 text-blue-500 hover:text-blue-300'>Read more </Link>
             </span>,
             getInText: 'Get in touch',
             skills: <span>Skills <span className='dark:text-gray-500 text-gray-400'> & </span> Tech.</span>,
@@ -135,9 +135,7 @@ export default function Acceuil () {
             welcomeText: <span>Un <br /> <span className='text-myRed'>Rêve</span> <br /> Véritable</span>,
             welcomeName: <span>Hey! je suis Job Junior un developpeur <span className='text-myRed'>Full-stack</span></span>,
             aboutME: <span> Amenant les idées à la vie, talantueux en développement <Link className=' underline hover:text-blue-500 duration-200 '>Front-end</Link> & <Link className=' underline hover:text-blue-500 duration-200 '>Back-end</Link> , utilisant les téchnologies MERN (MongoDB, ExpressJs, ReactJS, NodeJS) nous bâtissons
-                des applications fonctionnelles et mordernes contruisant des interfaces utilisateur amicales et des back-ends robutes accorder à vos demandes. <Link className=' underline flex items-end gap-1 hover:text-blue-500 duration-200'>Lire plus <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-4 h-4 flex">
-                <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 19.5 15-15m0 0H8.25m11.25 0v11.25" />
-                </svg></Link>
+                des applications fonctionnelles et mordernes contruisant des interfaces utilisateur amicales et des back-ends robutes accorder à vos demandes. <Link className=' underline flex items-end gap-1 text-blue-500 hover:text-blue-300 duration-200'>Lire plus </Link>
             </span>,
             getInText: 'Contactez-moi',
             skills: <span>Compétances <span className='dark:text-gray-500 text-gray-400'> & </span> <br className='sm:hidden' /> Tech.</span>,
@@ -229,6 +227,76 @@ export default function Acceuil () {
         }
     };
 
+    /////////////////data projects
+    const projets = [
+        {
+        Image: webDev,
+        title: "Junior",
+        text:"As a management application, this project was building at the start to deployement by myself. My contribution was to design....",
+        linkContent: translation[lang].SeeMore
+        },
+        {
+        Image: webDev,
+        title: "Dego Bar",
+        text:"As a management application, this project was building at the start to deployement by myself. My contribution was to design....",
+        linkContent: translation[lang].SeeMore
+        },
+        {
+        Image: webDev,
+        title: "Dego Bar",
+        text:"As a management application, this project was building at the start to deployement by myself. My contribution was to design....",
+        linkContent: translation[lang].SeeMore
+        },
+        {
+        Image: webDev,
+        title: "Dego Bar",
+        text:"As a management application, this project was building at the start to deployement by myself. My contribution was to design....",
+        linkContent: translation[lang].SeeMore
+        },
+        {
+        Image: webDev,
+        title: "Dego Bar",
+        text:"As a management application, this project was building at the start to deployement by myself. My contribution was to design....",
+        linkContent: translation[lang].SeeMore
+        },
+    ];
+
+    const displayedProjets = projets.map ((prev, index) => {
+        return  <Projects
+            key={index}
+            images={prev.Image}
+            title={prev.title}
+            text={prev.text}
+            linkContent={prev.linkContent}
+
+        />
+    });
+
+    // control the scrolling div 
+    var projectContainer = document.getElementById('projectContainer');
+
+    // this state is set every time the indexOnScroll is updated 
+    if (projectContainer) {
+        
+        //update the scrollLeft of the div to show the next image
+        // it take the offsetWidth and multiply it by the indexSroll 
+        // console.log (projectContainer.scrollLeft)
+        projectContainer.style.scrollBehavior = 'smooth';
+        projectContainer.scrollLeft = projectContainer.offsetWidth * indexOnScroll;
+    
+    }
+
+    const legthProjets = document.documentElement.offsetWidth <= 640 ? projets.length - 1 : Math.floor((projets.length - 1) / 2);
+
+    const nextDiv = () =>  {
+        setIndexOnScroll ( prev => prev === legthProjets ? 0 : prev + 1);
+    };
+
+    const prevDiv = () =>  {
+        setIndexOnScroll ( prev => prev === 0 ? legthProjets : prev - 1);
+    };
+
+
     const [toggleText, setToggleText] = useState ({a: false, b: false, c: false, d: false, e: false, f: false, g: false, h: false});
 
     const handleToggleText = (alphabet) => {
@@ -239,12 +307,12 @@ export default function Acceuil () {
         <main className=" w-full px-[5%] lg:px-[14%]  py-10 sm:py-14 gap-20 md:gap-28 relative flex flex-col sm:gap-20">
             
             {/* presation and welcom text  */}
-            <section className="flex flex-col sm:flex-row gap-10 w-full items-center justify-center " >
+            <section className="grid grid-cols-1 sm:grid-cols-2 gap-10 w-full items-center justify-center " >
 
                
                 {/* text section  */}
                 <section className="w-full text-start relative " >
-
+ 
                     <h1 className='w-full  dark:text-gray-50 text-blackTheme font-openSansBold text-[4rem] md:text-[4.5rem] lg:text-[5rem] '>
 
                         {translation[lang].welcomeText}
@@ -458,30 +526,32 @@ export default function Acceuil () {
                 </div>
 
                 {/* some project  */}
-                <section className='w-full grid gap-10 grid-col-1 sm:grid-cols-2 items-center'>
+                <section className='w-full flex gap-10 items-center relative md:flex'>
                     
-                    <Projects
-                        images={webDev}
-                        title={"Dego Bar"}
-                        text={"As a management application, this project was building at the start to deployement by myself. My contribution was to design...."}
-                        linkContent={translation[lang].SeeMore}
+                    <div id='projectContainer' className = 'w-full  flex flex-row gap-8 overflow-x-scroll projectContainer sm:px-5'>
+                        {displayedProjets}
+                    </div>
 
-                    />
-                    <Projects
-                        images={webDev}
-                        title={"Dego Bar"}
-                        text={"As a management application, this project was building at the start to deployement by myself. My contribution was to design...."}
-                        linkContent={translation[lang].SeeMore}
+                     {/* div to prev or next images  */}
+                    <div className=' absolute flex items-center duration-500 justify-between  w-full' >
+                        
+                        <div className='md:w-[35px] active:bg-gray-200 hover:bg-slate-50 hover:bg-opacity-40 md:h-[35px] sm:w-[1.875rem] sm:h-[1.875rem] w-[25px] h-[25px] bg-gray-600 bg-opacity-45 items-center justify-center rounded-full  duration-200 cursor-pointer pr-[4px] border border-gray-600 flex' onClick={ () => prevDiv()}>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-20 h-20 text-gray-200  ">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+                            </svg>
 
-                    />
-                    
-                    <Projects
-                        images={webDev}
-                        title={"Dego Bar"}
-                        text={"As a management application, this project was building at the start to deployement by myself. My contribution was to design...."}
-                        linkContent={translation[lang].SeeMore}
+                        </div>
+                        
+                        
+                        <div className='md:w-[35px] active:bg-gray-200 hover:bg-slate-50 hover:bg-opacity-40 md:h-[35px] sm:w-[1.875rem] sm:h-[1.875rem] w-[25px] h-[25px] bg-gray-600 bg-opacity-45 items-center justify-center rounded-full  duration-200 cursor-pointer pl-[4px] border border-gray-600 flex' onClick={ () => nextDiv()}>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-20 h-20 text-gray-200 ">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                            </svg>
+                        </div>
 
-                    />
+                    </div>
+
+
 
                 </section>
             </section>
@@ -648,10 +718,6 @@ export default function Acceuil () {
 
                 </section>
             </section>
-
-
-
-            
 
         </main>
     )

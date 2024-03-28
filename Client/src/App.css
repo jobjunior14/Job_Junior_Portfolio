@@ -1,20 +1,8 @@
 #root {
-  max-width: 1280px;
+  max-width: 2100px;
   margin: 0 auto;
   padding: 0px;
   text-align: center;
-}
-
-
-.webDevSection {
-  padding-top: calc(85%);
-}
-
-@media (min-width: 640px) {
-
-  .webDevSection {
-    padding-top: calc(55%);
-  }
 }
 
 
@@ -24,4 +12,32 @@
 
 .socialMediaIcones {
   fill: white;
+}
+
+.projectContainer {
+  scrollbar-width: none !important;
+  scroll-snap-type: x mandatory;
+  flex: 1 0 100%
+}
+
+@media (min-width: 640px) {
+  
+  .projectContainer {
+    flex: 1 0 50%
+  }
+}
+/* @media (min-width: 768px) {
+  
+  .projectContainer {
+    flex: 1 0 50%
+  }
+} */
+
+.projectContainer::-webkit-scrollbar {
+  display: none !important;
+
+}
+
+.projectContainer > div {
+  scroll-snap-align: start;
 }
