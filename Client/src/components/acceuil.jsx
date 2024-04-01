@@ -280,12 +280,12 @@ export default function Acceuil () {
         
         //update the scrollLeft of the div to show the next image
         // it take the offsetWidth and multiply it by the indexSroll 
-        // console.log (projectContainer.scrollLeft)
         projectContainer.style.scrollBehavior = 'smooth';
         projectContainer.scrollLeft = projectContainer.offsetWidth * indexOnScroll;
     
     }
 
+    //check if the container display two or one elements
     const legthProjets = document.documentElement.offsetWidth <= 640 ? projets.length - 1 : Math.floor((projets.length - 1) / 2);
 
     const nextDiv = () =>  {
@@ -418,9 +418,9 @@ export default function Acceuil () {
                 <section className='w-full h-fit overflow-hidden relative'>
 
                     {/* the clipping image  */}
-                    <section className='w-full h-0 webDevSection  overflow-hidden' style={{clipPath: "polygon(0% 100%, 0% 0%, 100% 100% )"}}  >
+                    <section className='w-full h-0 webDevSection pt-[90%] sm:pt-[50%]  overflow-hidden' style={{clipPath: "polygon(0% 100%, 0% 0%, 100% 100% )"}}  >
 
-                        <img src={webDev} alt="" className='w-full h-full absolute top-0 object-cover object-left-bottom rounded-xl' />
+                        <img src={webDev} alt="imge about web dev" className='w-full h-full absolute top-0 object-cover object-left-bottom rounded-xl' />
                     </section>
 
                     {/* set the border color  */}

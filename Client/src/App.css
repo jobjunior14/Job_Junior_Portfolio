@@ -14,7 +14,7 @@
   fill: white;
 }
 
-.projectContainer {
+.projectContainer, #projetDetailsContainer {
   scrollbar-width: none !important;
   scroll-snap-type: x mandatory;
   flex: 1 0 100%
@@ -26,18 +26,12 @@
     flex: 1 0 50%
   }
 }
-/* @media (min-width: 768px) {
-  
-  .projectContainer {
-    flex: 1 0 50%
-  }
-} */
 
-.projectContainer::-webkit-scrollbar {
+.projectContainer::-webkit-scrollbar, #projetDetailsContainer::-webkit-scrollbar {
   display: none !important;
 
 }
 
-.projectContainer > div {
+.projectContainer > div, #projetDetailsContainer > div {
   scroll-snap-align: start;
 }

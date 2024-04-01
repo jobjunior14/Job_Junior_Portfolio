@@ -50,14 +50,14 @@ export default function NavBar () {
     return (
         <nav className="duration-300 flex justify-between   items-center -top-0 sticky w-full dark:bg-white bg-blackTheme z-50  ">
 
-            <figure className="mx-[5%] lg:mx-[12%] my-2 w-14">
-                <img src={ theme === 'dark' ? jobLogoWhite : jobLogoDark} alt="Logo Job Junior" className="w-10 lg:w-14" />
+            <figure className="mx-[5%] lg:mx-[12%] my-2 w-20">
+                <img src={ theme === 'dark' ? jobLogoWhite : jobLogoDark} alt="Logo Job Junior" className="w-10 lg:w-full" />
             </figure>
             
             {/* link on phone  */}
-            <div className={`w-full sm:hidden absolute z-50 flex ${toggleNav ? 'h-[100vh]' : 'h-0'} overflow-hidden duration-500 delay-100 ease-out top-14 transition-[height] bg-myRed justify-center items-center gap-8 `}>
+            <div className={`w-full sm:hidden absolute z-50 flex ${toggleNav ? 'h-[100vh] duration-500' : 'h-0 duration-[0.8s]'} overflow-hidden delay-100 ease-out top-14 transition-[height] bg-myRed justify-center items-center gap-8 `}>
 
-                <ul className={`w-full fixed flex flex-col ${toggleNav ? 'h-[100vh]' : 'h-0'} overflow-hidden duration-[1s] delay-200 top-14 transition-[height] justify-center items-center gap-8 bg-white  `}>
+                <ul className={`w-full fixed flex flex-col ${toggleNav ? 'h-[100vh] duration-[0.7s]' : 'h-0 duration-[0.8s]'} overflow-hidden  delay-200 top-14 transition-[height] justify-center items-center gap-8 bg-white  `}>
                     <li className="flex flex-col justify-center items-center">
                         <NavLink onClick={handleNav} className={({isActive}) => isActive ? 'font-openSansSemiBold text-xl text-black' : 'font-openSansMedium text-xl text-black'} to={'/'}>{translation[lang].home}</NavLink>
                         <div className={` ${homeLink ? 'w-5' : 'w-0'} rounded-full duration-300 h-[3px] bg-myRed  `}>
@@ -109,7 +109,7 @@ export default function NavBar () {
             </div>
             
             {/* change languages and mode  */}
-            <div className=" flex flex-row gap-3 justify-center items-center cursor-pointer w-14 sm:mx-[5%] lg:mx-[10%]">
+            <div className=" flex flex-row gap-5 justify-between items-center cursor-pointer w-20 sm:mx-[5%] lg:mx-[10%]">
 
                 <figcaption onClick={changeLang} className={` flex flex-col  flex-nowrap overflow-hidden h-6 w-7 `} >
 

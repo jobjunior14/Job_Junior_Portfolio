@@ -1,7 +1,21 @@
 import { Link } from "react-router-dom";
+import { useLangContext } from '../changeLang';
 
 export default function Footer () {
 
+    const {lang} = useLangContext();
+
+    const translation = {
+        en: {
+            welcomeText: <span> <span className='text-myRed'>Creative </span> <br /> Place</span>,
+            greatTitle: <span>Stay apart, <span className=' dark:text-blackTheme text-white px-1  dark:bg-white bg-blackTheme'>unique</span> with us</span>
+        },
+
+        fr: {
+            welcomeText: <span>Place <br /> <span className='text-myRed'>Créative</span></span>,
+            greatTitle: <span>Restez à l'écart, <span className=' dark:text-blackTheme text-white px-1  dark:bg-white bg-blackTheme'>unique</span> avec nous</span>
+        }
+    }
     return (
         <footer className=" py-10 flex flex-col gap-10 justify-center items-center w-full dark:bg-white bg-blackTheme">
 
@@ -41,8 +55,18 @@ export default function Footer () {
 
 
             </section>
+             {/* title  */}
+             <div className='w-full flex gap-3 items-center justify-center '>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 text-myRed">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 6a7.5 7.5 0 1 0 7.5 7.5h-7.5V6Z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0 0 13.5 3v7.5Z" />
+                    </svg>
 
-            <p className='dark:text-black text-white text-[10px] sm:text-left text-center mt-2'>© Copyright 2024 Job Junior  All Rights Reserved</p>
+
+
+                    <h3 className=' font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-gray-500'> {translation[lang].greatTitle}</h3>
+                </div>
+            <p className='dark:text-black text-white text-[10px] sm:text-left text-center '>© Copyright 2024 Job Junior  All Rights Reserved</p>
 
         </footer>
     )

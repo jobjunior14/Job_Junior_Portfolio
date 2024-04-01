@@ -15,6 +15,7 @@ function App() {
       <Router>
         
         <Routes>
+          {/* <Route path='*' element = {} */}
           <Route path='/' element = {<SharedNav/>}>
 
             <Route index element= {<Acceuil/>}/>
