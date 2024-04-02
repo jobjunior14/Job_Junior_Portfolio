@@ -30,7 +30,7 @@ body{
 
 /* ----- CHANGE THE SCROLL BAR DESIGN ----- */
 ::-webkit-scrollbar{
-    width: 8px;
+    width: 4px;
     border-radius: 25px;
 }
 ::-webkit-scrollbar-track{

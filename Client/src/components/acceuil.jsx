@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import SkillsAndTech from './utils/skillsAndTechComp';
 import Projects from './utils/projects';
 import QuestionResponseToggleText from './utils/questionsComp';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function Acceuil () {
 
@@ -273,15 +273,15 @@ export default function Acceuil () {
     });
 
     // control the scrolling div 
-    var projectContainer = document.getElementById('projectContainer');
+    var projectContainer = useRef(null);
 
     // this state is set every time the indexOnScroll is updated 
-    if (projectContainer) {
+    if (projectContainer.current) {
         
         //update the scrollLeft of the div to show the next image
         // it take the offsetWidth and multiply it by the indexSroll 
-        projectContainer.style.scrollBehavior = 'smooth';
-        projectContainer.scrollLeft = projectContainer.offsetWidth * indexOnScroll;
+        projectContainer.current.style.scrollBehavior = 'smooth';
+        projectContainer.current.scrollLeft = projectContainer.current.offsetWidth * indexOnScroll;
     
     }
 
@@ -528,7 +528,7 @@ export default function Acceuil () {
                 {/* some project  */}
                 <section className='w-full flex gap-10 items-center relative md:flex'>
                     
-                    <div id='projectContainer' className = 'w-full  flex flex-row gap-8 overflow-x-scroll projectContainer sm:px-5'>
+                    <div ref={projectContainer}  className = 'w-full  flex flex-row gap-8 overflow-x-scroll projectContainer sm:px-5'>
                         {displayedProjets}
                     </div>
 

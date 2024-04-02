@@ -8,6 +8,7 @@ function Errorhhh () {
     return <h1 className=" text-myRed animate-pulse text-[2rem]">Something went wrong with this picture </h1>
 }
 
+//display projects on the home page //////////comp
 function Projects ({images, text, link, title, linkContent}) {
 
     return  (
@@ -25,7 +26,7 @@ function Projects ({images, text, link, title, linkContent}) {
                     <h4 className='font-openSansSemiBold text-[1rem] dark:text-gray-100 text-blackTheme text-center'> {title}</h4>
                     <p className=' font-openSansMedium text-[0.875rem] dark:text-gray-100 line-clamp-[9] text-blackTheme text-center'> {text} </p>
 
-                    <Link to={link} className=' hover:text-blue-500 border  px-5 border-myRed hover:bg-myRed hover:bg-opacity-20 duration-200 py-[2px] gap-1 font-openSansSemiBold text-[0.875rem] rounded-2xl dark:text-gray-100 text-blackTheme justify-center active:bg-opacity-45  flex items-center '>
+                    <Link to={link} className=' hover:text-blue-500 border  px-5 border-myRed hover:bg-myRed hover:bg-opacity-20 duration-200 py-[2px] gap-1 font-openSansSemiBold text-[0.875rem] rounded-2xl dark:text-gray-100 text-blackTheme justify-center active:bg-opacity-70  flex items-center '>
                         {linkContent}
                     </Link>
                 </figcaption>
@@ -37,7 +38,6 @@ function ProjectDetails ({image, title, details, active}) {
 
     const {lang} = useLangContext();
 
-
     return (
 
         <div className={` overflow-y-hidden h-full w-full flex-grow flex-shrink-0 rounded-xl flex flex-col gap-3 relative ${active? 'z-40' : ''}`}>
@@ -48,7 +48,7 @@ function ProjectDetails ({image, title, details, active}) {
 
                 <img src={image} alt=""  className='h-full w-full object-cover rounded-xl'/>
 
-                <div className={` rounded-xl p-3 font-openSansMedium text-[0.9rem] sm:text-[1rem] dark:bg-whiteTheme bg-blackTheme text-whiteTheme dark:text-blackTheme duration-500 opacity-0 text-left w-full h-full overflow-y-auto  ${active ? '-translate-y-[100%] opacity-100' : '-translate-y-[50%] opacity-0'}`}>
+                <div className={` rounded-xl p-3 font-openSansMedium text-[0.9rem] sm:text-[1rem] dark:bg-whiteTheme bg-blackTheme text-whiteTheme dark:text-blackTheme duration-500 opacity-0 text-left w-full h-full overflow-y-auto   ${active ? '-translate-y-[100%] opacity-100' : '-translate-y-[40%] opacity-0'}`}>
                     {details[lang]}
                 </div>
             </div>
@@ -56,11 +56,12 @@ function ProjectDetails ({image, title, details, active}) {
     );
 }
 
-export function ProjetDetailsContainer ({projet: {name, data}}) {
+export function ProjetDetailsContainer ({projet: {name, data, fonction}}) {
 
     const [indexOnScroll, setIndexOnScroll] = useState(0);
+    const {lang} = useLangContext();
 
-    // initialize an empty objet for traking the scrolling projects 
+    // initialize an empty objet for traking the scrolling details projects 
     let focusingDetailsProjet = {};
 
     //initialize all the state to false 
@@ -103,11 +104,11 @@ export function ProjetDetailsContainer ({projet: {name, data}}) {
         }
         
         myRef?.addEventListener('scroll', myFunction);
-
+        
         
         return () => myRef?.removeEventListener ('scroll', myFunction)
     }, []);
-
+    
     // function that verify the current index (the element displayed ) to show or hide it's details 
     const handleDetailFocusingProjet = () => {
 
@@ -129,8 +130,22 @@ export function ProjetDetailsContainer ({projet: {name, data}}) {
     return (
 
         <div className='w-fill flex flex-col gap-10'>
+            {/* title  */}
+            <div className='w-full flex flex-col '>
+                <div className='w-full flex gap-3 items-center '>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 text-myRed">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="m9 12.75 3 3m0 0 3-3m-3 3v-7.5M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
 
-            <h1 className='text-left text-[2rem] sm:text-[2.5rem] md:text-[2.8rem] font-openSansBold dark:text-gray-50 text-gray-800'>{name}</h1>
+
+                    <h3 className=' font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-gray-500'> {fonction[lang]}</h3>
+                </div>
+
+                <div className="w-full h-[5rem] pt-4">
+
+                    <h1 className='text-left text-[2rem]  font-openSansBold leading-9 dark:text-gray-50 text-gray-800'>{name} </h1>
+                </div>
+            </div>
             
             <div className='relative w-full h-0 pt-[120%] xl:pt-[90%] rounded-xl'>
 
@@ -144,7 +159,7 @@ export function ProjetDetailsContainer ({projet: {name, data}}) {
                 {/* div to prev or next images  */}
                 <div className=' absolute z-30 top-[50%] flex items-center duration-500 justify-between  w-full px-2' >
                     
-                    <div className='md:w-[35px] active:bg-gray-200 hover:bg-slate-50 hover:bg-opacity-40 md:h-[35px] sm:w-[1.875rem] sm:h-[1.875rem] w-[25px] h-[25px] bg-gray-600 bg-opacity-45 items-center justify-center rounded-full  duration-200 cursor-pointer pr-[4px] border border-gray-600 flex' onClick={prevDiv}>
+                    <div className='md:w-[28px] active:bg-gray-200 hover:bg-slate-50 hover:bg-opacity-40 md:h-[28px] w-[25px] h-[25px] bg-gray-600 bg-opacity-70 items-center justify-center rounded-full  duration-200 cursor-pointer pr-[4px] border border-gray-600 flex' onClick={prevDiv}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-20 h-20 text-gray-200  ">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
                         </svg>
@@ -152,7 +167,7 @@ export function ProjetDetailsContainer ({projet: {name, data}}) {
                     </div>
                     
                     
-                    <div className='md:w-[35px] active:bg-gray-200 hover:bg-slate-50 hover:bg-opacity-40 md:h-[35px] sm:w-[1.875rem] sm:h-[1.875rem] w-[25px] h-[25px] bg-gray-600 bg-opacity-45 items-center justify-center rounded-full  duration-200 cursor-pointer pl-[4px] border border-gray-600 flex' onClick={nextDiv}>
+                    <div className='md:w-[28px] active:bg-gray-200 hover:bg-slate-50 hover:bg-opacity-40 md:h-[28px] w-[25px] h-[25px] bg-gray-600 bg-opacity-70 items-center justify-center rounded-full  duration-200 cursor-pointer pl-[4px] border border-gray-600 flex' onClick={nextDiv}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-20 h-20 text-gray-200 ">
                             <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
                         </svg>
@@ -161,8 +176,8 @@ export function ProjetDetailsContainer ({projet: {name, data}}) {
                 </div>
 
                 {/* div to display or hide text details  */}
-                <div onClick={handleDetailFocusingProjet} className='md:w-[35px] z-40 active:bg-gray-200 absolute bottom-3 right-2 hover:bg-slate-50 hover:bg-opacity-40 md:h-[35px] sm:w-[1.875rem] sm:h-[1.875rem] w-[25px] h-[25px] bg-gray-600 bg-opacity-45 items-center justify-center rounded-full  duration-200 cursor-pointer  border border-gray-600 flex'>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-20 h-20 text-gray-200">
+                <div onClick={handleDetailFocusingProjet} className='md:w-[28px] z-40 active:bg-gray-200 absolute bottom-3 right-2 hover:bg-slate-50 hover:bg-opacity-40 md:h-[28px] w-[25px] h-[25px] bg-gray-600 bg-opacity-70 items-center justify-center rounded-full  duration-200 cursor-pointer  border border-gray-600 flex'>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-20 h-20 text-white">
                         <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
                     </svg>
                 </div>

@@ -21,6 +21,11 @@ export default function Projets () {
     const projets = [
         {
             name: 'Dego Bar',
+            fonction: {
+                fr: 'Application de gestion',
+                en: 'Application management'
+            },
+
             data: [
                 {
                     title: 'Why this project ?',
@@ -130,7 +135,11 @@ export default function Projets () {
             ]
         },
         {
-            name: 'Dego Bar',
+            name: 'Baraka Creaction',
+            fonction: {
+                fr: 'Portfolio',
+                en: 'Portfolio'
+            },
             data: [
                 {
                     title: 'Why this project ?',

@@ -8,7 +8,7 @@ html{
 
 /* ----- CHANGE THE SCROLL BAR DESIGN ----- */
 ::-webkit-scrollbar{
-    width: 0.625rem;
+    width: 4px;
     border-radius: 25px;
 }
 ::-webkit-scrollbar-track{
