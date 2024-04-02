@@ -19,7 +19,7 @@ export default function QuestionResponseToggleText ({question, toggledValue, ans
 
                 <div className='w-full h-full p-2 overflow-y-hidden flex justify-center'>
 
-                    <h4 className=' font-openSansMedium text-[0.8rem] sm:text-[0.9rem] dark:text-whiteTheme text-blackTheme text-left'>{answer}</h4>
+                    <h4 className=' font-openSansMedium text-[0.9rem] sm:text-[1rem] dark:text-whiteTheme text-blackTheme text-left'>{answer}</h4>
                 </div>
 
                 {/* icone to toggle text  */}

@@ -1,6 +1,7 @@
 import blackTheme from '../assets/blackTheme.png';
 import { useLangContext } from '../changeLang';
-import { useState, useEffect } from 'react';
+import { ProjetDetailsContainer } from './utils/projects';
+
 export default function Projets () {
 
     
@@ -23,6 +24,58 @@ export default function Projets () {
             data: [
                 {
                     title: 'Why this project ?',
+                    image: blackTheme,
+                    details: {
+                        fr: <span>
+                            <p>french ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                        </span>,
+
+                        en: <span>
+                            <p>Eng ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                        </span>,
+
+                    }
+                },
+                {
+                    title: 'HEy ?',
+                    image: blackTheme,
+                    details: {
+                        fr: <span>
+                            <p>french ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                        </span>,
+
+                        en: <span>
+                            <p>Eng ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                        </span>,
+
+                    }
+                },
+                {
+                    title: 'HEy ?',
                     image: blackTheme,
                     details: {
                         fr: <span>
@@ -105,14 +158,60 @@ export default function Projets () {
 
                     }
                 },
-               
-            ]
-        },
-        {
-            name: 'Dego Bar',
-            data: [
                 {
-                    title: 'Why this project ?',
+                    title: 'HEy ?',
+                    image: blackTheme,
+                    details: {
+                        fr: <span>
+                            <p>french ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                        </span>,
+
+                        en: <span>
+                            <p>Eng ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                        </span>,
+
+                    }
+                },
+                {
+                    title: 'HEy ?',
+                    image: blackTheme,
+                    details: {
+                        fr: <span>
+                            <p>french ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                        </span>,
+
+                        en: <span>
+                            <p>Eng ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quod ab ea rem mollitia ut unde, veritatis iste reprehenderit! Aliquid molestiae recusandae modi velit non facere quam quia odit, eum ipsa.</p>
+                        </span>,
+
+                    }
+                },
+                {
+                    title: 'HEy ?',
                     image: blackTheme,
                     details: {
                         fr: <span>
@@ -141,9 +240,13 @@ export default function Projets () {
             ]
         },
        
+       
     ];
 
+    const displayProjet = projets.map((prev, index) => {
 
+        return <ProjetDetailsContainer key={`${index}${prev.title}`} projet={prev} />
+    });
 
     return (
         <main className=" w-full px-[5%] lg:px-[14%]  py-10 sm:py-14 gap-20 md:gap-28 relative flex flex-col sm:gap-20">
@@ -165,10 +268,9 @@ export default function Projets () {
 
             </section>
 
-            <section className='grid grid-cols-1'>
+            <section className='grid grid-cols-1 sm:grid-cols-2 gap-14'>
 
-        
-
+                {displayProjet}
             </section>
 
             <button></button>
