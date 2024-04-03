@@ -7,6 +7,7 @@ import SkillsAndTech from './utils/skillsAndTechComp';
 import Projects from './utils/projects';
 import QuestionResponseToggleText from './utils/questionsComp';
 import { useEffect, useRef, useState } from 'react';
+import AsideBar from '../asideBar';
 
 export default function Acceuil () {
 
@@ -303,11 +304,92 @@ export default function Acceuil () {
         setToggleText(prev => ({...prev, [alphabet]: prev[alphabet] ? false : true}));
     }
 
+    //////////map of the home page////////////////////////
+    const navLink = [
+        {
+            link: '#aboutMe',
+            name: {
+                fr: 'A propos',
+                en: 'About me',
+            },
+        },
+        {
+            link: '#career',
+            name: {
+                fr: 'Parcours',
+                en: 'Career'
+            },
+        },
+        {
+            link: '#services',
+            name: {
+                fr: 'Services',
+                en: 'Services'
+            },
+        },
+        {
+            link: '#projets',
+            name: {
+                fr: 'Projets',
+                en: 'Projects'
+            },
+        },
+        {
+            link: '#whyChooseUs',
+            name: {
+                fr: 'Pourquoi nous ?',
+                en: 'Why choose us ?'
+            },
+        },
+        {
+            link: '#questions',
+            name: {
+                fr: 'Questions ?',
+                en: 'Questions ?'
+            },
+        }, 
+    ]
+
+    const mainA = useRef(null);
+
+    ////////folloew the active section//////////////////////////////
+    const handleScroll = () => {
+
+        const sections = mainA.current.querySelectorAll('section[id]');
+
+        const scrollY = window.scrollY;
+        sections.forEach (child => {
+            const sectionHeight = child.offsetHeight;
+            const sectionTop = child.offsetTop - 50;
+        
+            const sectionId = child.getAttribute('id');
+
+            if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                document.getElementById('#'+sectionId).classList.add('font-openSansSemiBold');
+            } else {
+                document.getElementById('#'+sectionId).classList.remove('font-openSansSemiBold');
+            }
+
+        });
+
+    };
+
+    useEffect(() => {
+        window.addEventListener('scroll', handleScroll);
+
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+
+
     return (
-        <main className=" w-full px-[5%] lg:px-[14%]  py-10 sm:py-14 gap-20 md:gap-28 relative flex flex-col sm:gap-20">
+        <main ref={mainA} id='mainHome' className=" w-full px-[5%] lg:px-[14%]  py-10 sm:py-14 gap-20 md:gap-28 relative flex flex-col sm:gap-20">
+            
+            <AsideBar links={navLink}/>
+
             
             {/* presation and welcom text  */}
-            <section className="grid grid-cols-1 sm:grid-cols-2 gap-10 w-full items-center justify-center " >
+            <section id='aboutMe' className="grid grid-cols-1 sm:grid-cols-2 gap-10 w-full items-center justify-center " >
 
                
                 {/* text section  */}
@@ -349,7 +431,7 @@ export default function Acceuil () {
             </section>
 
             {/*  career */}
-            <section className='w-full pb-10 flex flex-col gap-14 '>
+            <section id='career' className='w-full pb-10 flex flex-col gap-14 '>
 
                 {/* title  */}
                 <div className='w-full flex flex-col gap-4 '>
@@ -398,7 +480,7 @@ export default function Acceuil () {
             </section>
 
             {/* services  */}
-            <section className='w-full pb-10 flex flex-col gap-14 relative'>
+            <section id='services' className='w-full pb-10 flex flex-col gap-14 relative'>
 
                 {/* title  */}
                 <div className='w-full flex flex-col gap-4 '>
@@ -502,7 +584,7 @@ export default function Acceuil () {
             </section>
 
             {/* projetcs  */}
-            <section className='w-full pb-10 flex flex-col gap-14'>
+            <section id='projets' className='w-full pb-10 flex flex-col gap-14'>
 
                  {/* title  */}
                 <div className='w-full flex flex-col gap-4 '>
@@ -517,7 +599,7 @@ export default function Acceuil () {
                     <div className=' flex justify-between items-center'>
                         <h1 className='text-left text-[2rem] sm:text-[2.5rem] md:text-[2.8rem] font-openSansBold dark:text-gray-50 text-gray-800'>{translation[lang].projectTitle} </h1>
 
-                        <Link className=' flex items-center hover:text-blue-500 duration-200 py-[2px] font-openSansSemiBold text-[0.875rem] rounded-2xl dark:text-whiteTheme text-blackTheme '>{translation[lang].allProjects} <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-myRed font-openSansBold">
+                        <Link to='/projects' className=' flex items-center hover:text-blue-500 duration-200 py-[2px] font-openSansSemiBold text-[0.875rem] rounded-2xl dark:text-whiteTheme text-blackTheme '>{translation[lang].allProjects} <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-myRed font-openSansBold">
                         <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
                         </svg>
                         </Link>
@@ -557,7 +639,7 @@ export default function Acceuil () {
             </section>
 
             {/* why choose use  */}
-            <section className=' w-full pb-10 flex flex-col gap-14'>
+            <section id='whyChooseUs' className=' w-full pb-10 flex flex-col gap-14'>
 
                 {/* title  */}
                 <div className='w-full flex flex-col gap-4 '>
@@ -671,7 +753,7 @@ export default function Acceuil () {
             </section>
 
             {/* frequently posed questions */}
-            <section className='w-full pb-10 flex flex-col gap-14'>
+            <section id='questions' className='w-full pb-10 flex flex-col gap-14'>
                 
                 {/* title  */}
                 <div className='w-full flex flex-col gap-4 '>

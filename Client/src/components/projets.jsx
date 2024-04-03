@@ -1,9 +1,13 @@
+import { useEffect } from 'react';
 import blackTheme from '../assets/blackTheme.png';
 import { useLangContext } from '../changeLang';
 import { ProjetDetailsContainer } from './utils/projects';
 
 export default function Projets () {
 
+    useEffect(() => {
+        scrollTo(0, 0)
+    });
     
     const {lang} = useLangContext();
 
