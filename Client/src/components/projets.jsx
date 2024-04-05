@@ -273,7 +273,7 @@ export default function Projets () {
 
                     <img src={blackTheme} className='w-full h-full object-cover  absolute top-0' style={{flex: 'inherit'}}  alt='image white theme'/>
 
-                    <div className=' w-0 border-r-4  border-r-myRed animate-toggleTheme ease-in h-full backdrop-invert duration-1000 absolute top-0'>
+                    <div className=' w-0 border-r-4  border-r-myRed animate-porjectsToggleThemePicture ease-in h-full backdrop-invert duration-1000 absolute top-0'>
 
                     </div>
                 </div>

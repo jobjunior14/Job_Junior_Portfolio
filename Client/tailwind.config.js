@@ -20,10 +20,6 @@ export default {
       },
 
       keyframes:{
-        sliderInfinite: {
-          '0%' : {transform: 'translateX(0)'},
-          '100%' : { transform: 'translateX(-100%)'}
-        },
 
         annimateToggleTextAcceuil: {
           '0%':  {height: '28rem'},
@@ -31,22 +27,38 @@ export default {
           '100%': {height: 'fit-content'}
         },
 
-        toggleTheme: {
+        porjectsToggleThemePicture: {
           '0%': {width: '0%'},
           '10%': {width: '100%'},
           '40%': {width: '100%'},
           '50%': {width: '0%'},
-
-          '90': {width: '100%'},
-
-
+          '90%': {width: '100%'},
           '100%': {width: '0%'}
-        }
+        },
+
+        loadigDiv1 : {
+          '0%': {transform: 'translateY(-25%)'},
+          '50%': {transform: 'translateY(25%)'},
+          '100%': {transform: 'translateY(-25%)'},
+        },
+        loadigDiv2 : {
+          '0%': {transform: 'translateY(-25%)'},
+          '70%': {transform: 'translateY(25%)'},
+          '100%': {transform: 'translateY(-25%)'},
+        },
+        loadigDiv3 : {
+          '0%': {transform: 'translateY(-25%)'},
+          '90%': {transform: 'translateY(25%)'},
+          '100%': {transform: 'translateY(-25%)'},
+        },
       },
 
       animation: {
-        toggleTheme: 'toggleTheme 5s forwards infinite ',
-        annimateToggleTextAcceuil: ' annimateToggleTextAcceuil 2s ease-in-out linear'
+        porjectsToggleThemePicture: 'porjectsToggleThemePicture 5s forwards infinite ',
+        annimateToggleTextAcceuil: ' annimateToggleTextAcceuil 2s ease-in-out linear',
+        loadigDiv1: ' loadigDiv1 1s infinite',
+        loadigDiv2: ' loadigDiv2 1s infinite',
+        loadigDiv3: ' loadigDiv3 1s infinite'
       }
     },
   },
