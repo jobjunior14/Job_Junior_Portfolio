@@ -393,7 +393,7 @@ export default function Acceuil () {
 
                
                 {/* text section  */}
-                <section className="w-full text-start relative " >
+                <section className="w-full text-start  " >
  
                     <h1 className='w-full  dark:text-gray-50 text-blackTheme font-openSansBold text-[4rem] md:text-[4.5rem] lg:text-[5rem] '>
 

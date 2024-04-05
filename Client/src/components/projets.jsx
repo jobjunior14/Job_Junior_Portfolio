@@ -7,7 +7,7 @@ export default function Projets () {
 
     useEffect(() => {
         scrollTo(0, 0)
-    });
+    }, [1]);
     
     const {lang} = useLangContext();
 

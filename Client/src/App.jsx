@@ -6,6 +6,7 @@ import { Outlet } from 'react-router-dom';
 import { LangProvider } from './changeLang';
 import Footer from './components/footer';
 import Projets from './components/projets';
+import Contacts from './components/contacts';
 function App() {
 
  
@@ -20,6 +21,7 @@ function App() {
 
             <Route index element= {<Acceuil/>}/>
             <Route path='projects' element= {<Projets/>}/>
+            <Route path='contacts' element= {<Contacts/>}/>
             
           </Route>
         </Routes>

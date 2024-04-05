@@ -12,7 +12,7 @@ export default function AsideBar ({links}) {
     }
 
     const myLink = links.map ((prev, index) => {
-        return <a id={`${prev.link}`} className={` font-openSansMedium hover:underline text-start text-white dark:text-black  w-fit mt-3`} key={`${prev.link} ${index}` } href={prev.link} >{prev.name[lang]}</a>
+        return <a id={`${prev.link}`} className={` font-openSansMedium hover:font-openSansSemiBold text-start text-white dark:text-black  w-fit mt-3`} key={`${prev.link} ${index}` } href={prev.link} >{prev.name[lang]}</a>
     })
 
     return (
