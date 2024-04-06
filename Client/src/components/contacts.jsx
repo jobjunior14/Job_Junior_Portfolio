@@ -22,38 +22,46 @@ export default function Contacts () {
     const [serverError, setServerError] = useState(false);
 
     //message sent to the owner
-    const message = `Nom: ${userData.name}\nEmail: ${userData.email}\n \n  MESSAGE: \n \n ${userData.message}`
+    const message = `Nom: ${userData.name}\nEmail: ${userData.email}\n \n  MESSAGE: \n \n ${userData.message}`;
 
-    const sendingMessage = async () => {
+    const sendingMessage = async (e) => {
 
-        if (userData.email === '') {
-            setUserErrors(prev => ({...prev, email: true}));
-        } else if (userData.name === '') {
-            
-            setUserErrors(prev => ({...prev, name: true}));
-        } else if (userData.message === '') {
-            
-            setUserErrors(prev => ({...prev, message: true}));
-        } else  {
+        e.preventDefault();
+        const newErrors = {};
+
+        //check if any field is empty
+        Object.keys (userData).forEach(key => {
+
+            if (!userData[key]) {
+                newErrors[key] = true;
+            }
+        });
+
+        //if there is an error (empty field)
+        if (Object.keys(newErrors).length > 0) {
+            setUserErrors(newErrors);
+
+            const firstEmptyField = Object.keys(newErrors)[0];
+            document.getElementsByName(firstEmptyField)[0].focus();
+        } else {
 
             try {
                 
                 setLoading(true);
                 setServerError(false);
                 const response = await axios.post('https://degobar.onrender.com/api/v1/user/jobjunior', {message});
-
+    
                 //if there is no error 
                 setServerError(false);
-
+    
             } catch (error) {
                 setLoading(false);
                 setServerError(true);
             } finally {
                 setLoading(false);
             }
-                
-        }
-    }
+        } 
+    };
 
     // handle input userData 
     const handleUserData = ({name, value}) => {
@@ -69,7 +77,7 @@ export default function Contacts () {
             message: 'Your message',
             send: 'Send',
             fieldError: 'Please fill this field',
-            serverError: 'An error occurred, try later',
+            serverError: 'An error occurred,please try later',
         },
 
         fr: {
@@ -79,7 +87,7 @@ export default function Contacts () {
             message: "Votre message",
             send: 'Envoyer',
             fieldError: "Veillez completez ce champ s'il vous plait",
-            serverError: "Une erreur est survenue, veillez essayer plus tard"
+            serverError: "Une erreur est survenue, veillez réessayer plus tard"
 
         }
     };
@@ -92,7 +100,7 @@ export default function Contacts () {
 
                 <h1 className='w-full  dark:text-gray-50 text-blackTheme font-openSansBold text-[4rem] sm:text-[3.5rem] md:text-[4.5rem] 2xl:text-[5rem] text-left'>{translation[lang].welcomeText}</h1>
 
-                <form className='w-full text-start rounded-lg dark:bg-opacity-10 dark:bg-gray-100 bg-gray-700 bg-opacity-10 h-auto px-4 py-10 flex flex-col gap-10'>
+                <form onSubmit={(e) => sendingMessage(e)} className='w-full text-start rounded-lg dark:bg-opacity-10 dark:bg-gray-100 bg-gray-700 bg-opacity-10 h-auto px-4 py-10 flex flex-col gap-10'>
 
                     <div className=" flex justify-start flex-col gap-10">
                         
@@ -106,7 +114,7 @@ export default function Contacts () {
                                 onChange={e => handleUserData (e.target)}
                             />
                             <label className=" font-openSansMedium peer-placeholder-shown:top-[0.21rem] peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base absolute -top-4 duration-200 text-sm left-0 dark:text-gray-100 text-blackTheme" htmlFor='name' >{translation[lang].name}</label>
-                            
+                            {userErrors.name && <p className=" text-red-500 dark:text-red-400 text-sm">{translation[lang].fieldError}</p>}
                         </div>
 
                         <div className=" flex flex-col relative">
@@ -119,6 +127,7 @@ export default function Contacts () {
                                 onChange={e => handleUserData (e.target)}
                             />
                             <label className=" font-openSansMedium peer-placeholder-shown:top-[0.21rem] peer-placeholder-shown:text-gray-400 peer-placeholder-shown:text-base absolute -top-4 duration-200 text-sm left-0 dark:text-gray-100 text-blackTheme" htmlFor='email' >{translation[lang].emailAdress}</label>
+                            {userErrors.email && <p className=" text-red-500 dark:text-red-400 text-sm">{translation[lang].fieldError}</p>}
 
                         </div>
                     </div>
@@ -129,13 +138,13 @@ export default function Contacts () {
                             name="message" 
                             id="message" 
                             cols="30" 
-                            rows="10"
+                            rows="5"
                             onChange={e => handleUserData (e.target)}
-                            
                             >
 
                          </textarea>
                         <label className=" font-openSansMedium absolute duration-200 text-sm left-0 -top-7 peer-placeholder-shown:top-[0.6rem] peer-placeholder-shown:text-base peer-placeholder-shown:left-[0.6rem] peer-placeholder-shown:text-gray-400 dark:text-gray-100 text-blackTheme" htmlFor="message">{translation[lang].message}</label>
+                        {userErrors.message && <p className=" text-red-500 dark:text-red-400 text-sm">{translation[lang].fieldError}</p>}
 
                     </div>
                     
@@ -152,8 +161,11 @@ export default function Contacts () {
                             </div>
                         </div> : 
                     
-                        <button onClick={sendingMessage} className="w-full h-9 font-openSansMedium rounded-xl text-myRed bg-blackTheme">{translation[lang].send}</button>
+                        <button type="submit" className="w-full h-9 font-openSansMedium rounded-xl text-myRed bg-blackTheme">{translation[lang].send}</button>
                     }
+
+                    {serverError && <p className=" text-red-500 dark:text-red-400 text-sm text-center -mt-5">{translation[lang].serverError}</p>}
+
 
                 </form>
             </section>

@@ -32,8 +32,6 @@ export default {
           '10%': {width: '100%'},
           '40%': {width: '100%'},
           '50%': {width: '0%'},
-          '90%': {width: '100%'},
-          '100%': {width: '0%'}
         },
 
         loadigDiv1 : {
