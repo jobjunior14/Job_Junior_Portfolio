@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLangContext } from "../changeLang";
 import axios from 'axios';
 
 export default function Contacts () {
+
+    useEffect(() => {
+        scrollTo(0, 0)
+    }, [1]);
 
     const {lang} = useLangContext();
 
