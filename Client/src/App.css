@@ -20,7 +20,14 @@
   flex: 1 0 100%
 }
 
-@media (min-width: 640px) {
+@media (min-width: 740px) {
+  
+  .projectContainer {
+    flex: 1 0 70%
+  }
+}
+
+@media (min-width: 1024px) {
   
   .projectContainer {
     flex: 1 0 50%

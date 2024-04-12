@@ -51,7 +51,7 @@ export default function NavBar () {
         <nav className="duration-300 flex justify-between   items-center -top-0 sticky w-full dark:bg-white bg-blackTheme z-50  ">
 
             <figure className="mx-[5%] lg:mx-[12%] my-2 w-20">
-                <img src={ theme === 'dark' ? jobLogoWhite : jobLogoDark} alt="Logo Job Junior" className="w-10 lg:w-full" />
+                <img loading='lazy' src={ theme === 'dark' ? jobLogoWhite : jobLogoDark} alt="Logo Job Junior" className="w-10 lg:w-full" />
             </figure>
             
             {/* link on phone  */}

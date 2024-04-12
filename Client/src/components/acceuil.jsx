@@ -6,6 +6,9 @@ import { Link } from 'react-router-dom';
 import SkillsAndTech from './utils/skillsAndTechComp';
 import Projects from './utils/projects';
 import QuestionResponseToggleText from './utils/questionsComp';
+import _1DegoBar from '../assets/projets/degoBar/_1.png';
+import accueil_phone from '../assets/projets/BarakaCreation/accueil_phone.jpg'
+
 import { useEffect, useRef, useState } from 'react';
 import AsideBar from '../asideBar';
 
@@ -22,6 +25,7 @@ export default function Acceuil () {
         maintenance: false
     });
 
+    //moddle text in service section (states)
     const serviceDetailsUnique = {
         frontEnd: false,
         backEnd: false,
@@ -34,6 +38,7 @@ export default function Acceuil () {
         setServicesDetails ({...serviceDetailsUnique, [name]: true});
     };
 
+    //all the text on home section
     const translation = {
 
         en: {
@@ -228,47 +233,41 @@ export default function Acceuil () {
         }
     };
 
-    /////////////////data projects
+    /////////////////data projects//////////////////////////////////
     const projets = [
         {
-        Image: webDev,
-        title: "Junior",
-        text:"As a management application, this project was building at the start to deployement by myself. My contribution was to design....",
-        linkContent: translation[lang].SeeMore
+            image: <img loading='lazy' src={_1DegoBar} alt="image of degoBar project" className='h-full w-full object-cover rounded-xl' />,
+            title: "Dego Bar",
+            text: {
+                fr: "Fr a management application, this project was building at the start to deployement by myself. My contribution was to design....",
+                en: "En a management application, this project was building at the start to deployement by myself. My contribution was to design...."
+            },
+            linkContent: translation[lang].SeeMore,
+            link: '/projects#Dego_Bar',
+
         },
+
+
         {
-        Image: webDev,
-        title: "Dego Bar",
-        text:"As a management application, this project was building at the start to deployement by myself. My contribution was to design....",
-        linkContent: translation[lang].SeeMore
-        },
-        {
-        Image: webDev,
-        title: "Dego Bar",
-        text:"As a management application, this project was building at the start to deployement by myself. My contribution was to design....",
-        linkContent: translation[lang].SeeMore
-        },
-        {
-        Image: webDev,
-        title: "Dego Bar",
-        text:"As a management application, this project was building at the start to deployement by myself. My contribution was to design....",
-        linkContent: translation[lang].SeeMore
-        },
-        {
-        Image: webDev,
-        title: "Dego Bar",
-        text:"As a management application, this project was building at the start to deployement by myself. My contribution was to design....",
-        linkContent: translation[lang].SeeMore
+            image: <img loading='lazy' src={accueil_phone} alt="image of degoBar project" className='h-full w-full object-cover object-center rounded-xl' />,
+            title: "Baraka Creation",
+            text: {
+                fr: "Nous avons aidé l'entreprise Baraka Creation avec une visibilité sur la toile internet avec une application web professionnelle. L'adaptabilité à travers tous les appareils a été au centre du développement de cette application, ma contribution aura été de coder toute la partie front-end, le design étant fait par l'entreprise Baraka Creation.",
+                en: "We helped Baraka Creation entreprise with a visibility to world wide web (internet) with a professional web application. The adaptability across all devices was the center of this application development, my contribution will have been to code all the front-end part designed by Baraka Creation entreprise."
+            },
+            linkContent: translation[lang].SeeMore,
+            link: '/projects#Baraka_Creation'
         },
     ];
 
     const displayedProjets = projets.map ((prev, index) => {
         return  <Projects
             key={index}
-            images={prev.Image}
+            image={prev.image}
             title={prev.title}
-            text={prev.text}
+            text={prev.text[lang]}
             linkContent={prev.linkContent}
+            link= {prev.link}
 
         />
     });
@@ -286,15 +285,12 @@ export default function Acceuil () {
     
     }
 
-    //check if the container display two or one elements
-    const legthProjets = document.documentElement.offsetWidth <= 640 ? projets.length - 1 : Math.floor((projets.length - 1) / 2);
-
     const nextDiv = () =>  {
-        setIndexOnScroll ( prev => prev === legthProjets ? 0 : prev + 1);
+        setIndexOnScroll ( prev => prev === projets.length - 1 ? 0 : prev + 1);
     };
 
     const prevDiv = () =>  {
-        setIndexOnScroll ( prev => prev === 0 ? legthProjets : prev - 1);
+        setIndexOnScroll ( prev => prev === 0 ? projets.length - 1 : prev - 1);
     };
 
 
@@ -352,7 +348,7 @@ export default function Acceuil () {
 
     const mainA = useRef(null);
 
-    ////////folloew the active section//////////////////////////////
+    ////////follow the active section//////////////////////////////
     const handleScroll = () => {
 
         const sections = mainA.current.querySelectorAll('section[id]');
@@ -383,19 +379,19 @@ export default function Acceuil () {
 
 
     return (
-        <main ref={mainA} id='mainHome' className=" w-full px-[5%] lg:px-[14%]  py-10 sm:py-14 gap-20 md:gap-28 relative flex flex-col sm:gap-20">
-            
+        <main ref={mainA} id='mainHome' className=" w-full px-[5%] xl:px-[14%]  py-10 sm:py-14 gap-20 md:gap-28 relative flex flex-col sm:gap-20">
+
             <AsideBar links={navLink}/>
 
             
             {/* presation and welcom text  */}
-            <section id='aboutMe' className="grid grid-cols-1 sm:grid-cols-2 gap-10 w-full items-center justify-center " >
+            <section id='aboutMe' className="grid grid-cols-1 md:grid-cols-2 gap-10 w-full items-center justify-center " >
 
                
                 {/* text section  */}
                 <section className="w-full text-start  " >
  
-                    <h1 className='w-full  dark:text-gray-50 text-blackTheme font-openSansBold text-[4rem] md:text-[4.5rem] lg:text-[5rem] '>
+                    <h1 className='w-full  dark:text-gray-50 text-blackTheme font-openSansBold text-[4rem] sm:text-[5rem] md:text-[4.5rem] lg:text-[5rem] '>
 
                         {translation[lang].welcomeText}
                     </h1>
@@ -409,20 +405,20 @@ export default function Acceuil () {
                     <section className="w-full flex justify-center items-center gap-5">
 
                         <figure className=" w-[30%] h-0 round  rounded-full overflow-hidden relative" style={{paddingTop: 'calc( 30% * (1/1))'}} >
-                            <img src={jobProfil1} alt="" className=' object-cover absolute top-0 w-full h-full'  />
+                            <img loading='lazy' src={jobProfil1} alt="" className=' object-cover absolute top-0 w-full h-full'  />
                         </figure>
 
-                        <figcaption className='w-[70%] font-semibold text-[1rem] md:text-[1.3rem] text-start dark:text-gray-50 text-blackTheme '> {translation[lang].welcomeName} </figcaption>
+                        <figcaption className='w-[70%] font-semibold text-[1rem] sm:text-[1.3rem] md:text-[1.3rem] text-start dark:text-gray-50 text-blackTheme '> {translation[lang].welcomeName} </figcaption>
                     </section>
                     
                     {/* descriptif text  */}
-                    <p className=' font-openSansSemiBold text-[0.875rem] sm:text-[0.7rem] md:text-[0.875rem] text-start dark:text-gray-50 text-blackTheme '>
+                    <p className=' font-openSansSemiBold text-[0.875rem] md:text-[0.875rem] text-start leading-[1.6rem] dark:text-gray-50 text-blackTheme '>
                         {translation[lang].aboutME}
                     </p>
 
                     <div className='w-fll justify-between items-center flex'>
-                        <Link className=' border-myRed border-2 w-[40%] py-[6px] font-openSansSemiBold text-[0.875rem] sm:text-[0.7rem] md:text-[0.875rem] rounded-2xl dark:text-white duration-200 hover:bg-myRed hover:bg-opacity-20 text-blackTheme '>{translation[lang].projectTitle}</Link>
-                        <Link className=' bg-myRed w-[40%] border border-myRed  py-[6px] font-openSansSemiBold text-[0.875rem] sm:text-[0.7rem] md:text-[0.875rem] rounded-2xl text-white hover:bg-opacity-80 duration-200 '>{translation[lang].getInText}</Link>
+                        <Link className=' border-myRed border-2 w-[40%] py-[6px] font-openSansSemiBold text-[0.875rem] md:text-[0.875rem] rounded-2xl dark:text-white duration-200 hover:bg-myRed hover:bg-opacity-20 text-blackTheme '>{translation[lang].projectTitle}</Link>
+                        <Link className=' bg-myRed w-[40%] border border-myRed  py-[6px] font-openSansSemiBold text-[0.875rem]  md:text-[0.875rem] rounded-2xl text-white hover:bg-opacity-80 duration-200 '>{translation[lang].getInText}</Link>
                     </div>
 
                 </section>
@@ -502,7 +498,7 @@ export default function Acceuil () {
                     {/* the clipping image  */}
                     <section className='w-full h-0 webDevSection pt-[90%] sm:pt-[50%]  overflow-hidden' style={{clipPath: "polygon(0% 100%, 0% 0%, 100% 100% )"}}  >
 
-                        <img src={webDev} alt="imge about web dev" className='w-full h-full absolute top-0 object-cover object-left-bottom rounded-xl' />
+                        <img loading='lazy' src={webDev} alt="imge about web dev" className='w-full h-full absolute top-0 object-cover object-left-bottom rounded-xl' />
                     </section>
 
                     {/* set the border color  */}
@@ -550,7 +546,7 @@ export default function Acceuil () {
                         <div className={`h-full w-full duration-300 gap-5 justify-center flex flex-col items-center ${ servicesDetails.frontEnd ? 'translate-y-[0%]' : "translate-y-[200%]"} `} style={{flex: 'inherit'}}>
 
                             <h4 className='font-openSansSemiBold text-[0.875rem] dark:text-gray-900 text-gray-100 '> Front-end</h4>
-                            <p className=' font-openSansMedium text-[0.875rem] dark:text-gray-900 text-gray-100'>{translation[lang].frontEndDetails}</p>
+                            <p className=' font-openSansMedium text-[0.875rem] dark:text-gray-900 text-gray-100 sm:w-[90%] md:w-[80%] lg:w-[70%] xl:w-[60%] leading-6'>{translation[lang].frontEndDetails}</p>
                             <Link className=' border-myRed border px-4 py-[6px] font-openSansSemiBold text-[0.8rem] hover:bg-myRed hover:bg-opacity-20 duration-200 rounded-2xl text-white dark:text-black '>{translation[lang].interessed}</Link>
 
                         </div>
@@ -558,7 +554,7 @@ export default function Acceuil () {
                         <div className={`h-full w-full duration-300 gap-5 justify-center flex flex-col items-center ${ servicesDetails.backEnd ? 'translate-y-[-100%]' : "translate-y-[100%]"} `} style={{flex: 'inherit'}}>
 
                             <h4 className='font-openSansSemiBold text-[0.875rem] dark:text-gray-900 text-gray-100 '> Back-end</h4>
-                            <p className=' font-openSansMedium text-[0.875rem] dark:text-gray-900 text-gray-100'>{translation[lang].backEndDetails}</p>
+                            <p className=' font-openSansMedium text-[0.875rem] dark:text-gray-900 text-gray-100 sm:w-[90%] md:w-[80%] lg:w-[70%] xl:w-[60%] leading-6'>{translation[lang].backEndDetails}</p>
                             <Link className=' border-myRed border px-4 py-[6px] font-openSansSemiBold text-[0.8rem] hover:bg-myRed hover:bg-opacity-20 duration-200 rounded-2xl text-white dark:text-black '>{translation[lang].interessed}</Link>
                         </div>
 
@@ -566,14 +562,14 @@ export default function Acceuil () {
                         <div className={`h-full w-full duration-300 gap-5 justify-center flex flex-col items-center ${ servicesDetails.dbManagement ? 'translate-y-[-200%]' : "translate-y-[0%]"}`} style={{flex: 'inherit'}}>
 
                             <h4 className='font-openSansSemiBold text-[0.875rem] dark:text-gray-900 text-gray-100 '> {translation[lang].dataBaseTitle}</h4>
-                            <p className=' font-openSansMedium text-[0.875rem] dark:text-gray-900 text-gray-100'>{translation[lang].dataBaseDetails}</p>
+                            <p className=' font-openSansMedium text-[0.875rem] dark:text-gray-900 text-gray-100 sm:w-[90%] md:w-[80%] lg:w-[70%] xl:w-[60%] leading-6'>{translation[lang].dataBaseDetails}</p>
                             <Link className=' border-myRed border px-4 py-[6px] font-openSansSemiBold text-[0.8rem] hover:bg-myRed hover:bg-opacity-20 duration-200 rounded-2xl text-white dark:text-black '>{translation[lang].interessed}</Link>
                         </div>
 
                         <div className={`h-full w-full duration-300 gap-5 justify-center flex flex-col items-center ${ servicesDetails.maintenance ? 'translate-y-[-300%]' : "translate-y-[-100%]"}`} style={{flex: 'inherit'}}>
 
                             <h4 className='font-openSansSemiBold text-[0.875rem] dark:text-gray-900 text-gray-100 '> Maintenance</h4>
-                            <p className=' font-openSansMedium text-[0.875rem] dark:text-gray-900 text-gray-100'>{translation[lang].maintenanceDetails}</p>
+                            <p className=' font-openSansMedium text-[0.875rem] dark:text-gray-900 text-gray-100 sm:w-[90%] md:w-[80%] lg:w-[70%] xl:w-[60%] leading-6'>{translation[lang].maintenanceDetails}</p>
                             <Link className=' border-myRed border px-4 py-[6px] font-openSansSemiBold text-[0.8rem] hover:bg-myRed hover:bg-opacity-20 duration-200 rounded-2xl text-white dark:text-black '>{translation[lang].interessed}</Link>
 
                         </div>
@@ -608,9 +604,9 @@ export default function Acceuil () {
                 </div>
 
                 {/* some project  */}
-                <section className='w-full flex gap-10 items-center relative md:flex'>
+                <section className='w-full flex gap-10 items-center relative'>
                     
-                    <div ref={projectContainer}  className = 'w-full  flex flex-row gap-8 overflow-x-scroll projectContainer sm:px-5'>
+                    <div ref={projectContainer}  className = 'w-full flex flex-row gap-8 overflow-x-scroll projectContainer sm:px-5'>
                         {displayedProjets}
                     </div>
 
@@ -697,7 +693,7 @@ export default function Acceuil () {
                                 </div>
                             </div>
 
-                            <p className='font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-gray-500 text-left w-[90%]'> {translation[lang].adaptability} </p>
+                            <p className='font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] line-clamp-2 dark:text-gray-400 text-gray-500 text-left w-[90%]'> {translation[lang].adaptability} </p>
                         </div>
 
                     </div>
