@@ -12,9 +12,9 @@ import Projects from './utils/projects';
 import QuestionResponseToggleText from './utils/questionsComp';
 import _1DegoBar from '../assets/projets/degoBar/_1.jpg';
 import accueil_phone from '../assets/projets/BarakaCreation/accueil_phone.jpg';
-import useIntersection from './utils/annimatorOnScroll'
+import useAnnimator from './utils/annimatorOnScroll'
 
-import { StrictMode, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import AsideBar from '../asideBar';
 
 export default function Acceuil () {
@@ -350,29 +350,210 @@ export default function Acceuil () {
         }, 
     ]
 
+
+    ////////////////////////////////////////////\
+    //////All references to make animation on scrolling//////////////////////
+    ////////////////////////////////////////////////////////////////////////
     const mainA = useRef(null);
     const reveRef = useRef(null);
+    const aboutMeSec = useRef (null);
+    const aboutMeText = useRef(null);
+    const aboutMePic = useRef (null);
+    const careerTitle = useRef(null);
+    const satisfedClient = useRef (null);
+    const satisfedClientText = useRef (null);
+    const completProjects = useRef (null);
+    const completProjectsText = useRef (null);
+    const avisSec = useRef(null);
+    const serviceTitle = useRef();
+    const serviceTitle2 = useRef();
+    const serviceImage = useRef();
+    const moddleTextService = useRef();
+    const projetTitle = useRef();
+    const projetTitleLink = useRef ();
+    const projectSection = useRef ();
+    const whyUsTitle = useRef();
+    const confidentiality1 = useRef();
+    const confidentiality3 = useRef();
+    const confidentiality4 = useRef();
+    const confidentiality5 = useRef();
+    const confidentiality6 = useRef();
+    const confidentiality7 = useRef();
+    const confidentiality8 = useRef();
+    const confidentiality9 = useRef();
+    const Fquestions = useRef();
+    const myQuestions = useRef();
 
 
-    ////////follow the active section//////////////////////////////
+    const myDataAnnimator = [
+        {
+            ref: reveRef,
+            x: -30,
+        },
+        {
+            ref: aboutMeSec,
+            y: 15,
+        },
+        {
+            ref: aboutMePic,
+            x: -30,
+        },
+        {
+            ref: aboutMeText,
+            y: 10,
+        },
+        {
+            ref: careerTitle,
+            y: 30,
+        },
+        {
+            ref: satisfedClient,
+            x: -30,
+        },
+        {
+            ref: satisfedClientText,
+            y: -50,
+        },
+        {
+            ref: completProjects,
+            x: 30,
+        },
+        {
+            ref: completProjectsText,
+            y: -50,
+        },
+        {
+            ref: avisSec,
+            y: 50,
+        },
+        {
+            ref: avisSec,
+            y: 10,
+        },
+        {
+            ref: serviceTitle,
+            y: 20,
+        },
+        {
+            ref: serviceTitle2,
+            x: 10,
+        },
+        {
+            ref: serviceImage,
+            x: -10,
+        },
+        {
+            ref: moddleTextService,
+            y: 10,
+        },
+        {
+            ref: projetTitle,
+            y: 30,
+        },
+        {
+            ref: projetTitleLink,
+            x: 20,
+        },
+        {
+            ref: projectSection,
+            y: 15
+        },
+        {
+            ref: whyUsTitle,
+            y: 30
+        },
+        {
+            ref: confidentiality1,
+            x: -20
+        },
+    
+        {
+            ref: confidentiality3,
+            x: 20
+        },
+        {
+            ref: confidentiality4,
+            x: 20
+        },
+        {
+            ref: confidentiality5,
+            x: -20
+        },
+        {
+            ref: confidentiality6,
+            x: 20
+        },
+        {
+            ref: confidentiality7,
+            x: -20
+        },
+        {
+            ref: confidentiality8,
+            x: 20
+        },
+        {
+            ref: confidentiality9,
+            x: -20
+        },
+        {
+            ref: Fquestions,
+            y: 30
+        },
+        {
+            ref: myQuestions,
+            y: 15
+        },
+        
+
+        
+
+        
+    ]
+   
+    const annimations = useAnnimator(myDataAnnimator);
+
+////////////////////////////////////////////////////images avis/////////////////////
+////////////////////////observer////////////////////////////////////////
+        useEffect (() => {
+        
+        const imageAvis = avisContainer.current.querySelectorAll('img');
+        
+        imageAvis.forEach (el => {
+
+            const observer = new IntersectionObserver (
+                ([{isIntersecting}]) => {
+                    
+                    if (isIntersecting) {
+                        el.classList.add('opacity-100');
+                        el.classList.remove('opacity-20');
+                        el.classList.add('scale-100');
+                        el.classList.remove('scale-[0.9]');
+                    } else {
+                        el.classList.remove('opacity-100');
+                        el.classList.add('opacity-20');
+                        el.classList.remove('scale-100');
+                        el.classList.add('scale-[0.9]');
+                     
+                    }
+                }, {rootMargin: '0px', threshold: 0.5}
+            );
+
+            if (el) {
+                observer.observe(el);
+            }
+
+            return () => observer.unobserve(el);
+
+        })
+    }, [avisContainer])
+
+
+    ////////watch the active section//////////////////////////////
     const handleScroll = () => {
         
         const sections = mainA.current.querySelectorAll('section[id]');
         
         const scrollY = window.scrollY;
-
-        // console.log (scrollY > reveRef.current.offsetTop - 100 && scrollY <= reveRef.current.offsetTop - 100 + reveRef.current.offsetHeight);
-        if (scrollY > reveRef.current.offsetTop - 100 && scrollY <= reveRef.current.offsetTop - 100 + reveRef.current.offsetHeight) {
-            reveRef.current.classList.add ('translate-x-[0%]');
-            reveRef.current.classList.remove('translate-x-[-50%]')
-            reveRef.current.classList.add ('opacity-100');
-
-        } else {
-            reveRef.current.classList.remove ('translate-x-[0%]');
-            reveRef.current.classList.add('translate-x-[-50%]')
-            reveRef.current.classList.remove ('opacity-100');
-        }
-
 
         sections.forEach (child => {
             const sectionHeight = child.offsetHeight;
@@ -400,8 +581,13 @@ export default function Acceuil () {
 
 
     var avisContainer = useRef(null);
-    //scroll avis container
+    const [avisConterTracker, setAvisConterTracker ] = useState (avisContainer?.current?.scrollLeft);
+    
+    const timer = useRef();
+    //scroll automaticaly avis container/////////////////////////////////////////////
     useEffect (() => {
+
+        if (timer.current) clearTimeout(timer);
 
         const avis = avisContainer.current;
         
@@ -419,16 +605,27 @@ export default function Acceuil () {
             }
         };
 
-        const interval = setInterval(() => scrollLeftAvis(), 3000);
+        const listenScroll = () => {
+            // clearTimeout(timer)
+            setAvisConterTracker(avis.scrollLeft)
+        }
+
+        avis.addEventListener('scroll', listenScroll);
+
+        timer.current = setTimeout(() => scrollLeftAvis(), 3000);
 
 
-        return () => clearInterval(interval);
-    });
+        return () => {
+            clearTimeout(timer.current);
+            avis.removeEventListener('scroll', listenScroll);
+
+        }
+    }, [avisConterTracker]);
 
 
 
     return (
-        <main ref={mainA} id='mainHome' className=" w-full  px-[5%] xl:px-[14%]  py-10 sm:py-14 gap-20 md:gap-28 relative flex flex-col sm:gap-20">
+        <main ref={mainA} id='mainHome' className=" w-full overflow-hidden  px-[5%] xl:px-[14%]  py-10 sm:py-14 gap-20 md:gap-28 relative flex flex-col sm:gap-20">
 
             <AsideBar links={navLink}/>
 
@@ -440,7 +637,7 @@ export default function Acceuil () {
                 {/* text section  */}
                 <section className="w-full text-start  " >
  
-                    <h1 ref={reveRef} className='w-full opacity-0 duration-500 ease-in-out   dark:text-gray-50 text-blackTheme font-openSansBold text-[4rem] sm:text-[5rem] md:text-[4.5rem] lg:text-[5rem] '>
+                    <h1 ref={reveRef} className='w-full translate-x-[-30%] opacity-0 duration-[1s] ease-in-out   dark:text-gray-50 text-blackTheme font-openSansBold text-[4rem] sm:text-[5rem] md:text-[4.5rem] lg:text-[5rem] '>
 
                         {translation[lang].welcomeText}
                     </h1>
@@ -448,12 +645,12 @@ export default function Acceuil () {
                 </section>
 
                 {/* about me section  */}
-                <section className="w-full rounded-lg dark:bg-opacity-10 dark:bg-gray-100 bg-gray-700 bg-opacity-10 h-auto px-4 py-5 flex flex-col gap-5" >
+                <section ref={aboutMeSec} className="w-full overflow-hidden duration-[1s] ease-in-out translate-y-[15%] opacity-0 rounded-lg dark:bg-opacity-10 dark:bg-gray-100 bg-gray-700 bg-opacity-10 h-auto px-4 py-5 flex flex-col gap-5" >
                          
                     {/* image abd name  */}
                     <section className="w-full flex justify-center items-center gap-5">
 
-                        <figure className=" w-[30%] h-0 round  rounded-full overflow-hidden relative" style={{paddingTop: 'calc( 30% * (1/1))'}} >
+                        <figure ref={aboutMePic} className=" w-[30%] h-0 round duration-[1.5s] ease-in-out opacity-0 translate-x-[-30%]  rounded-full overflow-hidden relative" style={{paddingTop: 'calc( 30% * (1/1))'}} >
                             <img loading='lazy' src={jobProfil1} alt="" className=' object-cover absolute top-0 w-full h-full'  />
                         </figure>
 
@@ -461,7 +658,7 @@ export default function Acceuil () {
                     </section>
                     
                     {/* descriptif text  */}
-                    <p className=' font-openSansSemiBold text-[0.875rem] md:text-[0.875rem] text-start leading-[1.6rem] dark:text-gray-50 text-blackTheme '>
+                    <p ref={aboutMeText} className=' font-openSansSemiBold duration-[1.2s] ease-in-out opacity-0 translate-y-[10%] text-[0.875rem] md:text-[0.875rem] text-start leading-[1.6rem] dark:text-gray-50 text-blackTheme '>
                         {translation[lang].aboutME}
                     </p>
 
@@ -479,7 +676,7 @@ export default function Acceuil () {
             <section id='career' className='w-full pb-10 flex flex-col gap-14 '>
 
                 {/* title  */}
-                <div className='w-full flex flex-col gap-4 '>
+                <div ref={careerTitle} className='w-full duration-700 opacity-0 translate-y-[30%] flex flex-col gap-4 '>
                     <div className='w-full flex gap-3 items-center '>
                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 text-myRed">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
@@ -494,28 +691,28 @@ export default function Acceuil () {
                 <section className='w-full grid grid-cols-2 md:grid-rows-2  gap-2 justify-center items-center'>
                     
                     {/* satisfed clients  */}
-                    <div className=' w-full h-full justify-center items-center flex flex-col gap-3 px-2 py-8 sm:py-10  duration-150 rounded-lg dark:bg-gray-900 bg-gray-300 ' >
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className=" w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 dark:text-whiteTheme">
+                    <div ref={satisfedClient} className=' w-full duration-[1s] opacity-0 translate-x-[-30%] h-full justify-center items-center flex flex-col gap-3 px-2 py-8 sm:py-10 rounded-lg dark:bg-gray-950 bg-gray-300 ' >
+                        <svg   xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className=" w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 dark:text-whiteTheme">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
                         </svg>
 
-                        <h1 className='text-[1.2rem] md:text-[1.5rem] font-openSansBold text-myRed leading-5 md:leading-6'> {translation[lang].satisfedClients} </h1>
+                        <h1  ref={satisfedClientText} className='translate-y-[-50%] opacity-0 duration-[2.5s] text-[1.2rem] md:text-[1.5rem] font-openSansBold text-myRed leading-5 md:leading-6'> {translation[lang].satisfedClients} </h1>
 
                     </div>
 
                     {/* completed projects  */}
-                    <div className=' w-full h-full sm:col-start-2 justify-center items-center flex flex-col gap-3 px-2 py-8 sm:py-10  duration-150 rounded-lg dark:bg-gray-900 bg-gray-300 ' >
+                    <div ref={completProjects} className='duration-[1s] opacity-0 translate-x-[30%] w-full h-full sm:col-start-2 justify-center items-center flex flex-col gap-3 px-2 py-8 sm:py-10 rounded-lg dark:bg-gray-950 bg-gray-300 ' >
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 dark:text-whiteTheme">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" />
                         </svg>
 
 
-                        <h1 className='text-[1.2rem] md:text-[1.5rem] font-openSansBold text-myRed leading-5 md:leading-6'> {translation[lang].completsProjects} </h1>
+                        <h1 ref={completProjectsText} className='translate-y-[-50%] opacity-0 duration-[2.5s] text-[1.2rem] md:text-[1.5rem] font-openSansBold text-myRed leading-5 md:leading-6'> {translation[lang].completsProjects} </h1>
 
                     </div>
                     
                     {/* avis  */}
-                    <div className=' col-span-2 py-5  flex-col gap-3 md:col-span-1 md:row-span-2 relative md:row-start-1 md:row-end-3 w-full duration-150 items-center flex  rounded-lg dark:bg-gray-900 bg-gray-300 overflow-hidden ' >
+                    <div ref={avisSec} className='duration-[1s] opacity-0 translate-y-[10%] col-span-2 py-5  flex-col gap-3 md:col-span-1 md:row-span-2 relative md:row-start-1 md:row-end-3 w-full items-center flex  rounded-lg dark:bg-gray-950 bg-gray-300 overflow-hidden ' >
                         
                         <div className=' flex flex-col gap-3 items-center py-5 '>
                             
@@ -532,10 +729,10 @@ export default function Acceuil () {
 
                             <div ref={avisContainer}  className='flex avis h-full w-[95%] absolute top-0 gap-3 overflow-x-scroll rounded-lg md:py-0 items-center'>
                                 
-                                <img src={avis2} alt="avis" className='w-[100%] shadow-md object-cover h-[100%] md:h-[90%] rounded-md' style={{flex: 'inherit'}} />
-                                <img src={avis1} alt="avis" className='w-[100%] shadow-md object-cover h-[100%] md:h-[90%] rounded-md' style={{flex: 'inherit'}} />
-                                <img src={avis4} alt="avis" className='w-[100%] shadow-md object-cover h-[100%] md:h-[90%] rounded-md' style={{flex: 'inherit'}} />
-                                <img src={avis3} alt="avis" className='w-[100%] shadow-md object-cover h-[100%] md:h-[90%] rounded-md' style={{flex: 'inherit'}} />
+                                <img src={avis2} alt="avis" className='w-[100%] shadow-md duration-500 object-cover h-[100%] md:h-[90%] rounded-md' style={{flex: 'inherit'}} />
+                                <img src={avis1} alt="avis" className='w-[100%] shadow-md duration-500 object-cover h-[100%] md:h-[90%] rounded-md' style={{flex: 'inherit'}} />
+                                <img src={avis4} alt="avis" className='w-[100%] shadow-md duration-500 object-cover h-[100%] md:h-[90%] rounded-md' style={{flex: 'inherit'}} />
+                                <img src={avis3} alt="avis" className='w-[100%] shadow-md duration-500 object-cover h-[100%] md:h-[90%] rounded-md' style={{flex: 'inherit'}} />
                             </div>
                         </div>
 
@@ -545,10 +742,10 @@ export default function Acceuil () {
             </section>
 
             {/* services  */}
-            <section id='services' className='w-full pb-10 flex flex-col gap-14 relative'>
+            <section id='services' className=' w-full pb-10 flex flex-col gap-14 relative'>
 
                 {/* title  */}
-                <div className='w-full flex flex-col gap-4 '>
+                <div ref={serviceTitle} className='duration-[1s] translate-y-[20%] opacity-0 w-full flex flex-col gap-4 '>
                     <div className='w-full flex gap-3 items-center '>
                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 text-myRed">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
@@ -565,9 +762,9 @@ export default function Acceuil () {
                 <section className='w-full h-fit overflow-hidden relative'>
 
                     {/* the clipping image  */}
-                    <section className='w-full fullebDevSection pt-full sm:pt-[50%]  overflow-hidden' style={{clipPath: "polygon(0% 100%, 0% 0%, 100% 100% )"}}  >
+                    <section className='w-full h-0 webDevSection pt-[100%] sm:pt-[50%]  overflow-hidden' style={{clipPath: "polygon(0% 100%, 0% 0%, 100% 100% )"}}  >
 
-                        <img loading='lazy' src={webDev} alt="imge about web dev" className='w-full h-full absolute top-0 object-cover object-left-bottom rounded-xl' />
+                        <img ref={serviceImage} loading='lazy' src={webDev} alt="imge about web dev" className='w-full h-full duration-[1s] translate-x-[-10%] opacity-0 absolute top-0 object-cover object-left-bottom rounded-xl' />
                     </section>
 
                     {/* set the border color  */}
@@ -576,7 +773,7 @@ export default function Acceuil () {
                     </div>
 
                     {/* the text in the image  */}
-                    <section className='absolute h-full w-full top-0 right-0 rounded-xl  flex flex-col gap-5 sm:gap-6 md:gap-7 lg:gap-8 dark:bg-opacity-10 dark:bg-gray-100 bg-gray-500 bg-opacity-10 py-4 px-5 sm:py-6 sm:px-8 md:py-10 md:px-14 lg:px-14 lg:py-14 items-end' style={{clipPath: "polygon(100% 100%, 0% 0%, 100% 0% )"}}>
+                    <section ref={serviceTitle2} className='absolute duration-[1.5s] translate-x-[10%] opacity-0 h-full w-full top-0 right-0 rounded-xl  flex flex-col gap-5 sm:gap-6 md:gap-7 lg:gap-8 dark:bg-opacity-10 dark:bg-gray-100 bg-gray-500 bg-opacity-10 py-4 px-5 sm:py-6 sm:px-8 md:py-10 md:px-14 lg:px-14 lg:py-14 items-end' style={{clipPath: "polygon(100% 100%, 0% 0%, 100% 0% )"}}>
 
                         <h1 className='text-blackTheme dark:text-whiteTheme text-[1.2rem] md:text-[1.5rem] font-openSansBold leading-5 md:leading-6' >Web Developpement</h1>
 
@@ -588,24 +785,24 @@ export default function Acceuil () {
                 </section>
 
                 {/* moddle text, explaining offered services  */}
-                <section className='w-full flex flex-col mt-5 justify-center items-center relative'>
+                <section ref={moddleTextService} className='w-full duration-[1s] translate-y-[10%] opacity-0 flex flex-col mt-5 justify-center items-center relative'>
                     
                     <figure className='w-full h-full -top-5 absolute flex justify-between px-[10%] md:px-[18%] lg:px-[22%]'>
 
-                        <svg onClick={() => handleServicesDetails('frontEnd')} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={` ${servicesDetails.frontEnd ? 'dark:text-white text-gray-900 scale-[1.35]' : 'dark:text-gray-300 text-gray-700 bg-opacity-60'} dark:bg-gray-900 bg-gray-100 w-10 h-10  rounded-full p-2 cursor-pointer duration-200 hover:bg-opacity-100`}>
+                        <svg onClick={() => handleServicesDetails('frontEnd')} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={` ${servicesDetails.frontEnd ? 'dark:text-white text-gray-900 scale-[1.35]' : 'dark:text-gray-300 text-gray-700 bg-opacity-60'} dark:bg-gray-950 bg-gray-100 w-10 h-10  rounded-full p-2 cursor-pointer duration-200 hover:bg-opacity-100`}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25m18 0A2.25 2.25 0 0 0 18.75 3H5.25A2.25 2.25 0 0 0 3 5.25m18 0V12a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 12V5.25" />
                         </svg>
 
-                        <svg onClick={() => handleServicesDetails('backEnd')} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={` ${servicesDetails.backEnd ? 'dark:text-white text-gray-900 scale-[1.35]' : 'dark:text-gray-300 text-gray-700 bg-opacity-60'} dark:bg-gray-900 bg-gray-100 w-10 h-10 rounded-full p-2 cursor-pointer duration-200 hover:bg-opacity-100`}>
+                        <svg onClick={() => handleServicesDetails('backEnd')} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={` ${servicesDetails.backEnd ? 'dark:text-white text-gray-900 scale-[1.35]' : 'dark:text-gray-300 text-gray-700 bg-opacity-60'} dark:bg-gray-950 bg-gray-100 w-10 h-10 rounded-full p-2 cursor-pointer duration-200 hover:bg-opacity-100`}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 14.25h13.5m-13.5 0a3 3 0 0 1-3-3m3 3a3 3 0 1 0 0 6h13.5a3 3 0 1 0 0-6m-16.5-3a3 3 0 0 1 3-3h13.5a3 3 0 0 1 3 3m-19.5 0a4.5 4.5 0 0 1 .9-2.7L5.737 5.1a3.375 3.375 0 0 1 2.7-1.35h7.126c1.062 0 2.062.5 2.7 1.35l2.587 3.45a4.5 4.5 0 0 1 .9 2.7m0 0a3 3 0 0 1-3 3m0 3h.008v.008h-.008v-.008Zm0-6h.008v.008h-.008v-.008Zm-3 6h.008v.008h-.008v-.008Zm0-6h.008v.008h-.008v-.008Z" />
                         </svg>
 
-                        <svg onClick={() => handleServicesDetails('dbManagement')} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={` ${servicesDetails.dbManagement ? 'dark:text-white text-gray-900 scale-[1.35]' : 'dark:text-gray-300 text-gray-700 bg-opacity-60'} dark:bg-gray-900 bg-gray-100 w-10 h-10 rounded-full p-2 cursor-pointer duration-200 hover:bg-opacity-100`}>
+                        <svg onClick={() => handleServicesDetails('dbManagement')} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={` ${servicesDetails.dbManagement ? 'dark:text-white text-gray-900 scale-[1.35]' : 'dark:text-gray-300 text-gray-700 bg-opacity-60'} dark:bg-gray-950 bg-gray-100 w-10 h-10 rounded-full p-2 cursor-pointer duration-200 hover:bg-opacity-100`}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
                         </svg>
 
 
-                        <svg onClick={() => handleServicesDetails('andMore')} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={` ${servicesDetails.andMore ? 'dark:text-white text-gray-900 scale-[1.35]' : 'dark:text-gray-300 text-gray-700 bg-opacity-60'} dark:bg-gray-900 bg-gray-100 w-10 h-10 rounded-full p-2 cursor-pointer duration-200 hover:bg-opacity-100`}>
+                        <svg onClick={() => handleServicesDetails('andMore')} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={` ${servicesDetails.andMore ? 'dark:text-white text-gray-900 scale-[1.35]' : 'dark:text-gray-300 text-gray-700 bg-opacity-60'} dark:bg-gray-950 bg-gray-100 w-10 h-10 rounded-full p-2 cursor-pointer duration-200 hover:bg-opacity-100`}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                         </svg>
 
@@ -614,34 +811,34 @@ export default function Acceuil () {
 
                     <figcaption className='w-full h-[19rem] pt-5 dark:bg-whiteTheme bg-blackTheme px-5 sm:px-[5%] md:px-[10%] lg:px-[14%] flex flex-col items-center overflow-hidden  rounded-xl ' style={{flex: '1 0 auto'}}>
 
-                        <div className={`h-full w-full duration-300 gap-5 justify-center flex flex-col items-center ${ servicesDetails.frontEnd ? 'translate-y-[0%]' : "translate-y-[200%]"} `} style={{flex: 'inherit'}}>
+                        <div className={`h-full w-full duration-700 gap-5 justify-center flex flex-col items-center ${ servicesDetails.frontEnd ? 'translate-y-[0%] opacity-100'  : "translate-y-[200%] opacity-0"} `} style={{flex: 'inherit'}}>
 
                             <h4 className='font-openSansSemiBold text-[0.875rem] dark:text-gray-900 text-gray-100 '> Front-end</h4>
                             <p className=' font-openSansMedium text-[0.875rem] dark:text-gray-800 text-gray-100 sm:w-full md:w-[80%] lg:w-[70%] xl:w-[60%] leading-6'>{translation[lang].frontEndDetails}</p>
-                            <Link className=' border-myRed border px-4 py-[6px] font-openSansSemiBold text-[0.8rem] hover:bg-myRed hover:bg-opacity-20 duration-200 rounded-2xl text-white dark:text-black '>{translation[lang].interessed}</Link>
+                            <Link className={` ${servicesDetails.frontEnd ? 'translate-y-0 opacity-100' : 'translate-y-32 opacity-0'} duration-[1.2s] border-myRed border px-4 py-[6px] font-openSansSemiBold text-[0.8rem] hover:bg-myRed hover:bg-opacity-20 rounded-2xl text-white dark:text-black `}>{translation[lang].interessed}</Link>
 
                         </div>
 
-                        <div className={`h-full w-full duration-300 gap-5 justify-center flex flex-col items-center ${ servicesDetails.backEnd ? 'translate-y-[-100%]' : "translate-y-[100%]"} `} style={{flex: 'inherit'}}>
+                        <div className={`h-full w-full duration-700 gap-5 justify-center flex flex-col items-center ${ servicesDetails.backEnd ? 'translate-y-[-100%]  opacity-100' : "translate-y-[100%] opacity-0"} `} style={{flex: 'inherit'}}>
 
                             <h4 className='font-openSansSemiBold text-[0.875rem] dark:text-gray-900 text-gray-100 '> Back-end</h4>
                             <p className=' font-openSansMedium text-[0.875rem] dark:text-gray-800 text-gray-100 sm:w-full md:w-[80%] lg:w-[70%] xl:w-[60%] leading-6'>{translation[lang].backEndDetails}</p>
-                            <Link className=' border-myRed border px-4 py-[6px] font-openSansSemiBold text-[0.8rem] hover:bg-myRed hover:bg-opacity-20 duration-200 rounded-2xl text-white dark:text-black '>{translation[lang].interessed}</Link>
+                            <Link className={` ${servicesDetails.backEnd ? 'translate-y-0 opacity-100' : 'translate-y-32 opacity-0'} duration-[1.2s] border-myRed border px-4 py-[6px] font-openSansSemiBold text-[0.8rem] hover:bg-myRed hover:bg-opacity-20 rounded-2xl text-white dark:text-black `}>{translation[lang].interessed}</Link>
                         </div>
 
 
-                        <div className={`h-full w-full duration-300 gap-5 justify-center flex flex-col items-center ${ servicesDetails.dbManagement ? 'translate-y-[-200%]' : "translate-y-[0%]"}`} style={{flex: 'inherit'}}>
+                        <div className={`h-full w-full duration-700 gap-5 justify-center flex flex-col items-center ${ servicesDetails.dbManagement ? 'translate-y-[-200%]  opacity-100' : "translate-y-[0%] opacity-0"}`} style={{flex: 'inherit'}}>
 
                             <h4 className='font-openSansSemiBold text-[0.875rem] dark:text-gray-900 text-gray-100 '> {translation[lang].dataBaseTitle}</h4>
                             <p className=' font-openSansMedium text-[0.875rem] dark:text-gray-800 text-gray-100 sm:w-full md:w-[80%] lg:w-[70%] xl:w-[60%] leading-6'>{translation[lang].dataBaseDetails}</p>
-                            <Link className=' border-myRed border px-4 py-[6px] font-openSansSemiBold text-[0.8rem] hover:bg-myRed hover:bg-opacity-20 duration-200 rounded-2xl text-white dark:text-black '>{translation[lang].interessed}</Link>
+                            <Link className={` ${servicesDetails.dbManagement ? 'translate-y-0 opacity-100' : 'translate-y-32 opacity-0'} duration-[1.2s] border-myRed border px-4 py-[6px] font-openSansSemiBold text-[0.8rem] hover:bg-myRed hover:bg-opacity-20 rounded-2xl text-white dark:text-black `}>{translation[lang].interessed}</Link>
                         </div>
 
-                        <div className={`h-full w-full duration-300 gap-5 justify-center flex flex-col items-center ${ servicesDetails.andMore ? 'translate-y-[-300%]' : "translate-y-[-100%]"}`} style={{flex: 'inherit'}}>
+                        <div className={`h-full w-full duration-700 gap-5 justify-center flex flex-col items-center ${ servicesDetails.andMore ? 'translate-y-[-300%]  opacity-100' : "translate-y-[-100%] opacity-0"}`} style={{flex: 'inherit'}}>
 
                             <h4 className='font-openSansSemiBold text-[0.875rem] dark:text-gray-900 text-gray-100 '> Maintenance</h4>
                             <p className=' font-openSansMedium text-[0.875rem] dark:text-gray-800 text-gray-100 sm:w-full md:w-[80%] lg:w-[70%] xl:w-[60%] leading-6'>{translation[lang].andMore}</p>
-                            <Link className=' border-myRed border px-4 py-[6px] font-openSansSemiBold text-[0.8rem] hover:bg-myRed hover:bg-opacity-20 duration-200 rounded-2xl text-white dark:text-black '>{translation[lang].interessed}</Link>
+                            <Link className={` ${servicesDetails.andMore ? 'translate-y-0 opacity-100' : 'translate-y-32 opacity-0'} duration-[1.2s] border-myRed border px-4 py-[6px] font-openSansSemiBold text-[0.8rem] hover:bg-myRed hover:bg-opacity-20 rounded-2xl text-white dark:text-black `}>{translation[lang].interessed}</Link>
 
                         </div>
 
@@ -654,7 +851,7 @@ export default function Acceuil () {
             <section id='projets' className='w-full pb-10 flex flex-col gap-14'>
 
                  {/* title  */}
-                <div className='w-full flex flex-col gap-4 '>
+                <div ref={projetTitle} className='w-full duration-[1s] translate-y-[30%] opacity-0 flex flex-col gap-4 '>
                     <div className='w-full flex gap-3 items-center '>
                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 text-myRed">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 0 0 .75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 0 0-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0 1 12 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 0 1-.673-.38m0 0A2.18 2.18 0 0 1 3 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 0 1 3.413-.387m7.5 0V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25v.894m7.5 0a48.667 48.667 0 0 0-7.5 0M12 12.75h.008v.008H12v-.008Z" />
@@ -666,7 +863,7 @@ export default function Acceuil () {
                     <div className=' flex justify-between items-center'>
                         <h1 className='text-left text-[2rem] sm:text-[2.5rem] md:text-[2.8rem] font-openSansBold dark:text-gray-50 text-gray-800'>{translation[lang].projectTitle} </h1>
 
-                        <Link to='/projects' className=' flex items-center hover:text-blue-500 duration-200 py-[2px] font-openSansSemiBold text-[0.875rem] rounded-2xl dark:text-whiteTheme text-blackTheme '>{translation[lang].allProjects} <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-myRed font-openSansBold">
+                        <Link ref={projetTitleLink}  to='/projects' className='duration-[1.5s] translate-x-[20%] opacity-0 flex items-center hover:text-blue-500 py-[2px] font-openSansSemiBold text-[0.875rem] rounded-2xl dark:text-whiteTheme text-blackTheme '>{translation[lang].allProjects} <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-myRed font-openSansBold">
                         <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
                         </svg>
                         </Link>
@@ -675,7 +872,7 @@ export default function Acceuil () {
                 </div>
 
                 {/* some project  */}
-                <section className='w-full flex gap-10 items-center relative'>
+                <section ref={projectSection} className='w-full duration-[1s] opacity-0 translate-y-[15%] flex gap-10 items-center relative'>
                     
                     <div ref={projectContainer}  className = 'w-full flex flex-row gap-8 overflow-x-scroll projectContainer sm:px-5'>
                         {displayedProjets}
@@ -709,7 +906,7 @@ export default function Acceuil () {
             <section id='whyChooseUs' className=' w-full pb-10 flex flex-col gap-14'>
 
                 {/* title  */}
-                <div className='w-full flex flex-col gap-4 '>
+                <div ref={whyUsTitle} className='w-full duration-[1s] translate-y-[30%] opacity-0 flex flex-col gap-4 '>
                     <div className='w-full flex gap-3 items-center '>
                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 text-myRed">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
@@ -725,10 +922,11 @@ export default function Acceuil () {
 
                 <section className=' grid grid-cols-1 sm:grid-cols-2 justify-between items-center gap-x-5 gap-y-10'>
 
+                    {/* confidentiality */}
                     <div className='w-full justify-center items-start flex flex-row gap-3'>
 
                         <div className='flex w-[30%] h-auto items-center justify-center'>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-[65%] h-[65%] text-myRed ">
+                            <svg ref={confidentiality1} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className=" duration-[1s] translate-x-[-20%] opacity-0 w-[65%] h-[65%] text-myRed ">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
                             </svg>
                         </div>
@@ -736,13 +934,13 @@ export default function Acceuil () {
 
                         <div className='flex w-full justify-start flex-col h-24 gap-1 '>
 
-                            <div className='w-full flex '>
-                                <div className='flex w-[50%]  h-[2px] dark:bg-whiteTheme bg-blackTheme'>
+                            <div  className='w-full flex '>
+                                <div  className='flex w-[50%] h-[2px] dark:bg-whiteTheme bg-blackTheme'>
                                     
                                 </div>
                             </div>
 
-                            <p className='font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-full500 text-left w-full'>{translation[lang].confidentiality} </p>
+                            <p ref={confidentiality3} className='font-openSansSemiBold duration-[1.2s] translate-x-[20%] opacity-0 text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-full500 text-left w-full'>{translation[lang].confidentiality} </p>
                         </div>
 
                     </div>
@@ -750,7 +948,7 @@ export default function Acceuil () {
                     <div className='w-full justify-center items-start flex flex-row gap-3'>
 
                         <div className='flex w-[30%] h-auto items-center justify-center'>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-[65%] h-[65%] text-myRed ">
+                            <svg ref={confidentiality4} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="duration-[1s] translate-x-[20%] opacity-0 w-[65%] h-[65%] text-myRed ">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
                             </svg>
                         </div>
@@ -764,7 +962,7 @@ export default function Acceuil () {
                                 </div>
                             </div>
 
-                            <p className='font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] line-clamp-2 dark:text-gray-400 text-full500 text-left w-full'> {translation[lang].adaptability} </p>
+                            <p ref={confidentiality5} className='duration-[1.2s] translate-x-[-20%] opacity-0 font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] line-clamp-2 dark:text-gray-400 text-full500 text-left w-full'> {translation[lang].adaptability} </p>
                         </div>
 
                     </div>
@@ -773,7 +971,7 @@ export default function Acceuil () {
                     <div className='w-full justify-center items-start flex flex-row gap-3'>
 
                         <div className='flex w-[30%] h-auto items-center justify-center'>
-                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-[65%] h-[65%] text-myRed ">
+                             <svg ref={confidentiality6} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="duration-[1s] translate-x-[20%] opacity-0 w-[65%] h-[65%] text-myRed ">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5" />
                             </svg>
                         </div>
@@ -787,7 +985,7 @@ export default function Acceuil () {
                                 </div>
                             </div>
 
-                            <p className='font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-full500 text-left w-full'>{translation[lang].updating}</p>
+                            <p ref={confidentiality7} className='duration-[1.2s] translate-x-[-20%] opacity-0 font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-full500 text-left w-full'>{translation[lang].updating}</p>
                         </div>
 
                     </div>
@@ -796,7 +994,7 @@ export default function Acceuil () {
                     <div className='w-full justify-center items-start flex flex-row gap-3'>
 
                         <div className='flex w-[30%] h-auto items-center justify-center'>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-[65%] h-[65%] text-myRed">
+                            <svg ref={confidentiality8} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="duration-[1s] translate-x-[20%] opacity-0 w-[65%] h-[65%] text-myRed">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
                             </svg>
                         </div>
@@ -810,7 +1008,7 @@ export default function Acceuil () {
                                 </div>
                             </div>
 
-                            <p className='font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-full500 text-left w-full'> {translation[lang].scalable} </p>
+                            <p ref={confidentiality9} className='duration-[1.2s] translate-x-[-20%] opacity-0 font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-full500 text-left w-full'> {translation[lang].scalable} </p>
                         </div>
 
                     </div>
@@ -823,7 +1021,7 @@ export default function Acceuil () {
             <section id='questions' className='w-full pb-10 flex flex-col gap-14'>
                 
                 {/* title  */}
-                <div className='w-full flex flex-col gap-4 '>
+                <div ref={Fquestions} className='w-full duration-[1s] translate-y-[30%] opacity-0 flex flex-col gap-4 '>
                     <div className='w-full flex gap-3 items-center '>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 text-myRed">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
@@ -835,7 +1033,7 @@ export default function Acceuil () {
                     <h1 className='text-left text-[2rem] sm:text-[2.5rem] md:text-[2.8rem] font-openSansBold dark:text-gray-50 text-gray-800'> {translation[lang].questionsTitles} ?</h1>
                 </div> 
 
-                <section className='flex flex-col w-full justify-center items-center gap-10'>
+                <section ref={myQuestions} className='flex flex-col duration-[1.4s] translate-y-[15%] w-full justify-center items-center gap-10'>
 
                     <QuestionResponseToggleText 
                         question={translation[lang].howWeProceed}
@@ -861,10 +1059,6 @@ export default function Acceuil () {
                         value = 'c'
                         toggledValue={toggleText.c}
                     />
-
-
-
-
                 </section>
             </section>
 
