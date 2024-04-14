@@ -35,6 +35,10 @@ function Projects ({image, text, link, title, linkContent}) {
     );
 }
 
+
+
+
+//for project party
 function ProjectDetails ({image, title, details, active}) {
 
     const {lang} = useLangContext();
@@ -45,7 +49,7 @@ function ProjectDetails ({image, title, details, active}) {
 
             <h1 className='font-openSansBold text-[1rem] dark:text-whiteTheme text-blackTheme text-left'>{title[lang]}</h1>
 
-            <div className=' relative w-full h-0 pt-[120%] xl:pt-[100%] rounded-xl'>
+            <div className=' relative w-full h-0 pt-[120%] xl:pt-[100%] rounded-md'>
 
                 {image}
 
@@ -206,8 +210,8 @@ export function ProjetDetailsContainer ({projet: {name, data, fonction, status, 
                 </div>
 
                 {/* div to display or hide text details  */}
-                <div onClick={handleDetailFocusingProjet} className='md:w-[28px] z-40 active:bg-gray-200 absolute bottom-3 right-2 hover:bg-slate-50 hover:bg-opacity-40 md:h-[28px] w-[25px] h-[25px] bg-gray-600 bg-opacity-70 items-center justify-center rounded-full  duration-200 cursor-pointer  border border-gray-600 flex'>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-20 h-20 text-white duration-200 ${showProjectsDetails[`${indexOnScroll}`] ? ' rotate-180' : ' rotate-0' }`}>
+                <div onClick={handleDetailFocusingProjet} className='md:w-[28px] z-40 active:bg-gray-200 absolute bottom-3 right-2 hover:bg-slate-50 hover:bg-opacity-40 md:h-[28px] w-[25px] h-[25px] bg-gray-900 bg-opacity-80 items-center justify-center rounded-full  duration-200 cursor-pointer  border border-gray-600 flex'>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={`w-fit h-fit text-white duration-200 ${showProjectsDetails[`${indexOnScroll}`] ? ' rotate-180' : ' rotate-0' }`}>
                         <path strokeLinecap="round" strokeLinejoin="round" d="m4.5 15.75 7.5-7.5 7.5 7.5" />
                     </svg>
                 </div>

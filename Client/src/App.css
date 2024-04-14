@@ -20,6 +20,12 @@
   flex: 1 0 100%
 }
 
+.avis {
+  scrollbar-width: none !important;
+  scroll-snap-type: x mandatory;
+  flex: 1 0 80%;
+}
+
 @media (min-width: 740px) {
   
   .projectContainer {
@@ -34,11 +40,11 @@
   }
 }
 
-.projectContainer::-webkit-scrollbar, #projetDetailsContainer::-webkit-scrollbar {
+.projectContainer::-webkit-scrollbar, #projetDetailsContainer::-webkit-scrollbar, .avis::-webkit-scrollbar {
   display: none !important;
 
 }
 
-.projectContainer > div, #projetDetailsContainer > div {
+.projectContainer > div, #projetDetailsContainer > div, .avis > img {
   scroll-snap-align: start;
 }

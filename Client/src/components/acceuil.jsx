@@ -1,15 +1,20 @@
 /* eslint-disable react/no-unescaped-entities */
 import jobProfil1 from '../assets/home/jobProfil1.png'
+import avis1 from '../assets/home/avis1.jpg'
+import avis2 from '../assets/home/avis2.jpg'
+import avis3 from '../assets/home/avis3.jpg'
+import avis4 from '../assets/home/avis4.jpg'
 import webDev from '../assets/home/webDev.png'
 import { useLangContext } from '../changeLang';
 import { Link } from 'react-router-dom';
 import SkillsAndTech from './utils/skillsAndTechComp';
 import Projects from './utils/projects';
 import QuestionResponseToggleText from './utils/questionsComp';
-import _1DegoBar from '../assets/projets/degoBar/_1.png';
-import accueil_phone from '../assets/projets/BarakaCreation/accueil_phone.jpg'
+import _1DegoBar from '../assets/projets/degoBar/_1.jpg';
+import accueil_phone from '../assets/projets/BarakaCreation/accueil_phone.jpg';
+import useIntersection from './utils/annimatorOnScroll'
 
-import { useEffect, useRef, useState } from 'react';
+import { StrictMode, useEffect, useRef, useState } from 'react';
 import AsideBar from '../asideBar';
 
 export default function Acceuil () {
@@ -22,7 +27,7 @@ export default function Acceuil () {
         frontEnd: true,
         backEnd: false,
         dbManagement: false,
-        maintenance: false
+        andMore: false
     });
 
     //moddle text in service section (states)
@@ -30,7 +35,7 @@ export default function Acceuil () {
         frontEnd: false,
         backEnd: false,
         dbManagement: false,
-        maintenance: false
+        andMore: false
     }
 
     const handleServicesDetails = (name) => {
@@ -44,8 +49,7 @@ export default function Acceuil () {
         en: {
             welcomeText: <span>A <br /><span className=' text-myRed'>Real</span> <br /> Dream</span>,
             welcomeName: <span>Hey! I&apos;m Job Junior a <span className='text-myRed'>Full-stack</span> developper</span>,
-            aboutME: <span> Briging ideas to life, skilled in <Link className=' underline hover:text-blue-500 duration-200 '>Front-end</Link> & <Link className=' underline hover:text-blue-500 duration-200 '>Back-end</Link> developpement, using MERN (MongoDB, ExpressJs, ReactJS, NodeJS) technologies we build
-            mordern and functionnal applications crafting user-friendly interfaces and robust back-ends according to your demands. <br /> <Link className=' underline duration-200 flex items-end gap-1 text-blue-500 hover:text-blue-300'>Read more </Link>
+            aboutME: <span> Passionate and experienced Full Stack Developer transforming your ideas into high-performing and intuitive web applications. Utilizing MERN stack (MongoDB, Express, ReactJS, NodeJS), I partner with you from concept to launch to create custom solutions that meet your specific needs. <br /> <Link className=' underline duration-200 flex items-end gap-1 text-blue-500 hover:text-blue-300'>Read more </Link>
             </span>,
             getInText: 'Get in touch',
             skills: <span>Skills <span className='dark:text-gray-500 text-gray-400'> & </span> Tech.</span>,
@@ -58,12 +62,12 @@ export default function Acceuil () {
             servicesDetails: "What kind of service do you want ?",
             ourServices: "Our services",
             interessed: "Interested",
-            interessedDetails: <span>Front-end<span className='text-myRed'> |</span> Back-end <br /><span className='text-myRed'> |</span> DB-Management <br className='sm:hidden'/> <span className='text-myRed'> |</span> Maintenance</span>,
+            interessedDetails: <span>Front-end<span className='text-myRed'> |</span> Back-end <br /><span className='text-myRed'> |</span> DB-Management <br className='sm:hidden'/> <span className='text-myRed'> |</span> and more</span>,
             frontEndDetails: "We put our years of experience at your disposition to develop the front-end of your application ( the visible part to the customers and the possible interactions) with the latest technologies to give you a better and modern service",
             backEndDetails: "We put our years of experience at your disposition to develop the back-end of your application ( the invvisible part to the customers and their data) with the latest technologies to give you a better and modern service",
             dataBaseTitle: "Data Base",
             dataBaseDetails: "We ensure the implementation of database management systems for your company, business by make easy their handling and accessibility for a fast and efficient operation for your application",
-            maintenanceDetails: "By being professional, we offer you our services for the maintenance of your application dosen't matter if it on backend or frontend; we ensure his upadate with the latest available technologies in time",
+            andMore: "By being professional, we offer you our services for the maintenance of your application dosen't matter if it on backend or frontend; we ensure his upadate with the latest available technologies in time...",
             projectTitle: "Projects",
             projectDetails: "Be dazzled by our projects",
             SeeMore: "See more",
@@ -133,15 +137,15 @@ export default function Acceuil () {
 
                 6. <span className=' font-openSansSemiBold'>Review and Learn</span>: Finally, I'll review what went wrong and how I solved it. This helps me learn from the experience and become a better developer. <br /> <br />
 
-            </span>
+            </span>,
+            comment: 'Comments'
 
         },
 
         fr: {
             welcomeText: <span>Un <br /> <span className='text-myRed'>Rêve</span> <br /> Véritable</span>,
             welcomeName: <span>Hey! je suis Job Junior un developpeur <span className='text-myRed'>Full-stack</span></span>,
-            aboutME: <span> Amenant les idées à la vie, talantueux en développement <Link className=' underline hover:text-blue-500 duration-200 '>Front-end</Link> & <Link className=' underline hover:text-blue-500 duration-200 '>Back-end</Link> , utilisant les téchnologies MERN (MongoDB, ExpressJs, ReactJS, NodeJS) nous bâtissons
-                des applications fonctionnelles et mordernes contruisant des interfaces utilisateur amicales et des back-ends robutes accorder à vos demandes. <Link className=' underline flex items-end gap-1 text-blue-500 hover:text-blue-300 duration-200'>Lire plus </Link>
+            aboutME: <span> Développeur full stack passionné et expérimenté, je transforme vos idées en applications web performantes et intuitives, en utilisant les technologies MERN (MongoDB, Express, ReactJS, NodeJS). De la conception à la mise en ligne, je suis votre partenaire pour créer des solutions sur mesure qui répondent à vos besoins spécifiques. <Link className=' underline flex items-end gap-1 text-blue-500 hover:text-blue-300 duration-200'>Lire plus </Link>
             </span>,
             getInText: 'Contactez-moi',
             skills: <span>Compétances <span className='dark:text-gray-500 text-gray-400'> & </span> <br className='sm:hidden' /> Tech.</span>,
@@ -154,12 +158,12 @@ export default function Acceuil () {
             servicesDetails: "Quel genre de service voulez-vous ?",
             ourServices: "Nos services",
             interessed: "Interessé",
-            interessedDetails: <span>Front-end<span className='text-myRed'> |</span> Back-end <br /><span className='text-myRed'> |</span> Management-BD <br className='sm:hidden'/> <span className='text-myRed'> |</span> Maintenance</span>,
+            interessedDetails: <span>Front-end<span className='text-myRed'> |</span> Back-end <br /><span className='text-myRed'> |</span> Management-BD <br className='sm:hidden'/> <span className='text-myRed'> |</span> et plus</span>,
             frontEndDetails: "Nous mettons à votre disposition nos années d'expérience pour devellopper le front-end de votre application (la partie visible par les clients et les intéraction possible) avec les dernières téchnologies pour vous permetre un meilleur service et morderne",
             backEndDetails: "Nous mettons à votre disposition nos années d'expérience pour devellopper le back-end de votre application (la partie invisible par les clients et leurs données) avec les dernières téchnologies pour vous permetre un meilleur service et morderne",
             dataBaseTitle: "Base des données",
             dataBaseDetails: "Nous assurons la mise en place des systèmes de gestion de base des données pour votre entreprise, busness en facilitant leurs manipulation et leur accessibilité pour un fonctionnement rapide et efficace de votre entreprise ou busness",
-            maintenanceDetails: "Tout en étant professionnel, nous vous offrons nos services pour le maintient de votre application que cela puisse etre du coté front-end ou back-end; nous assurons sa mise à jour de l'époque avec les dernière téchnologies",
+            andMore: "Tout en étant professionnel, nous vous offrons nos services pour le maintient de votre application que cela puisse etre du coté front-end ou back-end; nous assurons sa mise à jour de l'époque avec les dernière téchnologies...",
             projectTitle: "Projets",
             projectDetails: "Soyez ébloui par nos projets",
             SeeMore: "Voir plus",
@@ -227,7 +231,8 @@ export default function Acceuil () {
 
                 6. <span className=' font-openSansSemiBold '>Revoir et Apprendre</span> : Enfin, je reverrai ce qui a mal tourné et comment je l'ai résolu. Cela m'aide à apprendre de l'expérience et à devenir un meilleur développeur. <br /> <br />
 
-            </span>
+            </span>,
+            comment: 'Commentaires'
 
 
         }
@@ -236,11 +241,11 @@ export default function Acceuil () {
     /////////////////data projects//////////////////////////////////
     const projets = [
         {
-            image: <img loading='lazy' src={_1DegoBar} alt="image of degoBar project" className='h-full w-full object-cover rounded-xl' />,
+            image: <img loading='lazy' src={_1DegoBar} alt="image of degoBar project" className='h-full w-full object-cover rounded-md' />,
             title: "Dego Bar",
             text: {
-                fr: "Fr a management application, this project was building at the start to deployement by myself. My contribution was to design....",
-                en: "En a management application, this project was building at the start to deployement by myself. My contribution was to design...."
+                fr: "Nous avons aidé le bar Dego Bar à créer une application de gestion pour alléger certaines taches aux gestionnaires. Notre mission aura été de faire le design de l'application et de le coder du front-end au back-end, le backend etant plus prioritiser nous avons choisi MongoDb comme base des données et NodeJs comme runtime de notre serveur ",
+                en: "We helped Dego Bar bar to create a management application to alleviate some of the tasks for managers. Our mission was to design and code the application from front-end to back-end, the back-end being more of priority, we choose MongoDb as database and NodeJs as the runtime of our server. "
             },
             linkContent: translation[lang].SeeMore,
             link: '/projects#Dego_Bar',
@@ -249,7 +254,7 @@ export default function Acceuil () {
 
 
         {
-            image: <img loading='lazy' src={accueil_phone} alt="image of degoBar project" className='h-full w-full object-cover object-center rounded-xl' />,
+            image: <img loading='lazy' src={accueil_phone} alt="image of degoBar project" className='h-full w-full object-cover object-center rounded-md' />,
             title: "Baraka Creation",
             text: {
                 fr: "Nous avons aidé l'entreprise Baraka Creation avec une visibilité sur la toile internet avec une application web professionnelle. L'adaptabilité à travers tous les appareils a été au centre du développement de cette application, ma contribution aura été de coder toute la partie front-end, le design étant fait par l'entreprise Baraka Creation.",
@@ -280,8 +285,7 @@ export default function Acceuil () {
         
         //update the scrollLeft of the div to show the next image
         // it take the offsetWidth and multiply it by the indexSroll 
-        projectContainer.current.style.scrollBehavior = 'smooth';
-        projectContainer.current.scrollLeft = projectContainer.current.offsetWidth * indexOnScroll;
+        projectContainer.current.scrollTo({ left: projectContainer.current.offsetWidth * indexOnScroll, behavior: 'smooth' });
     
     }
 
@@ -347,13 +351,29 @@ export default function Acceuil () {
     ]
 
     const mainA = useRef(null);
+    const reveRef = useRef(null);
+
 
     ////////follow the active section//////////////////////////////
     const handleScroll = () => {
-
+        
         const sections = mainA.current.querySelectorAll('section[id]');
-
+        
         const scrollY = window.scrollY;
+
+        // console.log (scrollY > reveRef.current.offsetTop - 100 && scrollY <= reveRef.current.offsetTop - 100 + reveRef.current.offsetHeight);
+        if (scrollY > reveRef.current.offsetTop - 100 && scrollY <= reveRef.current.offsetTop - 100 + reveRef.current.offsetHeight) {
+            reveRef.current.classList.add ('translate-x-[0%]');
+            reveRef.current.classList.remove('translate-x-[-50%]')
+            reveRef.current.classList.add ('opacity-100');
+
+        } else {
+            reveRef.current.classList.remove ('translate-x-[0%]');
+            reveRef.current.classList.add('translate-x-[-50%]')
+            reveRef.current.classList.remove ('opacity-100');
+        }
+
+
         sections.forEach (child => {
             const sectionHeight = child.offsetHeight;
             const sectionTop = child.offsetTop - 50;
@@ -375,11 +395,40 @@ export default function Acceuil () {
 
         return () => window.removeEventListener('scroll', handleScroll);
     }, []);
+    
+
+
+
+    var avisContainer = useRef(null);
+    //scroll avis container
+    useEffect (() => {
+
+        const avis = avisContainer.current;
+        
+        const scrollLeftAvis = () => {
+    
+            if (avis) {
+
+                if ((avis.scrollLeft / avis.offsetWidth).toFixed(3) >= 2.1) {
+    
+                    avis.scrollTo({left: 0, behavior: 'smooth'})
+                } else {
+                    
+                    avis.scrollTo({left: avis.offsetWidth + avis.scrollLeft, behavior: 'smooth' });
+                }
+            }
+        };
+
+        const interval = setInterval(() => scrollLeftAvis(), 3000);
+
+
+        return () => clearInterval(interval);
+    });
 
 
 
     return (
-        <main ref={mainA} id='mainHome' className=" w-full px-[5%] xl:px-[14%]  py-10 sm:py-14 gap-20 md:gap-28 relative flex flex-col sm:gap-20">
+        <main ref={mainA} id='mainHome' className=" w-full  px-[5%] xl:px-[14%]  py-10 sm:py-14 gap-20 md:gap-28 relative flex flex-col sm:gap-20">
 
             <AsideBar links={navLink}/>
 
@@ -391,7 +440,7 @@ export default function Acceuil () {
                 {/* text section  */}
                 <section className="w-full text-start  " >
  
-                    <h1 className='w-full  dark:text-gray-50 text-blackTheme font-openSansBold text-[4rem] sm:text-[5rem] md:text-[4.5rem] lg:text-[5rem] '>
+                    <h1 ref={reveRef} className='w-full opacity-0 duration-500 ease-in-out   dark:text-gray-50 text-blackTheme font-openSansBold text-[4rem] sm:text-[5rem] md:text-[4.5rem] lg:text-[5rem] '>
 
                         {translation[lang].welcomeText}
                     </h1>
@@ -442,10 +491,10 @@ export default function Acceuil () {
                     <h1 className='text-left text-[2rem] sm:text-[2.5rem] md:text-[2.8rem] font-openSansBold dark:text-gray-50 text-gray-800'> {translation[lang].career}</h1>
                 </div>
 
-                <section className='w-full grid grid-cols-2 sm:grid-rows-2  gap-2 justify-center items-center'>
+                <section className='w-full grid grid-cols-2 md:grid-rows-2  gap-2 justify-center items-center'>
                     
-
-                    <div className=' w-full justify-center items-center flex flex-col gap-3 px-2 py-8 sm:py-10  duration-150 rounded-lg dark:bg-gray-900 bg-gray-300 ' >
+                    {/* satisfed clients  */}
+                    <div className=' w-full h-full justify-center items-center flex flex-col gap-3 px-2 py-8 sm:py-10  duration-150 rounded-lg dark:bg-gray-900 bg-gray-300 ' >
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className=" w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 dark:text-whiteTheme">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
                         </svg>
@@ -453,7 +502,9 @@ export default function Acceuil () {
                         <h1 className='text-[1.2rem] md:text-[1.5rem] font-openSansBold text-myRed leading-5 md:leading-6'> {translation[lang].satisfedClients} </h1>
 
                     </div>
-                    <div className=' w-full sm:col-start-2 justify-center items-center flex flex-col gap-3 px-2 py-8 sm:py-10  duration-150 rounded-lg dark:bg-gray-900 bg-gray-300 ' >
+
+                    {/* completed projects  */}
+                    <div className=' w-full h-full sm:col-start-2 justify-center items-center flex flex-col gap-3 px-2 py-8 sm:py-10  duration-150 rounded-lg dark:bg-gray-900 bg-gray-300 ' >
                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 dark:text-whiteTheme">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" />
                         </svg>
@@ -462,13 +513,31 @@ export default function Acceuil () {
                         <h1 className='text-[1.2rem] md:text-[1.5rem] font-openSansBold text-myRed leading-5 md:leading-6'> {translation[lang].completsProjects} </h1>
 
                     </div>
+                    
+                    {/* avis  */}
+                    <div className=' col-span-2 py-5  flex-col gap-3 md:col-span-1 md:row-span-2 relative md:row-start-1 md:row-end-3 w-full duration-150 items-center flex  rounded-lg dark:bg-gray-900 bg-gray-300 overflow-hidden ' >
+                        
+                        <div className=' flex flex-col gap-3 items-center py-5 '>
+                            
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 dark:text-whiteTheme">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 9.75a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 0 1 .778-.332 48.294 48.294 0 0 0 5.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
+                            </svg>
 
-                    <div className=' col-span-2  sm:col-span-1 h-full sm:row-span-2 sm:row-start-1 sm:row-end-3 w-full justify-center duration-150 items-center flex flex-col gap-3 px-2 py-8 rounded-lg dark:bg-gray-900 bg-gray-300 ' >
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 dark:text-whiteTheme">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M6.429 9.75 2.25 12l4.179 2.25m0-4.5 5.571 3 5.571-3m-11.142 0L2.25 7.5 12 2.25l9.75 5.25-4.179 2.25m0 0L21.75 12l-4.179 2.25m0 0 4.179 2.25L12 21.75 2.25 16.5l4.179-2.25m11.142 0-5.571 3-5.571-3" />
-                        </svg>
+                            <h1 className='text-[1.2rem] md:text-[1.5rem] font-openSansBold text-myRed leading-5 md:leading-6'> {translation[lang].comment} </h1>
 
-                        <h1 className='text-[1.2rem] md:text-[1.5rem] font-openSansBold text-myRed leading-5 md:leading-6'> {translation[lang].oneYearOfExperience} </h1>
+
+                        </div>
+
+                        <div className='h-0 w-full pt-[40%] sm:pt-[35%] md:pt-[60%] flex items-center justify-center avis relative px-3 overflow-hidden'>
+
+                            <div ref={avisContainer}  className='flex avis h-full w-[95%] absolute top-0 gap-3 overflow-x-scroll rounded-lg md:py-0 items-center'>
+                                
+                                <img src={avis2} alt="avis" className='w-[100%] shadow-md object-cover h-[100%] md:h-[90%] rounded-md' style={{flex: 'inherit'}} />
+                                <img src={avis1} alt="avis" className='w-[100%] shadow-md object-cover h-[100%] md:h-[90%] rounded-md' style={{flex: 'inherit'}} />
+                                <img src={avis4} alt="avis" className='w-[100%] shadow-md object-cover h-[100%] md:h-[90%] rounded-md' style={{flex: 'inherit'}} />
+                                <img src={avis3} alt="avis" className='w-[100%] shadow-md object-cover h-[100%] md:h-[90%] rounded-md' style={{flex: 'inherit'}} />
+                            </div>
+                        </div>
 
                     </div>
                 </section>
@@ -496,7 +565,7 @@ export default function Acceuil () {
                 <section className='w-full h-fit overflow-hidden relative'>
 
                     {/* the clipping image  */}
-                    <section className='w-full h-0 webDevSection pt-[90%] sm:pt-[50%]  overflow-hidden' style={{clipPath: "polygon(0% 100%, 0% 0%, 100% 100% )"}}  >
+                    <section className='w-full fullebDevSection pt-full sm:pt-[50%]  overflow-hidden' style={{clipPath: "polygon(0% 100%, 0% 0%, 100% 100% )"}}  >
 
                         <img loading='lazy' src={webDev} alt="imge about web dev" className='w-full h-full absolute top-0 object-cover object-left-bottom rounded-xl' />
                     </section>
@@ -518,6 +587,7 @@ export default function Acceuil () {
 
                 </section>
 
+                {/* moddle text, explaining offered services  */}
                 <section className='w-full flex flex-col mt-5 justify-center items-center relative'>
                     
                     <figure className='w-full h-full -top-5 absolute flex justify-between px-[10%] md:px-[18%] lg:px-[22%]'>
@@ -535,9 +605,10 @@ export default function Acceuil () {
                         </svg>
 
 
-                        <svg onClick={() => handleServicesDetails('maintenance')} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={` ${servicesDetails.maintenance ? 'dark:text-white text-gray-900 scale-[1.35]' : 'dark:text-gray-300 text-gray-700 bg-opacity-60'} dark:bg-gray-900 bg-gray-100 w-10 h-10 rounded-full p-2 cursor-pointer duration-200 hover:bg-opacity-100`}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M11.42 15.17 17.25 21A2.652 2.652 0 0 0 21 17.25l-5.877-5.877M11.42 15.17l2.496-3.03c.317-.384.74-.626 1.208-.766M11.42 15.17l-4.655 5.653a2.548 2.548 0 1 1-3.586-3.586l6.837-5.63m5.108-.233c.55-.164 1.163-.188 1.743-.14a4.5 4.5 0 0 0 4.486-6.336l-3.276 3.277a3.004 3.004 0 0 1-2.25-2.25l3.276-3.276a4.5 4.5 0 0 0-6.336 4.486c.091 1.076-.071 2.264-.904 2.95l-.102.085m-1.745 1.437L5.909 7.5H4.5L2.25 3.75l1.5-1.5L7.5 4.5v1.409l4.26 4.26m-1.745 1.437 1.745-1.437m6.615 8.206L15.75 15.75M4.867 19.125h.008v.008h-.008v-.008Z" />
+                        <svg onClick={() => handleServicesDetails('andMore')} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={` ${servicesDetails.andMore ? 'dark:text-white text-gray-900 scale-[1.35]' : 'dark:text-gray-300 text-gray-700 bg-opacity-60'} dark:bg-gray-900 bg-gray-100 w-10 h-10 rounded-full p-2 cursor-pointer duration-200 hover:bg-opacity-100`}>
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                         </svg>
+
 
                     </figure>
 
@@ -546,7 +617,7 @@ export default function Acceuil () {
                         <div className={`h-full w-full duration-300 gap-5 justify-center flex flex-col items-center ${ servicesDetails.frontEnd ? 'translate-y-[0%]' : "translate-y-[200%]"} `} style={{flex: 'inherit'}}>
 
                             <h4 className='font-openSansSemiBold text-[0.875rem] dark:text-gray-900 text-gray-100 '> Front-end</h4>
-                            <p className=' font-openSansMedium text-[0.875rem] dark:text-gray-900 text-gray-100 sm:w-[90%] md:w-[80%] lg:w-[70%] xl:w-[60%] leading-6'>{translation[lang].frontEndDetails}</p>
+                            <p className=' font-openSansMedium text-[0.875rem] dark:text-gray-800 text-gray-100 sm:w-full md:w-[80%] lg:w-[70%] xl:w-[60%] leading-6'>{translation[lang].frontEndDetails}</p>
                             <Link className=' border-myRed border px-4 py-[6px] font-openSansSemiBold text-[0.8rem] hover:bg-myRed hover:bg-opacity-20 duration-200 rounded-2xl text-white dark:text-black '>{translation[lang].interessed}</Link>
 
                         </div>
@@ -554,7 +625,7 @@ export default function Acceuil () {
                         <div className={`h-full w-full duration-300 gap-5 justify-center flex flex-col items-center ${ servicesDetails.backEnd ? 'translate-y-[-100%]' : "translate-y-[100%]"} `} style={{flex: 'inherit'}}>
 
                             <h4 className='font-openSansSemiBold text-[0.875rem] dark:text-gray-900 text-gray-100 '> Back-end</h4>
-                            <p className=' font-openSansMedium text-[0.875rem] dark:text-gray-900 text-gray-100 sm:w-[90%] md:w-[80%] lg:w-[70%] xl:w-[60%] leading-6'>{translation[lang].backEndDetails}</p>
+                            <p className=' font-openSansMedium text-[0.875rem] dark:text-gray-800 text-gray-100 sm:w-full md:w-[80%] lg:w-[70%] xl:w-[60%] leading-6'>{translation[lang].backEndDetails}</p>
                             <Link className=' border-myRed border px-4 py-[6px] font-openSansSemiBold text-[0.8rem] hover:bg-myRed hover:bg-opacity-20 duration-200 rounded-2xl text-white dark:text-black '>{translation[lang].interessed}</Link>
                         </div>
 
@@ -562,14 +633,14 @@ export default function Acceuil () {
                         <div className={`h-full w-full duration-300 gap-5 justify-center flex flex-col items-center ${ servicesDetails.dbManagement ? 'translate-y-[-200%]' : "translate-y-[0%]"}`} style={{flex: 'inherit'}}>
 
                             <h4 className='font-openSansSemiBold text-[0.875rem] dark:text-gray-900 text-gray-100 '> {translation[lang].dataBaseTitle}</h4>
-                            <p className=' font-openSansMedium text-[0.875rem] dark:text-gray-900 text-gray-100 sm:w-[90%] md:w-[80%] lg:w-[70%] xl:w-[60%] leading-6'>{translation[lang].dataBaseDetails}</p>
+                            <p className=' font-openSansMedium text-[0.875rem] dark:text-gray-800 text-gray-100 sm:w-full md:w-[80%] lg:w-[70%] xl:w-[60%] leading-6'>{translation[lang].dataBaseDetails}</p>
                             <Link className=' border-myRed border px-4 py-[6px] font-openSansSemiBold text-[0.8rem] hover:bg-myRed hover:bg-opacity-20 duration-200 rounded-2xl text-white dark:text-black '>{translation[lang].interessed}</Link>
                         </div>
 
-                        <div className={`h-full w-full duration-300 gap-5 justify-center flex flex-col items-center ${ servicesDetails.maintenance ? 'translate-y-[-300%]' : "translate-y-[-100%]"}`} style={{flex: 'inherit'}}>
+                        <div className={`h-full w-full duration-300 gap-5 justify-center flex flex-col items-center ${ servicesDetails.andMore ? 'translate-y-[-300%]' : "translate-y-[-100%]"}`} style={{flex: 'inherit'}}>
 
                             <h4 className='font-openSansSemiBold text-[0.875rem] dark:text-gray-900 text-gray-100 '> Maintenance</h4>
-                            <p className=' font-openSansMedium text-[0.875rem] dark:text-gray-900 text-gray-100 sm:w-[90%] md:w-[80%] lg:w-[70%] xl:w-[60%] leading-6'>{translation[lang].maintenanceDetails}</p>
+                            <p className=' font-openSansMedium text-[0.875rem] dark:text-gray-800 text-gray-100 sm:w-full md:w-[80%] lg:w-[70%] xl:w-[60%] leading-6'>{translation[lang].andMore}</p>
                             <Link className=' border-myRed border px-4 py-[6px] font-openSansSemiBold text-[0.8rem] hover:bg-myRed hover:bg-opacity-20 duration-200 rounded-2xl text-white dark:text-black '>{translation[lang].interessed}</Link>
 
                         </div>
@@ -671,7 +742,7 @@ export default function Acceuil () {
                                 </div>
                             </div>
 
-                            <p className='font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-gray-500 text-left w-[90%]'>{translation[lang].confidentiality} </p>
+                            <p className='font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-full500 text-left w-full'>{translation[lang].confidentiality} </p>
                         </div>
 
                     </div>
@@ -693,7 +764,7 @@ export default function Acceuil () {
                                 </div>
                             </div>
 
-                            <p className='font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] line-clamp-2 dark:text-gray-400 text-gray-500 text-left w-[90%]'> {translation[lang].adaptability} </p>
+                            <p className='font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] line-clamp-2 dark:text-gray-400 text-full500 text-left w-full'> {translation[lang].adaptability} </p>
                         </div>
 
                     </div>
@@ -716,7 +787,7 @@ export default function Acceuil () {
                                 </div>
                             </div>
 
-                            <p className='font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-gray-500 text-left w-[90%]'>{translation[lang].updating}</p>
+                            <p className='font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-full500 text-left w-full'>{translation[lang].updating}</p>
                         </div>
 
                     </div>
@@ -739,7 +810,7 @@ export default function Acceuil () {
                                 </div>
                             </div>
 
-                            <p className='font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-gray-500 text-left w-[90%]'> {translation[lang].scalable} </p>
+                            <p className='font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-full500 text-left w-full'> {translation[lang].scalable} </p>
                         </div>
 
                     </div>

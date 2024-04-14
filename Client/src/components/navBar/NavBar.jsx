@@ -50,8 +50,8 @@ export default function NavBar () {
     return (
         <nav className="duration-300 flex justify-between   items-center -top-0 sticky w-full dark:bg-white bg-blackTheme z-50  ">
 
-            <figure className="mx-[5%] lg:mx-[12%] my-2 w-20">
-                <img loading='lazy' src={ theme === 'dark' ? jobLogoWhite : jobLogoDark} alt="Logo Job Junior" className="w-10 lg:w-full" />
+            <figure className="mx-[5%] xl:mx-[12%] my-2 w-20">
+                <img loading='lazy' src={ theme === 'dark' ? jobLogoWhite : jobLogoDark} alt="Logo Job Junior" className="w-10 xl:w-full" />
             </figure>
             
             {/* link on phone  */}
@@ -109,7 +109,7 @@ export default function NavBar () {
             </div>
             
             {/* change languages and mode  */}
-            <div className=" flex flex-row gap-5 justify-between items-center cursor-pointer w-20 sm:mx-[5%] lg:mx-[10%]">
+            <div className=" flex flex-row gap-5 justify-between items-center cursor-pointer w-20 sm:mx-[5%] xl:mx-[10%]">
 
                 <figcaption onClick={changeLang} className={` flex flex-col  flex-nowrap overflow-hidden h-6 w-7 `} >
 

@@ -8,12 +8,12 @@ export default function Footer () {
     const translation = {
         en: {
             welcomeText: <span> <span className='text-myRed'>Creative </span> <br /> Place</span>,
-            greatTitle: <span>Stay apart, <span className=' dark:text-blackTheme text-white px-1  dark:bg-white bg-blackTheme'>unique</span> with us</span>
+            greatTitle: <span>Stay <span className=' dark:text-blackTheme text-white px-1  dark:bg-white bg-blackTheme'>unique</span> with us</span>
         },
 
         fr: {
             welcomeText: <span>Place <br /> <span className='text-myRed'>Créative</span></span>,
-            greatTitle: <span>Restez à l'écart, <span className=' dark:text-blackTheme text-white px-1  dark:bg-white bg-blackTheme'>unique</span> avec nous</span>
+            greatTitle: <span>Restez <span className=' dark:text-blackTheme text-white px-1  dark:bg-white bg-blackTheme'>unique</span> avec nous</span>
         }
     }
     return (
