@@ -9,10 +9,13 @@ import blackTheme from '../assets/blackTheme.png';
 import video1DegoBar from '../assets/projets/degoBar/video1DegoBar.mp4';
 import video2DegoBar from '../assets/projets/degoBar/video2DegoBar.mp4';
 import _2DegoBar from '../assets/projets/degoBar/_2DegoBar.png';
-
+import { Suspense } from 'react';
+import FallBack from './utils/fallBackForSuspence';
 import { Link } from 'react-router-dom';
+import withErrorBoundary from '../CustomErrorBounded';
+import LoadingError from './utils/loadingErrorPage';
 
-export default function Projets () {
+function Projets () {
 
     useEffect(() => {
         scrollTo(0, 0)
@@ -340,31 +343,35 @@ export default function Projets () {
     });
 
     return (
-        <main className=" w-full px-[5%] xl:px-[14%]  py-10 sm:py-14 gap-20 md:gap-28 relative flex flex-col sm:gap-20">
-            {/* welcom text and image  */}
-            <section className="grid grid-cols-1 sm:grid-cols-2 items-center justify-center gap-14">
+        <Suspense fallback={<FallBack/>}>
+            <main className=" w-full px-[5%] xl:px-[14%]  py-10 sm:py-14 gap-20 md:gap-28 relative flex flex-col sm:gap-20">
+                {/* welcom text and image  */}
+                <section className="grid grid-cols-1 sm:grid-cols-2 items-center justify-center gap-14">
 
-                <h1 className='w-full  dark:text-gray-50 text-blackTheme font-openSansBold text-[4rem] sm:text-[3.5rem] md:text-[4.5rem] 2xl:text-[5rem] text-left'>{translation[lang].welcomeText}</h1>
+                    <h1 className='w-full  dark:text-gray-50 text-blackTheme font-openSansBold text-[4rem] sm:text-[3.5rem] md:text-[4.5rem] 2xl:text-[5rem] text-left'>{translation[lang].welcomeText}</h1>
 
-                <div className='w-full h-0 pt-[40%] flex relative items-center' style={{flex: '1 0 auto'}}>
+                    <div className='w-full h-0 pt-[40%] flex relative items-center' style={{flex: '1 0 auto'}}>
 
-                    <img loading='lazy' src={blackTheme} className='w-full h-full object-cover  absolute top-0' style={{flex: 'inherit'}}  alt='image white theme'/>
+                        <img loading='lazy' src={blackTheme} className='w-full h-full object-cover  absolute top-0' style={{flex: 'inherit'}}  alt='image white theme'/>
 
-                    <div className=' w-0 border-r-4  border-r-myRed animate-porjectsToggleThemePicture ease-in h-full backdrop-invert duration-1000 absolute top-0'>
+                        <div className=' w-0 border-r-4  border-r-myRed animate-porjectsToggleThemePicture ease-in h-full backdrop-invert duration-1000 absolute top-0'>
 
+                        </div>
                     </div>
-                </div>
 
 
-            </section>
+                </section>
 
-            <section id='hey' className='grid grid-cols-1 md:grid-cols-2 gap-14'>
+                <section id='hey' className='grid grid-cols-1 md:grid-cols-2 gap-14'>
 
-                {displayProjet}
-            </section>
+                    {displayProjet}
+                </section>
 
-            <button></button>
+                <button></button>
 
-        </main>
+            </main>
+        </Suspense>
     )
 }
+
+export default withErrorBoundary (Projets, LoadingError);

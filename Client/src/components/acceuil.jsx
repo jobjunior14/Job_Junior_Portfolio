@@ -1,4 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
+
+import { useEffect, useRef, useState, Suspense, useCallback } from 'react';
 import jobProfil1 from '../assets/home/jobProfil1.png'
 import avis1 from '../assets/home/avis1.jpg'
 import avis2 from '../assets/home/avis2.jpg'
@@ -13,11 +15,14 @@ import QuestionResponseToggleText from './utils/questionsComp';
 import _1DegoBar from '../assets/projets/degoBar/_1.jpg';
 import accueil_phone from '../assets/projets/BarakaCreation/accueil_phone.jpg';
 import useAnnimator from './utils/annimatorOnScroll'
-
-import { useEffect, useRef, useState } from 'react';
+import FallBack from './utils/fallBackForSuspence'
 import AsideBar from '../asideBar';
+import withErrorBoundary from '../CustomErrorBounded';
+import LoadingError from './utils/loadingErrorPage';
+import jobJuniorCVFR from '../assets/CV/jobJuniorCVFR.pdf';
+import jobJuniorCVEN from '../assets/CV/jobJuniorCVEN.pdf';
 
-export default function Acceuil () {
+function Acceuil () {
 
     const {lang} = useLangContext();
     const [indexOnScroll, setIndexOnScroll] = useState(0);
@@ -49,7 +54,7 @@ export default function Acceuil () {
         en: {
             welcomeText: <span>A <br /><span className=' text-myRed'>Real</span> <br /> Dream</span>,
             welcomeName: <span>Hey! I&apos;m Job Junior a <span className='text-myRed'>Full-stack</span> developper</span>,
-            aboutME: <span> Passionate and experienced Full Stack Developer transforming your ideas into high-performing and intuitive web applications. Utilizing MERN stack (MongoDB, Express, ReactJS, NodeJS), I partner with you from concept to launch to create custom solutions that meet your specific needs. <br /> <Link className=' underline duration-200 flex items-end gap-1 text-blue-500 hover:text-blue-300'>Read more </Link>
+            aboutME: <span> Passionate and experienced Full Stack Developer transforming your ideas into high-performing and intuitive web applications. Utilizing MERN stack (MongoDB, Express, ReactJS, NodeJS), I partner with you from concept to launch to create custom solutions that meet your specific needs. <br /> <a href={jobJuniorCVEN} download={'JOB JUNIOR CV'} className=' underline duration-200 flex items-end gap-1 text-blue-500 hover:text-blue-300'>Read more </a>
             </span>,
             getInText: 'Get in touch',
             skills: <span>Skills <span className='dark:text-gray-500 text-gray-400'> & </span> Tech.</span>,
@@ -145,7 +150,7 @@ export default function Acceuil () {
         fr: {
             welcomeText: <span>Un <br /> <span className='text-myRed'>Rêve</span> <br /> Véritable</span>,
             welcomeName: <span>Hey! je suis Job Junior un developpeur <span className='text-myRed'>Full-stack</span></span>,
-            aboutME: <span> Développeur full stack passionné et expérimenté, je transforme vos idées en applications web performantes et intuitives, en utilisant les technologies MERN (MongoDB, Express, ReactJS, NodeJS). De la conception à la mise en ligne, je suis votre partenaire pour créer des solutions sur mesure qui répondent à vos besoins spécifiques. <Link className=' underline flex items-end gap-1 text-blue-500 hover:text-blue-300 duration-200'>Lire plus </Link>
+            aboutME: <span> Développeur full stack passionné et expérimenté, je transforme vos idées en applications web performantes et intuitives, en utilisant les technologies MERN (MongoDB, Express, ReactJS, NodeJS). De la conception à la mise en ligne, je suis votre partenaire pour créer des solutions sur mesure qui répondent à vos besoins spécifiques. <a href={jobJuniorCVFR} download={'JOB JUNIOR CV'} className=' underline flex items-end gap-1 text-blue-500 hover:text-blue-300 duration-200'>Lire plus </a>
             </span>,
             getInText: 'Contactez-moi',
             skills: <span>Compétances <span className='dark:text-gray-500 text-gray-400'> & </span> <br className='sm:hidden' /> Tech.</span>,
@@ -280,14 +285,17 @@ export default function Acceuil () {
     // control the scrolling div 
     var projectContainer = useRef(null);
 
-    // this state is set every time the indexOnScroll is updated 
-    if (projectContainer.current) {
+    // this state is set every time the indexOnScroll is updated
+    useEffect(() => {
+
+        if (projectContainer.current) {
+            
+            //update the scrollLeft of the div to show the next image
+            // it take the offsetWidth and multiply it by the indexSroll 
+            projectContainer.current.scrollTo({ left: projectContainer.current.offsetWidth * indexOnScroll, behavior: 'smooth' });
         
-        //update the scrollLeft of the div to show the next image
-        // it take the offsetWidth and multiply it by the indexSroll 
-        projectContainer.current.scrollTo({ left: projectContainer.current.offsetWidth * indexOnScroll, behavior: 'smooth' });
-    
-    }
+        }
+    }, [indexOnScroll]) 
 
     const nextDiv = () =>  {
         setIndexOnScroll ( prev => prev === projets.length - 1 ? 0 : prev + 1);
@@ -510,7 +518,7 @@ export default function Acceuil () {
         
     ]
    
-    const annimations = useAnnimator(myDataAnnimator);
+    useAnnimator(myDataAnnimator);
 
 ////////////////////////////////////////////////////images avis/////////////////////
 ////////////////////////observer////////////////////////////////////////
@@ -585,486 +593,503 @@ export default function Acceuil () {
     
     const timer = useRef();
     //scroll automaticaly avis container/////////////////////////////////////////////
-    useEffect (() => {
 
-        if (timer.current) clearTimeout(timer);
+    // Define debounce function//////////////////////////////////
+    /////////////////////////////////////////////////////
+    function debounce(func, delay) {
+        let timeoutId;
+        
+        return function(...args) {
+        
+            clearTimeout(timeoutId);
+            timeoutId = setTimeout(() => {
+                func.apply(this, args);
+            }, delay);
+        };
+    }
+
+
+    useEffect(() => {
+        if (timer.current) clearTimeout(timer.current);
 
         const avis = avisContainer.current;
-        
-        const scrollLeftAvis = () => {
-    
-            if (avis) {
 
+        const scrollLeftAvis = () => {
+            if (avis) {
                 if ((avis.scrollLeft / avis.offsetWidth).toFixed(3) >= 2.1) {
-    
-                    avis.scrollTo({left: 0, behavior: 'smooth'})
+                avis.scrollTo({ left: 0, behavior: 'smooth' });
                 } else {
-                    
-                    avis.scrollTo({left: avis.offsetWidth + avis.scrollLeft, behavior: 'smooth' });
+                avis.scrollTo({ left: avis.offsetWidth + avis.scrollLeft, behavior: 'smooth' });
                 }
             }
         };
 
+        // Create debounced function
+        const debouncedSetAvisConterTracker = debounce((scrollLeft) => {
+            setAvisConterTracker(scrollLeft);
+        }, 200);
+
         const listenScroll = () => {
-            // clearTimeout(timer)
-            setAvisConterTracker(avis.scrollLeft)
-        }
+        // Call the debounced function with scrollLeft value
+            debouncedSetAvisConterTracker(avis.scrollLeft);
+        };
 
         avis.addEventListener('scroll', listenScroll);
 
-        timer.current = setTimeout(() => scrollLeftAvis(), 3000);
-
+        timer.current = setTimeout(() => scrollLeftAvis(), 3100);
 
         return () => {
-            clearTimeout(timer.current);
-            avis.removeEventListener('scroll', listenScroll);
-
-        }
+        if (timer.current) clearTimeout(timer.current);
+        avis.removeEventListener('scroll', listenScroll);
+        };
     }, [avisConterTracker]);
 
-
-
     return (
-        <main ref={mainA} id='mainHome' className=" w-full overflow-hidden  px-[5%] xl:px-[14%]  py-10 sm:py-14 gap-20 md:gap-28 relative flex flex-col sm:gap-20">
+        <Suspense fallback={<FallBack/>}>
 
-            <AsideBar links={navLink}/>
+            <main ref={mainA} id='mainHome' className=" w-full overflow-hidden  px-[5%] xl:px-[14%]  py-10 sm:py-14 gap-20 md:gap-28 relative flex flex-col sm:gap-20">
 
-            
-            {/* presation and welcom text  */}
-            <section id='aboutMe' className="grid grid-cols-1 md:grid-cols-2 gap-10 w-full items-center justify-center " >
+                <AsideBar links={navLink}/>
 
-               
-                {/* text section  */}
-                <section className="w-full text-start  " >
- 
-                    <h1 ref={reveRef} className='w-full translate-x-[-30%] opacity-0 duration-[1s] ease-in-out   dark:text-gray-50 text-blackTheme font-openSansBold text-[4rem] sm:text-[5rem] md:text-[4.5rem] lg:text-[5rem] '>
+                
+                {/* presation and welcom text  */}
+                <section id='aboutMe' className="grid grid-cols-1 md:grid-cols-2 gap-10 w-full items-center justify-center " >
 
-                        {translation[lang].welcomeText}
-                    </h1>
-                     
+                
+                    {/* text section  */}
+                    <section className="w-full text-start  " >
+    
+                        <h1 ref={reveRef} className='w-full translate-x-[-30%] opacity-0 duration-[1s] ease-in-out   dark:text-gray-50 text-blackTheme font-openSansBold text-[4rem] sm:text-[5rem] md:text-[4.5rem] lg:text-[5rem] '>
+
+                            {translation[lang].welcomeText}
+                        </h1>
+                        
+                    </section>
+
+                    {/* about me section  */}
+                    <section ref={aboutMeSec} className="w-full overflow-hidden duration-[1s] ease-in-out translate-y-[15%] opacity-0 rounded-lg dark:bg-opacity-10 dark:bg-gray-100 bg-gray-700 bg-opacity-10 h-auto px-4 py-5 flex flex-col gap-5" >
+                            
+                        {/* image abd name  */}
+                        <section className="w-full flex justify-center items-center gap-5">
+
+                            <figure ref={aboutMePic} className=" w-[30%] h-0 round duration-[1.5s] ease-in-out opacity-0 translate-x-[-30%]  rounded-full overflow-hidden relative" style={{paddingTop: 'calc( 30% * (1/1))'}} >
+                                <img loading='lazy' src={jobProfil1} alt="" className=' object-cover absolute top-0 w-full h-full'  />
+                            </figure>
+
+                            <figcaption className='w-[70%] font-semibold text-[1rem] sm:text-[1.3rem] md:text-[1.3rem] text-start dark:text-gray-50 text-blackTheme '> {translation[lang].welcomeName} </figcaption>
+                        </section>
+                        
+                        {/* descriptif text  */}
+                        <p ref={aboutMeText} className=' font-openSansSemiBold duration-[1.2s] ease-in-out opacity-0 translate-y-[10%] text-[0.875rem] md:text-[0.875rem] text-start leading-[1.6rem] dark:text-gray-50 text-blackTheme '>
+                            {translation[lang].aboutME}
+                        </p>
+
+                        <div className='w-fll justify-between items-center flex'>
+                            <Link to={'/projects'} className=' border-myRed border-2 w-[40%] py-[6px] font-openSansSemiBold text-[0.875rem] md:text-[0.875rem] rounded-2xl dark:text-white duration-200 hover:bg-myRed hover:bg-opacity-20 text-blackTheme '>{translation[lang].projectTitle}</Link>
+                            <Link to={'/contacts'} className=' bg-myRed w-[40%] border border-myRed  py-[6px] font-openSansSemiBold text-[0.875rem]  md:text-[0.875rem] rounded-2xl text-white hover:bg-opacity-80 duration-200 '>{translation[lang].getInText}</Link>
+                        </div>
+
+                    </section>
+
+                    
                 </section>
 
-                {/* about me section  */}
-                <section ref={aboutMeSec} className="w-full overflow-hidden duration-[1s] ease-in-out translate-y-[15%] opacity-0 rounded-lg dark:bg-opacity-10 dark:bg-gray-100 bg-gray-700 bg-opacity-10 h-auto px-4 py-5 flex flex-col gap-5" >
-                         
-                    {/* image abd name  */}
-                    <section className="w-full flex justify-center items-center gap-5">
+                {/*  career */}
+                <section id='career' className='w-full pb-10 flex flex-col gap-14 '>
 
-                        <figure ref={aboutMePic} className=" w-[30%] h-0 round duration-[1.5s] ease-in-out opacity-0 translate-x-[-30%]  rounded-full overflow-hidden relative" style={{paddingTop: 'calc( 30% * (1/1))'}} >
-                            <img loading='lazy' src={jobProfil1} alt="" className=' object-cover absolute top-0 w-full h-full'  />
+                    {/* title  */}
+                    <div ref={careerTitle} className='w-full duration-700 opacity-0 translate-y-[30%] flex flex-col gap-4 '>
+                        <div className='w-full flex gap-3 items-center '>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 text-myRed">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>
+
+                            <h3 className=' font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-gray-500'> {translation[lang].careerDetails}</h3>
+                        </div>
+
+                        <h1 className='text-left text-[2rem] sm:text-[2.5rem] md:text-[2.8rem] font-openSansBold dark:text-gray-50 text-gray-800'> {translation[lang].career}</h1>
+                    </div>
+
+                    <section className='w-full grid grid-cols-2 md:grid-rows-2  gap-2 justify-center items-center'>
+                        
+                        {/* satisfed clients  */}
+                        <div ref={satisfedClient} className=' w-full duration-[1s] opacity-0 translate-x-[-30%] h-full justify-center items-center flex flex-col gap-3 px-2 py-8 sm:py-10 rounded-lg dark:bg-gray-950 bg-gray-300 ' >
+                            <svg   xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className=" w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 dark:text-whiteTheme">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
+                            </svg>
+
+                            <h1  ref={satisfedClientText} className='translate-y-[-50%] opacity-0 duration-[2.5s] text-[1.2rem] md:text-[1.5rem] font-openSansBold text-myRed leading-5 md:leading-6'> {translation[lang].satisfedClients} </h1>
+
+                        </div>
+
+                        {/* completed projects  */}
+                        <div ref={completProjects} className='duration-[1s] opacity-0 translate-x-[30%] w-full h-full sm:col-start-2 justify-center items-center flex flex-col gap-3 px-2 py-8 sm:py-10 rounded-lg dark:bg-gray-950 bg-gray-300 ' >
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 dark:text-whiteTheme">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" />
+                            </svg>
+
+
+                            <h1 ref={completProjectsText} className='translate-y-[-50%] opacity-0 duration-[2.5s] text-[1.2rem] md:text-[1.5rem] font-openSansBold text-myRed leading-5 md:leading-6'> {translation[lang].completsProjects} </h1>
+
+                        </div>
+                        
+                        {/* avis  */}
+                        <div ref={avisSec} className='duration-[1s] opacity-0 translate-y-[10%] col-span-2 py-5  flex-col gap-3 md:col-span-1 md:row-span-2 relative md:row-start-1 md:row-end-3 w-full items-center flex  rounded-lg dark:bg-gray-950 bg-gray-300 overflow-hidden ' >
+                            
+                            <div className=' flex flex-col gap-3 items-center py-5 '>
+                                
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 dark:text-whiteTheme">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 9.75a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 0 1 .778-.332 48.294 48.294 0 0 0 5.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
+                                </svg>
+
+                                <h1 className='text-[1.2rem] md:text-[1.5rem] font-openSansBold text-myRed leading-5 md:leading-6'> {translation[lang].comment} </h1>
+
+
+                            </div>
+
+                            <div className='h-0 w-full pt-[40%] sm:pt-[35%] md:pt-[60%] flex items-center justify-center avis relative px-3 overflow-hidden'>
+
+                                <div ref={avisContainer}  className='flex avis h-full w-[95%] absolute top-0 gap-3 overflow-x-scroll rounded-lg md:py-0 items-center'>
+                                    
+                                    <img src={avis2} alt="avis" className='w-[100%] shadow-md duration-300 object-cover h-[100%] md:h-[90%] rounded-md' style={{flex: 'inherit'}} />
+                                    <img src={avis1} alt="avis" className='w-[100%] shadow-md duration-300 object-cover h-[100%] md:h-[90%] rounded-md' style={{flex: 'inherit'}} />
+                                    <img src={avis4} alt="avis" className='w-[100%] shadow-md duration-300 object-cover h-[100%] md:h-[90%] rounded-md' style={{flex: 'inherit'}} />
+                                    <img src={avis3} alt="avis" className='w-[100%] shadow-md duration-300 object-cover h-[100%] md:h-[90%] rounded-md' style={{flex: 'inherit'}} />
+                                </div>
+                            </div>
+
+                        </div>
+                    </section>
+
+                </section>
+
+                {/* services  */}
+                <section id='services' className=' w-full pb-10 flex flex-col gap-14 relative'>
+
+                    {/* title  */}
+                    <div ref={serviceTitle} className='duration-[1s] translate-y-[20%] opacity-0 w-full flex flex-col gap-4 '>
+                        <div className='w-full flex gap-3 items-center '>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 text-myRed">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
+                            </svg>
+
+
+                            <h3 className=' font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-gray-500'> {translation[lang].servicesDetails}</h3>
+                        </div>
+
+                        <h1 className='text-left text-[2rem] sm:text-[2.5rem] md:text-[2.8rem] font-openSansBold dark:text-gray-50 text-gray-800'> {translation[lang].ourServices}</h1>
+                    </div> 
+
+                    {/* image and web dev title  */}
+                    <section className='w-full h-fit overflow-hidden relative'>
+
+                        {/* the clipping image  */}
+                        <section className='w-full h-0 webDevSection pt-[100%] sm:pt-[50%]  overflow-hidden' style={{clipPath: "polygon(0% 100%, 0% 0%, 100% 100% )"}}  >
+
+                            <img ref={serviceImage} loading='lazy' src={webDev} alt="imge about web dev" className='w-full h-full duration-[1s] translate-x-[-10%] opacity-0 absolute top-0 object-cover object-left-bottom rounded-xl' />
+                        </section>
+
+                        {/* set the border color  */}
+                        <div className='w-full h-full broder border-r-2 border-gray-500 absolute top-0 border-t-2 border-t-gray-500 rounded-xl'>
+
+                        </div>
+
+                        {/* the text in the image  */}
+                        <section ref={serviceTitle2} className='absolute duration-[1.5s] translate-x-[10%] opacity-0 h-full w-full top-0 right-0 rounded-xl  flex flex-col gap-5 sm:gap-6 md:gap-7 lg:gap-8 dark:bg-opacity-10 dark:bg-gray-100 bg-gray-500 bg-opacity-10 py-4 px-5 sm:py-6 sm:px-8 md:py-10 md:px-14 lg:px-14 lg:py-14 items-end' style={{clipPath: "polygon(100% 100%, 0% 0%, 100% 0% )"}}>
+
+                            <h1 className='text-blackTheme dark:text-whiteTheme text-[1.2rem] md:text-[1.5rem] font-openSansBold leading-5 md:leading-6' >Web Developpement</h1>
+
+                            <p className=' text-right font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-gray-500'> {translation[lang].interessedDetails} </p>
+                            <Link to={'/contacts'} className=' bg-myRed hover:bg-opacity-80 duration-200 px-4 py-[6px] active:opacity-65 font-openSansSemiBold text-[0.875rem] rounded-2xl text-white '>{translation[lang].interessed}</Link>
+
+                        </section>
+
+                    </section>
+
+                    {/* moddle text, explaining offered services  */}
+                    <section ref={moddleTextService} className='w-full duration-[1s] translate-y-[10%] opacity-0 flex flex-col mt-5 justify-center items-center relative'>
+                        
+                        <figure className='w-full h-full -top-5 absolute flex justify-between px-[10%] md:px-[18%] lg:px-[22%]'>
+
+                            <svg onClick={() => handleServicesDetails('frontEnd')} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={` ${servicesDetails.frontEnd ? 'dark:text-white text-gray-900 scale-[1.35]' : 'dark:text-gray-300 text-gray-700 bg-opacity-60'} dark:bg-gray-950 bg-gray-100 w-10 h-10  rounded-full p-2 cursor-pointer duration-200 hover:bg-opacity-100`}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25m18 0A2.25 2.25 0 0 0 18.75 3H5.25A2.25 2.25 0 0 0 3 5.25m18 0V12a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 12V5.25" />
+                            </svg>
+
+                            <svg onClick={() => handleServicesDetails('backEnd')} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={` ${servicesDetails.backEnd ? 'dark:text-white text-gray-900 scale-[1.35]' : 'dark:text-gray-300 text-gray-700 bg-opacity-60'} dark:bg-gray-950 bg-gray-100 w-10 h-10 rounded-full p-2 cursor-pointer duration-200 hover:bg-opacity-100`}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 14.25h13.5m-13.5 0a3 3 0 0 1-3-3m3 3a3 3 0 1 0 0 6h13.5a3 3 0 1 0 0-6m-16.5-3a3 3 0 0 1 3-3h13.5a3 3 0 0 1 3 3m-19.5 0a4.5 4.5 0 0 1 .9-2.7L5.737 5.1a3.375 3.375 0 0 1 2.7-1.35h7.126c1.062 0 2.062.5 2.7 1.35l2.587 3.45a4.5 4.5 0 0 1 .9 2.7m0 0a3 3 0 0 1-3 3m0 3h.008v.008h-.008v-.008Zm0-6h.008v.008h-.008v-.008Zm-3 6h.008v.008h-.008v-.008Zm0-6h.008v.008h-.008v-.008Z" />
+                            </svg>
+
+                            <svg onClick={() => handleServicesDetails('dbManagement')} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={` ${servicesDetails.dbManagement ? 'dark:text-white text-gray-900 scale-[1.35]' : 'dark:text-gray-300 text-gray-700 bg-opacity-60'} dark:bg-gray-950 bg-gray-100 w-10 h-10 rounded-full p-2 cursor-pointer duration-200 hover:bg-opacity-100`}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
+                            </svg>
+
+
+                            <svg onClick={() => handleServicesDetails('andMore')} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={` ${servicesDetails.andMore ? 'dark:text-white text-gray-900 scale-[1.35]' : 'dark:text-gray-300 text-gray-700 bg-opacity-60'} dark:bg-gray-950 bg-gray-100 w-10 h-10 rounded-full p-2 cursor-pointer duration-200 hover:bg-opacity-100`}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                            </svg>
+
+
                         </figure>
 
-                        <figcaption className='w-[70%] font-semibold text-[1rem] sm:text-[1.3rem] md:text-[1.3rem] text-start dark:text-gray-50 text-blackTheme '> {translation[lang].welcomeName} </figcaption>
+                        <figcaption className='w-full h-[19rem] pt-5 dark:bg-whiteTheme bg-blackTheme px-5 sm:px-[5%] md:px-[10%] lg:px-[14%] flex flex-col items-center overflow-hidden  rounded-xl ' style={{flex: '1 0 auto'}}>
+
+                            <div className={`h-full w-full duration-700 gap-5 justify-center flex flex-col items-center ${ servicesDetails.frontEnd ? 'translate-y-[0%] opacity-100'  : "translate-y-[200%] opacity-0"} `} style={{flex: 'inherit'}}>
+
+                                <h4 className='font-openSansSemiBold text-[0.875rem] dark:text-gray-900 text-gray-100 '> Front-end</h4>
+                                <p className=' font-openSansMedium text-[0.875rem] dark:text-gray-800 text-gray-100 sm:w-full md:w-[80%] lg:w-[70%] xl:w-[60%] leading-6'>{translation[lang].frontEndDetails}</p>
+                                <Link to={'/contacts'} className={` ${servicesDetails.frontEnd ? 'translate-y-0 opacity-100' : 'translate-y-32 opacity-0'} duration-[1.2s] border-myRed border px-4 py-[6px] font-openSansSemiBold text-[0.8rem] hover:bg-myRed hover:bg-opacity-20 rounded-2xl text-white dark:text-black `}>{translation[lang].interessed}</Link>
+
+                            </div>
+
+                            <div className={`h-full w-full duration-700 gap-5 justify-center flex flex-col items-center ${ servicesDetails.backEnd ? 'translate-y-[-100%]  opacity-100' : "translate-y-[100%] opacity-0"} `} style={{flex: 'inherit'}}>
+
+                                <h4 className='font-openSansSemiBold text-[0.875rem] dark:text-gray-900 text-gray-100 '> Back-end</h4>
+                                <p className=' font-openSansMedium text-[0.875rem] dark:text-gray-800 text-gray-100 sm:w-full md:w-[80%] lg:w-[70%] xl:w-[60%] leading-6'>{translation[lang].backEndDetails}</p>
+                                <Link to={'/contacts'} className={` ${servicesDetails.backEnd ? 'translate-y-0 opacity-100' : 'translate-y-32 opacity-0'} duration-[1.2s] border-myRed border px-4 py-[6px] font-openSansSemiBold text-[0.8rem] hover:bg-myRed hover:bg-opacity-20 rounded-2xl text-white dark:text-black `}>{translation[lang].interessed}</Link>
+                            </div>
+
+
+                            <div className={`h-full w-full duration-700 gap-5 justify-center flex flex-col items-center ${ servicesDetails.dbManagement ? 'translate-y-[-200%]  opacity-100' : "translate-y-[0%] opacity-0"}`} style={{flex: 'inherit'}}>
+
+                                <h4 className='font-openSansSemiBold text-[0.875rem] dark:text-gray-900 text-gray-100 '> {translation[lang].dataBaseTitle}</h4>
+                                <p className=' font-openSansMedium text-[0.875rem] dark:text-gray-800 text-gray-100 sm:w-full md:w-[80%] lg:w-[70%] xl:w-[60%] leading-6'>{translation[lang].dataBaseDetails}</p>
+                                <Link to={'/contacts'} className={` ${servicesDetails.dbManagement ? 'translate-y-0 opacity-100' : 'translate-y-32 opacity-0'} duration-[1.2s] border-myRed border px-4 py-[6px] font-openSansSemiBold text-[0.8rem] hover:bg-myRed hover:bg-opacity-20 rounded-2xl text-white dark:text-black `}>{translation[lang].interessed}</Link>
+                            </div>
+
+                            <div className={`h-full w-full duration-700 gap-5 justify-center flex flex-col items-center ${ servicesDetails.andMore ? 'translate-y-[-300%]  opacity-100' : "translate-y-[-100%] opacity-0"}`} style={{flex: 'inherit'}}>
+
+                                <h4 className='font-openSansSemiBold text-[0.875rem] dark:text-gray-900 text-gray-100 '> Maintenance</h4>
+                                <p className=' font-openSansMedium text-[0.875rem] dark:text-gray-800 text-gray-100 sm:w-full md:w-[80%] lg:w-[70%] xl:w-[60%] leading-6'>{translation[lang].andMore}</p>
+                                <Link to={'/contacts'} className={` ${servicesDetails.andMore ? 'translate-y-0 opacity-100' : 'translate-y-32 opacity-0'} duration-[1.2s] border-myRed border px-4 py-[6px] font-openSansSemiBold text-[0.8rem] hover:bg-myRed hover:bg-opacity-20 rounded-2xl text-white dark:text-black `}>{translation[lang].interessed}</Link>
+
+                            </div>
+
+                        </figcaption>
                     </section>
                     
-                    {/* descriptif text  */}
-                    <p ref={aboutMeText} className=' font-openSansSemiBold duration-[1.2s] ease-in-out opacity-0 translate-y-[10%] text-[0.875rem] md:text-[0.875rem] text-start leading-[1.6rem] dark:text-gray-50 text-blackTheme '>
-                        {translation[lang].aboutME}
-                    </p>
-
-                    <div className='w-fll justify-between items-center flex'>
-                        <Link className=' border-myRed border-2 w-[40%] py-[6px] font-openSansSemiBold text-[0.875rem] md:text-[0.875rem] rounded-2xl dark:text-white duration-200 hover:bg-myRed hover:bg-opacity-20 text-blackTheme '>{translation[lang].projectTitle}</Link>
-                        <Link className=' bg-myRed w-[40%] border border-myRed  py-[6px] font-openSansSemiBold text-[0.875rem]  md:text-[0.875rem] rounded-2xl text-white hover:bg-opacity-80 duration-200 '>{translation[lang].getInText}</Link>
-                    </div>
-
                 </section>
 
-                
-            </section>
-
-            {/*  career */}
-            <section id='career' className='w-full pb-10 flex flex-col gap-14 '>
-
-                {/* title  */}
-                <div ref={careerTitle} className='w-full duration-700 opacity-0 translate-y-[30%] flex flex-col gap-4 '>
-                    <div className='w-full flex gap-3 items-center '>
-                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 text-myRed">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                        </svg>
-
-                        <h3 className=' font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-gray-500'> {translation[lang].careerDetails}</h3>
-                    </div>
-
-                    <h1 className='text-left text-[2rem] sm:text-[2.5rem] md:text-[2.8rem] font-openSansBold dark:text-gray-50 text-gray-800'> {translation[lang].career}</h1>
-                </div>
-
-                <section className='w-full grid grid-cols-2 md:grid-rows-2  gap-2 justify-center items-center'>
-                    
-                    {/* satisfed clients  */}
-                    <div ref={satisfedClient} className=' w-full duration-[1s] opacity-0 translate-x-[-30%] h-full justify-center items-center flex flex-col gap-3 px-2 py-8 sm:py-10 rounded-lg dark:bg-gray-950 bg-gray-300 ' >
-                        <svg   xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className=" w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 dark:text-whiteTheme">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M18 18.72a9.094 9.094 0 0 0 3.741-.479 3 3 0 0 0-4.682-2.72m.94 3.198.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0 1 12 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 0 1 6 18.719m12 0a5.971 5.971 0 0 0-.941-3.197m0 0A5.995 5.995 0 0 0 12 12.75a5.995 5.995 0 0 0-5.058 2.772m0 0a3 3 0 0 0-4.681 2.72 8.986 8.986 0 0 0 3.74.477m.94-3.197a5.971 5.971 0 0 0-.94 3.197M15 6.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Zm6 3a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Zm-13.5 0a2.25 2.25 0 1 1-4.5 0 2.25 2.25 0 0 1 4.5 0Z" />
-                        </svg>
-
-                        <h1  ref={satisfedClientText} className='translate-y-[-50%] opacity-0 duration-[2.5s] text-[1.2rem] md:text-[1.5rem] font-openSansBold text-myRed leading-5 md:leading-6'> {translation[lang].satisfedClients} </h1>
-
-                    </div>
-
-                    {/* completed projects  */}
-                    <div ref={completProjects} className='duration-[1s] opacity-0 translate-x-[30%] w-full h-full sm:col-start-2 justify-center items-center flex flex-col gap-3 px-2 py-8 sm:py-10 rounded-lg dark:bg-gray-950 bg-gray-300 ' >
-                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 dark:text-whiteTheme">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25A2.25 2.25 0 0 1 10.5 6v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25A2.25 2.25 0 0 1 13.5 18v-2.25Z" />
-                        </svg>
-
-
-                        <h1 ref={completProjectsText} className='translate-y-[-50%] opacity-0 duration-[2.5s] text-[1.2rem] md:text-[1.5rem] font-openSansBold text-myRed leading-5 md:leading-6'> {translation[lang].completsProjects} </h1>
-
-                    </div>
-                    
-                    {/* avis  */}
-                    <div ref={avisSec} className='duration-[1s] opacity-0 translate-y-[10%] col-span-2 py-5  flex-col gap-3 md:col-span-1 md:row-span-2 relative md:row-start-1 md:row-end-3 w-full items-center flex  rounded-lg dark:bg-gray-950 bg-gray-300 overflow-hidden ' >
-                        
-                        <div className=' flex flex-col gap-3 items-center py-5 '>
-                            
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 dark:text-whiteTheme">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M8.625 9.75a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H8.25m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0H12m4.125 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm0 0h-.375m-13.5 3.01c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.184-4.183a1.14 1.14 0 0 1 .778-.332 48.294 48.294 0 0 0 5.83-.498c1.585-.233 2.708-1.626 2.708-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018Z" />
-                            </svg>
-
-                            <h1 className='text-[1.2rem] md:text-[1.5rem] font-openSansBold text-myRed leading-5 md:leading-6'> {translation[lang].comment} </h1>
-
-
-                        </div>
-
-                        <div className='h-0 w-full pt-[40%] sm:pt-[35%] md:pt-[60%] flex items-center justify-center avis relative px-3 overflow-hidden'>
-
-                            <div ref={avisContainer}  className='flex avis h-full w-[95%] absolute top-0 gap-3 overflow-x-scroll rounded-lg md:py-0 items-center'>
-                                
-                                <img src={avis2} alt="avis" className='w-[100%] shadow-md duration-500 object-cover h-[100%] md:h-[90%] rounded-md' style={{flex: 'inherit'}} />
-                                <img src={avis1} alt="avis" className='w-[100%] shadow-md duration-500 object-cover h-[100%] md:h-[90%] rounded-md' style={{flex: 'inherit'}} />
-                                <img src={avis4} alt="avis" className='w-[100%] shadow-md duration-500 object-cover h-[100%] md:h-[90%] rounded-md' style={{flex: 'inherit'}} />
-                                <img src={avis3} alt="avis" className='w-[100%] shadow-md duration-500 object-cover h-[100%] md:h-[90%] rounded-md' style={{flex: 'inherit'}} />
-                            </div>
-                        </div>
-
-                    </div>
-                </section>
-
-            </section>
-
-            {/* services  */}
-            <section id='services' className=' w-full pb-10 flex flex-col gap-14 relative'>
-
-                {/* title  */}
-                <div ref={serviceTitle} className='duration-[1s] translate-y-[20%] opacity-0 w-full flex flex-col gap-4 '>
-                    <div className='w-full flex gap-3 items-center '>
-                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 text-myRed">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M7.5 21 3 16.5m0 0L7.5 12M3 16.5h13.5m0-13.5L21 7.5m0 0L16.5 12M21 7.5H7.5" />
-                        </svg>
-
-
-                        <h3 className=' font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-gray-500'> {translation[lang].servicesDetails}</h3>
-                    </div>
-
-                    <h1 className='text-left text-[2rem] sm:text-[2.5rem] md:text-[2.8rem] font-openSansBold dark:text-gray-50 text-gray-800'> {translation[lang].ourServices}</h1>
-                </div> 
-
-                {/* image and web dev title  */}
-                <section className='w-full h-fit overflow-hidden relative'>
-
-                    {/* the clipping image  */}
-                    <section className='w-full h-0 webDevSection pt-[100%] sm:pt-[50%]  overflow-hidden' style={{clipPath: "polygon(0% 100%, 0% 0%, 100% 100% )"}}  >
-
-                        <img ref={serviceImage} loading='lazy' src={webDev} alt="imge about web dev" className='w-full h-full duration-[1s] translate-x-[-10%] opacity-0 absolute top-0 object-cover object-left-bottom rounded-xl' />
-                    </section>
-
-                    {/* set the border color  */}
-                    <div className='w-full h-full broder border-r-2 border-gray-500 absolute top-0 border-t-2 border-t-gray-500 rounded-xl'>
-
-                    </div>
-
-                    {/* the text in the image  */}
-                    <section ref={serviceTitle2} className='absolute duration-[1.5s] translate-x-[10%] opacity-0 h-full w-full top-0 right-0 rounded-xl  flex flex-col gap-5 sm:gap-6 md:gap-7 lg:gap-8 dark:bg-opacity-10 dark:bg-gray-100 bg-gray-500 bg-opacity-10 py-4 px-5 sm:py-6 sm:px-8 md:py-10 md:px-14 lg:px-14 lg:py-14 items-end' style={{clipPath: "polygon(100% 100%, 0% 0%, 100% 0% )"}}>
-
-                        <h1 className='text-blackTheme dark:text-whiteTheme text-[1.2rem] md:text-[1.5rem] font-openSansBold leading-5 md:leading-6' >Web Developpement</h1>
-
-                        <p className=' text-right font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-gray-500'> {translation[lang].interessedDetails} </p>
-                        <Link className=' bg-myRed hover:bg-opacity-80 duration-200 px-4 py-[6px] font-openSansSemiBold text-[0.875rem] rounded-2xl text-white '>{translation[lang].interessed}</Link>
-
-                    </section>
-
-                </section>
-
-                {/* moddle text, explaining offered services  */}
-                <section ref={moddleTextService} className='w-full duration-[1s] translate-y-[10%] opacity-0 flex flex-col mt-5 justify-center items-center relative'>
-                    
-                    <figure className='w-full h-full -top-5 absolute flex justify-between px-[10%] md:px-[18%] lg:px-[22%]'>
-
-                        <svg onClick={() => handleServicesDetails('frontEnd')} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={` ${servicesDetails.frontEnd ? 'dark:text-white text-gray-900 scale-[1.35]' : 'dark:text-gray-300 text-gray-700 bg-opacity-60'} dark:bg-gray-950 bg-gray-100 w-10 h-10  rounded-full p-2 cursor-pointer duration-200 hover:bg-opacity-100`}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25m18 0A2.25 2.25 0 0 0 18.75 3H5.25A2.25 2.25 0 0 0 3 5.25m18 0V12a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 12V5.25" />
-                        </svg>
-
-                        <svg onClick={() => handleServicesDetails('backEnd')} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={` ${servicesDetails.backEnd ? 'dark:text-white text-gray-900 scale-[1.35]' : 'dark:text-gray-300 text-gray-700 bg-opacity-60'} dark:bg-gray-950 bg-gray-100 w-10 h-10 rounded-full p-2 cursor-pointer duration-200 hover:bg-opacity-100`}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 14.25h13.5m-13.5 0a3 3 0 0 1-3-3m3 3a3 3 0 1 0 0 6h13.5a3 3 0 1 0 0-6m-16.5-3a3 3 0 0 1 3-3h13.5a3 3 0 0 1 3 3m-19.5 0a4.5 4.5 0 0 1 .9-2.7L5.737 5.1a3.375 3.375 0 0 1 2.7-1.35h7.126c1.062 0 2.062.5 2.7 1.35l2.587 3.45a4.5 4.5 0 0 1 .9 2.7m0 0a3 3 0 0 1-3 3m0 3h.008v.008h-.008v-.008Zm0-6h.008v.008h-.008v-.008Zm-3 6h.008v.008h-.008v-.008Zm0-6h.008v.008h-.008v-.008Z" />
-                        </svg>
-
-                        <svg onClick={() => handleServicesDetails('dbManagement')} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={` ${servicesDetails.dbManagement ? 'dark:text-white text-gray-900 scale-[1.35]' : 'dark:text-gray-300 text-gray-700 bg-opacity-60'} dark:bg-gray-950 bg-gray-100 w-10 h-10 rounded-full p-2 cursor-pointer duration-200 hover:bg-opacity-100`}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 6.375c0 2.278-3.694 4.125-8.25 4.125S3.75 8.653 3.75 6.375m16.5 0c0-2.278-3.694-4.125-8.25-4.125S3.75 4.097 3.75 6.375m16.5 0v11.25c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125V6.375m16.5 0v3.75m-16.5-3.75v3.75m16.5 0v3.75C20.25 16.153 16.556 18 12 18s-8.25-1.847-8.25-4.125v-3.75m16.5 0c0 2.278-3.694 4.125-8.25 4.125s-8.25-1.847-8.25-4.125" />
-                        </svg>
-
-
-                        <svg onClick={() => handleServicesDetails('andMore')} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className={` ${servicesDetails.andMore ? 'dark:text-white text-gray-900 scale-[1.35]' : 'dark:text-gray-300 text-gray-700 bg-opacity-60'} dark:bg-gray-950 bg-gray-100 w-10 h-10 rounded-full p-2 cursor-pointer duration-200 hover:bg-opacity-100`}>
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                        </svg>
-
-
-                    </figure>
-
-                    <figcaption className='w-full h-[19rem] pt-5 dark:bg-whiteTheme bg-blackTheme px-5 sm:px-[5%] md:px-[10%] lg:px-[14%] flex flex-col items-center overflow-hidden  rounded-xl ' style={{flex: '1 0 auto'}}>
-
-                        <div className={`h-full w-full duration-700 gap-5 justify-center flex flex-col items-center ${ servicesDetails.frontEnd ? 'translate-y-[0%] opacity-100'  : "translate-y-[200%] opacity-0"} `} style={{flex: 'inherit'}}>
-
-                            <h4 className='font-openSansSemiBold text-[0.875rem] dark:text-gray-900 text-gray-100 '> Front-end</h4>
-                            <p className=' font-openSansMedium text-[0.875rem] dark:text-gray-800 text-gray-100 sm:w-full md:w-[80%] lg:w-[70%] xl:w-[60%] leading-6'>{translation[lang].frontEndDetails}</p>
-                            <Link className={` ${servicesDetails.frontEnd ? 'translate-y-0 opacity-100' : 'translate-y-32 opacity-0'} duration-[1.2s] border-myRed border px-4 py-[6px] font-openSansSemiBold text-[0.8rem] hover:bg-myRed hover:bg-opacity-20 rounded-2xl text-white dark:text-black `}>{translation[lang].interessed}</Link>
-
-                        </div>
-
-                        <div className={`h-full w-full duration-700 gap-5 justify-center flex flex-col items-center ${ servicesDetails.backEnd ? 'translate-y-[-100%]  opacity-100' : "translate-y-[100%] opacity-0"} `} style={{flex: 'inherit'}}>
-
-                            <h4 className='font-openSansSemiBold text-[0.875rem] dark:text-gray-900 text-gray-100 '> Back-end</h4>
-                            <p className=' font-openSansMedium text-[0.875rem] dark:text-gray-800 text-gray-100 sm:w-full md:w-[80%] lg:w-[70%] xl:w-[60%] leading-6'>{translation[lang].backEndDetails}</p>
-                            <Link className={` ${servicesDetails.backEnd ? 'translate-y-0 opacity-100' : 'translate-y-32 opacity-0'} duration-[1.2s] border-myRed border px-4 py-[6px] font-openSansSemiBold text-[0.8rem] hover:bg-myRed hover:bg-opacity-20 rounded-2xl text-white dark:text-black `}>{translation[lang].interessed}</Link>
-                        </div>
-
-
-                        <div className={`h-full w-full duration-700 gap-5 justify-center flex flex-col items-center ${ servicesDetails.dbManagement ? 'translate-y-[-200%]  opacity-100' : "translate-y-[0%] opacity-0"}`} style={{flex: 'inherit'}}>
-
-                            <h4 className='font-openSansSemiBold text-[0.875rem] dark:text-gray-900 text-gray-100 '> {translation[lang].dataBaseTitle}</h4>
-                            <p className=' font-openSansMedium text-[0.875rem] dark:text-gray-800 text-gray-100 sm:w-full md:w-[80%] lg:w-[70%] xl:w-[60%] leading-6'>{translation[lang].dataBaseDetails}</p>
-                            <Link className={` ${servicesDetails.dbManagement ? 'translate-y-0 opacity-100' : 'translate-y-32 opacity-0'} duration-[1.2s] border-myRed border px-4 py-[6px] font-openSansSemiBold text-[0.8rem] hover:bg-myRed hover:bg-opacity-20 rounded-2xl text-white dark:text-black `}>{translation[lang].interessed}</Link>
-                        </div>
-
-                        <div className={`h-full w-full duration-700 gap-5 justify-center flex flex-col items-center ${ servicesDetails.andMore ? 'translate-y-[-300%]  opacity-100' : "translate-y-[-100%] opacity-0"}`} style={{flex: 'inherit'}}>
-
-                            <h4 className='font-openSansSemiBold text-[0.875rem] dark:text-gray-900 text-gray-100 '> Maintenance</h4>
-                            <p className=' font-openSansMedium text-[0.875rem] dark:text-gray-800 text-gray-100 sm:w-full md:w-[80%] lg:w-[70%] xl:w-[60%] leading-6'>{translation[lang].andMore}</p>
-                            <Link className={` ${servicesDetails.andMore ? 'translate-y-0 opacity-100' : 'translate-y-32 opacity-0'} duration-[1.2s] border-myRed border px-4 py-[6px] font-openSansSemiBold text-[0.8rem] hover:bg-myRed hover:bg-opacity-20 rounded-2xl text-white dark:text-black `}>{translation[lang].interessed}</Link>
-
-                        </div>
-
-                    </figcaption>
-                </section>
-                
-            </section>
-
-            {/* projetcs  */}
-            <section id='projets' className='w-full pb-10 flex flex-col gap-14'>
-
-                 {/* title  */}
-                <div ref={projetTitle} className='w-full duration-[1s] translate-y-[30%] opacity-0 flex flex-col gap-4 '>
-                    <div className='w-full flex gap-3 items-center '>
-                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 text-myRed">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 0 0 .75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 0 0-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0 1 12 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 0 1-.673-.38m0 0A2.18 2.18 0 0 1 3 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 0 1 3.413-.387m7.5 0V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25v.894m7.5 0a48.667 48.667 0 0 0-7.5 0M12 12.75h.008v.008H12v-.008Z" />
-                        </svg>
-
-                        <h3 className=' font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-gray-500'> {translation[lang].projectDetails}</h3>
-                    </div>
-                    
-                    <div className=' flex justify-between items-center'>
-                        <h1 className='text-left text-[2rem] sm:text-[2.5rem] md:text-[2.8rem] font-openSansBold dark:text-gray-50 text-gray-800'>{translation[lang].projectTitle} </h1>
-
-                        <Link ref={projetTitleLink}  to='/projects' className='duration-[1.5s] translate-x-[20%] opacity-0 flex items-center hover:text-blue-500 py-[2px] font-openSansSemiBold text-[0.875rem] rounded-2xl dark:text-whiteTheme text-blackTheme '>{translation[lang].allProjects} <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-myRed font-openSansBold">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                        </svg>
-                        </Link>
-
-                    </div>
-                </div>
-
-                {/* some project  */}
-                <section ref={projectSection} className='w-full duration-[1s] opacity-0 translate-y-[15%] flex gap-10 items-center relative'>
-                    
-                    <div ref={projectContainer}  className = 'w-full flex flex-row gap-8 overflow-x-scroll projectContainer sm:px-5'>
-                        {displayedProjets}
-                    </div>
-
-                     {/* div to prev or next images  */}
-                    <div className=' absolute flex items-center duration-500 justify-between  w-full' >
-                        
-                        <div className='md:w-[35px] active:bg-gray-200 hover:bg-slate-50 hover:bg-opacity-40 md:h-[35px] sm:w-[1.875rem] sm:h-[1.875rem] w-[25px] h-[25px] bg-gray-600 bg-opacity-45 items-center justify-center rounded-full  duration-200 cursor-pointer pr-[4px] border border-gray-600 flex' onClick={ () => prevDiv()}>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-20 h-20 text-gray-200  ">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
-                            </svg>
-
-                        </div>
-                        
-                        
-                        <div className='md:w-[35px] active:bg-gray-200 hover:bg-slate-50 hover:bg-opacity-40 md:h-[35px] sm:w-[1.875rem] sm:h-[1.875rem] w-[25px] h-[25px] bg-gray-600 bg-opacity-45 items-center justify-center rounded-full  duration-200 cursor-pointer pl-[4px] border border-gray-600 flex' onClick={ () => nextDiv()}>
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-20 h-20 text-gray-200 ">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
-                            </svg>
-                        </div>
-
-                    </div>
-
-
-
-                </section>
-            </section>
-
-            {/* why choose use  */}
-            <section id='whyChooseUs' className=' w-full pb-10 flex flex-col gap-14'>
-
-                {/* title  */}
-                <div ref={whyUsTitle} className='w-full duration-[1s] translate-y-[30%] opacity-0 flex flex-col gap-4 '>
-                    <div className='w-full flex gap-3 items-center '>
-                       <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 text-myRed">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
-                        </svg>
-
-
-
-                        <h3 className=' font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-gray-500 text-left'> {translation[lang].chooseUsDetails}</h3>
-                    </div>
-
-                    <h1 className='text-left text-[2rem] sm:text-[2.5rem] md:text-[2.8rem] font-openSansBold dark:text-gray-50 text-gray-800'> {translation[lang].chooseUsTitle} ?</h1>
-                </div> 
-
-                <section className=' grid grid-cols-1 sm:grid-cols-2 justify-between items-center gap-x-5 gap-y-10'>
-
-                    {/* confidentiality */}
-                    <div className='w-full justify-center items-start flex flex-row gap-3'>
-
-                        <div className='flex w-[30%] h-auto items-center justify-center'>
-                            <svg ref={confidentiality1} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className=" duration-[1s] translate-x-[-20%] opacity-0 w-[65%] h-[65%] text-myRed ">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
-                            </svg>
-                        </div>
-
-
-                        <div className='flex w-full justify-start flex-col h-24 gap-1 '>
-
-                            <div  className='w-full flex '>
-                                <div  className='flex w-[50%] h-[2px] dark:bg-whiteTheme bg-blackTheme'>
-                                    
-                                </div>
-                            </div>
-
-                            <p ref={confidentiality3} className='font-openSansSemiBold duration-[1.2s] translate-x-[20%] opacity-0 text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-full500 text-left w-full'>{translation[lang].confidentiality} </p>
-                        </div>
-
-                    </div>
-
-                    <div className='w-full justify-center items-start flex flex-row gap-3'>
-
-                        <div className='flex w-[30%] h-auto items-center justify-center'>
-                            <svg ref={confidentiality4} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="duration-[1s] translate-x-[20%] opacity-0 w-[65%] h-[65%] text-myRed ">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
-                            </svg>
-                        </div>
-
-
-                        <div className='flex w-full justify-start flex-col h-24 gap-1 '>
-
-                            <div className='w-full flex '>
-                                <div className='flex w-[50%]  h-[2px] dark:bg-whiteTheme bg-blackTheme'>
-                                    
-                                </div>
-                            </div>
-
-                            <p ref={confidentiality5} className='duration-[1.2s] translate-x-[-20%] opacity-0 font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] line-clamp-2 dark:text-gray-400 text-full500 text-left w-full'> {translation[lang].adaptability} </p>
-                        </div>
-
-                    </div>
-
-
-                    <div className='w-full justify-center items-start flex flex-row gap-3'>
-
-                        <div className='flex w-[30%] h-auto items-center justify-center'>
-                             <svg ref={confidentiality6} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="duration-[1s] translate-x-[20%] opacity-0 w-[65%] h-[65%] text-myRed ">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5" />
-                            </svg>
-                        </div>
-
-
-                        <div className='flex w-full justify-start flex-col h-24 gap-1 '>
-
-                            <div className='w-full flex '>
-                                <div className='flex w-[50%]  h-[2px] dark:bg-whiteTheme bg-blackTheme'>
-                                    
-                                </div>
-                            </div>
-
-                            <p ref={confidentiality7} className='duration-[1.2s] translate-x-[-20%] opacity-0 font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-full500 text-left w-full'>{translation[lang].updating}</p>
-                        </div>
-
-                    </div>
-
-
-                    <div className='w-full justify-center items-start flex flex-row gap-3'>
-
-                        <div className='flex w-[30%] h-auto items-center justify-center'>
-                            <svg ref={confidentiality8} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="duration-[1s] translate-x-[20%] opacity-0 w-[65%] h-[65%] text-myRed">
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
-                            </svg>
-                        </div>
-
-
-                        <div className='flex w-full justify-start flex-col h-24 gap-1 '>
-
-                            <div className='w-full flex '>
-                                <div className='flex w-[50%]  h-[2px] dark:bg-whiteTheme bg-blackTheme'>
-                                    
-                                </div>
-                            </div>
-
-                            <p ref={confidentiality9} className='duration-[1.2s] translate-x-[-20%] opacity-0 font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-full500 text-left w-full'> {translation[lang].scalable} </p>
-                        </div>
-
-                    </div>
-
-                </section>
-                
-            </section>
-
-            {/* frequently posed questions */}
-            <section id='questions' className='w-full pb-10 flex flex-col gap-14'>
-                
-                {/* title  */}
-                <div ref={Fquestions} className='w-full duration-[1s] translate-y-[30%] opacity-0 flex flex-col gap-4 '>
-                    <div className='w-full flex gap-3 items-center '>
+                {/* projetcs  */}
+                <section id='projets' className='w-full pb-10 flex flex-col gap-14'>
+
+                    {/* title  */}
+                    <div ref={projetTitle} className='w-full duration-[1s] translate-y-[30%] opacity-0 flex flex-col gap-4 '>
+                        <div className='w-full flex gap-3 items-center '>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 text-myRed">
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
-                        </svg>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 14.15v4.25c0 1.094-.787 2.036-1.872 2.18-2.087.277-4.216.42-6.378.42s-4.291-.143-6.378-.42c-1.085-.144-1.872-1.086-1.872-2.18v-4.25m16.5 0a2.18 2.18 0 0 0 .75-1.661V8.706c0-1.081-.768-2.015-1.837-2.175a48.114 48.114 0 0 0-3.413-.387m4.5 8.006c-.194.165-.42.295-.673.38A23.978 23.978 0 0 1 12 15.75c-2.648 0-5.195-.429-7.577-1.22a2.016 2.016 0 0 1-.673-.38m0 0A2.18 2.18 0 0 1 3 12.489V8.706c0-1.081.768-2.015 1.837-2.175a48.111 48.111 0 0 1 3.413-.387m7.5 0V5.25A2.25 2.25 0 0 0 13.5 3h-3a2.25 2.25 0 0 0-2.25 2.25v.894m7.5 0a48.667 48.667 0 0 0-7.5 0M12 12.75h.008v.008H12v-.008Z" />
+                            </svg>
 
-                        <h3 className=' font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-gray-500 text-left'> {translation[lang].questionsDetails}</h3>
+                            <h3 className=' font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-gray-500'> {translation[lang].projectDetails}</h3>
+                        </div>
+                        
+                        <div className=' flex justify-between items-center'>
+                            <h1 className='text-left text-[2rem] sm:text-[2.5rem] md:text-[2.8rem] font-openSansBold dark:text-gray-50 text-gray-800'>{translation[lang].projectTitle} </h1>
+
+                            <Link ref={projetTitleLink}  to='/projects' className='duration-[1.5s] translate-x-[20%] opacity-0 flex items-center hover:text-blue-500 py-[2px] font-openSansSemiBold text-[0.875rem] rounded-2xl dark:text-whiteTheme text-blackTheme '>{translation[lang].allProjects} <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-myRed font-openSansBold">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                            </svg>
+                            </Link>
+
+                        </div>
                     </div>
 
-                    <h1 className='text-left text-[2rem] sm:text-[2.5rem] md:text-[2.8rem] font-openSansBold dark:text-gray-50 text-gray-800'> {translation[lang].questionsTitles} ?</h1>
-                </div> 
+                    {/* some project  */}
+                    <section ref={projectSection} className='w-full duration-[1s] opacity-0 translate-y-[15%] flex gap-10 items-center relative'>
+                        
+                        <div ref={projectContainer}  className = 'w-full flex flex-row gap-8 overflow-x-scroll projectContainer sm:px-5'>
+                            {displayedProjets}
+                        </div>
 
-                <section ref={myQuestions} className='flex flex-col duration-[1.4s] translate-y-[15%] w-full justify-center items-center gap-10'>
+                        {/* div to prev or next images  */}
+                        <div className=' absolute flex items-center duration-500 justify-between  w-full' >
+                            
+                            <div className='md:w-[35px] active:bg-gray-200 hover:bg-slate-50 hover:bg-opacity-40 md:h-[35px] sm:w-[1.875rem] sm:h-[1.875rem] w-[25px] h-[25px] bg-gray-600 bg-opacity-45 items-center justify-center rounded-full  duration-200 cursor-pointer pr-[4px] border border-gray-600 flex' onClick={ () => prevDiv()}>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-20 h-20 text-gray-200  ">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+                                </svg>
 
-                    <QuestionResponseToggleText 
-                        question={translation[lang].howWeProceed}
-                        answer={translation[lang].howWeProceedAnswer}
-                        handler={handleToggleText}
-                        value = 'a'
-                        toggledValue={toggleText.a}
-                    />
+                            </div>
+                            
+                            
+                            <div className='md:w-[35px] active:bg-gray-200 hover:bg-slate-50 hover:bg-opacity-40 md:h-[35px] sm:w-[1.875rem] sm:h-[1.875rem] w-[25px] h-[25px] bg-gray-600 bg-opacity-45 items-center justify-center rounded-full  duration-200 cursor-pointer pl-[4px] border border-gray-600 flex' onClick={ () => nextDiv()}>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-20 h-20 text-gray-200 ">
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
+                                </svg>
+                            </div>
+
+                        </div>
 
 
-                    <QuestionResponseToggleText 
-                        question={translation[lang].frameworkQuestion}
-                        answer={translation[lang].frameworkAnswer}
-                        handler={handleToggleText}
-                        value = 'b'
-                        toggledValue={toggleText.b}
-                    />
 
-                    <QuestionResponseToggleText 
-                        question={translation[lang].problemSolvingQuestion}
-                        answer={translation[lang].problemSolvingAnswer}
-                        handler={handleToggleText}
-                        value = 'c'
-                        toggledValue={toggleText.c}
-                    />
+                    </section>
                 </section>
-            </section>
 
-        </main>
+                {/* why choose use  */}
+                <section id='whyChooseUs' className=' w-full pb-10 flex flex-col gap-14'>
+
+                    {/* title  */}
+                    <div ref={whyUsTitle} className='w-full duration-[1s] translate-y-[30%] opacity-0 flex flex-col gap-4 '>
+                        <div className='w-full flex gap-3 items-center '>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 text-myRed">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 0 1-1.043 3.296 3.745 3.745 0 0 1-3.296 1.043A3.745 3.745 0 0 1 12 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 0 1-3.296-1.043 3.745 3.745 0 0 1-1.043-3.296A3.745 3.745 0 0 1 3 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 0 1 1.043-3.296 3.746 3.746 0 0 1 3.296-1.043A3.746 3.746 0 0 1 12 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 0 1 3.296 1.043 3.746 3.746 0 0 1 1.043 3.296A3.745 3.745 0 0 1 21 12Z" />
+                            </svg>
+
+
+
+                            <h3 className=' font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-gray-500 text-left'> {translation[lang].chooseUsDetails}</h3>
+                        </div>
+
+                        <h1 className='text-left text-[2rem] sm:text-[2.5rem] md:text-[2.8rem] font-openSansBold dark:text-gray-50 text-gray-800'> {translation[lang].chooseUsTitle} ?</h1>
+                    </div> 
+
+                    <section className=' grid grid-cols-1 sm:grid-cols-2 justify-between items-center gap-x-5 gap-y-10'>
+
+                        {/* confidentiality */}
+                        <div className='w-full justify-center items-start flex flex-row gap-3'>
+
+                            <div className='flex w-[30%] h-auto items-center justify-center'>
+                                <svg ref={confidentiality1} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className=" duration-[1s] translate-x-[-20%] opacity-0 w-[65%] h-[65%] text-myRed ">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z" />
+                                </svg>
+                            </div>
+
+
+                            <div className='flex w-full justify-start flex-col h-24 gap-1 '>
+
+                                <div  className='w-full flex '>
+                                    <div  className='flex w-[50%] h-[2px] dark:bg-whiteTheme bg-blackTheme'>
+                                        
+                                    </div>
+                                </div>
+
+                                <p ref={confidentiality3} className='font-openSansSemiBold duration-[1.2s] translate-x-[20%] opacity-0 text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-full500 text-left w-full'>{translation[lang].confidentiality} </p>
+                            </div>
+
+                        </div>
+
+                        <div className='w-full justify-center items-start flex flex-row gap-3'>
+
+                            <div className='flex w-[30%] h-auto items-center justify-center'>
+                                <svg ref={confidentiality5} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="duration-[1s] translate-x-[-20%] opacity-0 w-[65%] h-[65%] text-myRed ">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 0 0 6 3.75v16.5a2.25 2.25 0 0 0 2.25 2.25h7.5A2.25 2.25 0 0 0 18 20.25V3.75a2.25 2.25 0 0 0-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
+                                </svg>
+                            </div>
+
+
+                            <div className='flex w-full justify-start flex-col h-24 gap-1 '>
+
+                                <div className='w-full flex '>
+                                    <div className='flex w-[50%]  h-[2px] dark:bg-whiteTheme bg-blackTheme'>
+                                        
+                                    </div>
+                                </div>
+
+                                <p ref={confidentiality4} className='duration-[1.2s] translate-x-[20%] opacity-0 font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] line-clamp-2 dark:text-gray-400 text-full500 text-left w-full'> {translation[lang].adaptability} </p>
+                            </div>
+
+                        </div>
+
+
+                        <div className='w-full justify-center items-start flex flex-row gap-3'>
+
+                            <div className='flex w-[30%] h-auto items-center justify-center'>
+                                <svg ref={confidentiality7} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="duration-[1s] translate-x-[-20%] opacity-0 w-[65%] h-[65%] text-myRed ">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0M3.124 7.5A8.969 8.969 0 0 1 5.292 3m13.416 0a8.969 8.969 0 0 1 2.168 4.5" />
+                                </svg>
+                            </div>
+
+
+                            <div className='flex w-full justify-start flex-col h-24 gap-1 '>
+
+                                <div className='w-full flex '>
+                                    <div className='flex w-[50%]  h-[2px] dark:bg-whiteTheme bg-blackTheme'>
+                                        
+                                    </div>
+                                </div>
+
+                                <p ref={confidentiality6} className='duration-[1.2s] translate-x-[20%] opacity-0 font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-full500 text-left w-full'>{translation[lang].updating}</p>
+                            </div>
+
+                        </div>
+
+
+                        <div className='w-full justify-center items-start flex flex-row gap-3'>
+
+                            <div className='flex w-[30%] h-auto items-center justify-center'>
+                                <svg ref={confidentiality9} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="duration-[1s] translate-x-[-20%] opacity-0 w-[65%] h-[65%] text-myRed">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 3.75v4.5m0-4.5h4.5m-4.5 0L9 9M3.75 20.25v-4.5m0 4.5h4.5m-4.5 0L9 15M20.25 3.75h-4.5m4.5 0v4.5m0-4.5L15 9m5.25 11.25h-4.5m4.5 0v-4.5m0 4.5L15 15" />
+                                </svg>
+                            </div>
+
+
+                            <div className='flex w-full justify-start flex-col h-24 gap-1 '>
+
+                                <div className='w-full flex '>
+                                    <div className='flex w-[50%]  h-[2px] dark:bg-whiteTheme bg-blackTheme'>
+                                        
+                                    </div>
+                                </div>
+
+                                <p ref={confidentiality8} className='duration-[1.2s] translate-x-[20%] opacity-0 font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-full500 text-left w-full'> {translation[lang].scalable} </p>
+                            </div>
+
+                        </div>
+
+                    </section>
+                    
+                </section>
+
+                {/* frequently posed questions */}
+                <section id='questions' className='w-full pb-10 flex flex-col gap-14'>
+                    
+                    {/* title  */}
+                    <div ref={Fquestions} className='w-full duration-[1s] translate-y-[30%] opacity-0 flex flex-col gap-4 '>
+                        <div className='w-full flex gap-3 items-center '>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 text-myRed">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 18v-5.25m0 0a6.01 6.01 0 0 0 1.5-.189m-1.5.189a6.01 6.01 0 0 1-1.5-.189m3.75 7.478a12.06 12.06 0 0 1-4.5 0m3.75 2.383a14.406 14.406 0 0 1-3 0M14.25 18v-.192c0-.983.658-1.823 1.508-2.316a7.5 7.5 0 1 0-7.517 0c.85.493 1.509 1.333 1.509 2.316V18" />
+                            </svg>
+
+                            <h3 className=' font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-gray-500 text-left'> {translation[lang].questionsDetails}</h3>
+                        </div>
+
+                        <h1 className='text-left text-[2rem] sm:text-[2.5rem] md:text-[2.8rem] font-openSansBold dark:text-gray-50 text-gray-800'> {translation[lang].questionsTitles} ?</h1>
+                    </div> 
+
+                    <section ref={myQuestions} className='flex flex-col duration-[1.4s] translate-y-[15%] w-full justify-center items-center gap-10'>
+
+                        <QuestionResponseToggleText 
+                            question={translation[lang].howWeProceed}
+                            answer={translation[lang].howWeProceedAnswer}
+                            handler={handleToggleText}
+                            value = 'a'
+                            toggledValue={toggleText.a}
+                        />
+
+
+                        <QuestionResponseToggleText 
+                            question={translation[lang].frameworkQuestion}
+                            answer={translation[lang].frameworkAnswer}
+                            handler={handleToggleText}
+                            value = 'b'
+                            toggledValue={toggleText.b}
+                        />
+
+                        <QuestionResponseToggleText 
+                            question={translation[lang].problemSolvingQuestion}
+                            answer={translation[lang].problemSolvingAnswer}
+                            handler={handleToggleText}
+                            value = 'c'
+                            toggledValue={toggleText.c}
+                        />
+                    </section>
+                </section>
+
+            </main>
+        </Suspense>
     )
 }
+
+export default withErrorBoundary(Acceuil, LoadingError);
 
 
 // {/* skills and technologies used  */}

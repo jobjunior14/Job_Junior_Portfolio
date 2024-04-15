@@ -1,16 +1,11 @@
 /* eslint-disable react/jsx-no-target-blank */
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
-import withErrorBoundary from "../../../../CustomErrorBounded";
 import { useLangContext } from "../../changeLang";
 import { useState, useEffect, useRef } from "react";
 
-function Errorhhh () {
-    return <h1 className=" text-myRed animate-pulse text-[2rem]">Something went wrong with this picture </h1>
-}
-
 //display projects on the home page //////////comp
-function Projects ({image, text, link, title, linkContent}) {
+export default function  Projects ({image, text, link, title, linkContent}) {
 
     return  (
 
@@ -222,5 +217,3 @@ export function ProjetDetailsContainer ({projet: {name, data, fonction, status, 
         </section>
     )
 }
-
-export default withErrorBoundary(Projects, Errorhhh);

@@ -42,31 +42,41 @@ export default function useAnnimator (elemets) {
  
         elemets.forEach((el) => {
 
+            let timer;
+            let currentElement = el.ref.current;
+
             const value = Object.values(el)[1];
             const key = Object.keys(el)[1]
             const observer = new IntersectionObserver (
                 ([{isIntersecting}]) => {
-                    
-                    if (isIntersecting) {
 
-                        el.ref?.current?.classList.add(`translate-${key}-[0%]`);
-                        el.ref?.current?.classList.remove(`translate-${key}-[${value}%]`);
-                        el.ref?.current?.classList.add ('opacity-100');
+                    if (timer && !isIntersecting) clearTimeout(timer)
+                    
+                    timer = setTimeout(() => {
                         
-                    } else {
-                        
-                        el.ref?.current?.classList.remove(`translate-${key}-[0%]`);
-                        el.ref?.current?.classList.add(`translate-${key}-[${value}%]`);
-                        el.ref?.current?.classList.remove ('opacity-100');
-                    }
+                        if (isIntersecting) {
+    
+                            currentElement.classList.add(`translate-${key}-[0%]`, 'opacity-100');
+                            currentElement.classList.remove(`translate-${key}-[${value}%]`);
+                            
+                        } else {
+                            
+                            currentElement.classList.remove(`translate-${key}-[0%]`, 'opacity-100');
+                            currentElement.classList.add(`translate-${key}-[${value}%]`);
+                        }
+                    }, 100);
+
                 }, {rootMargin: '0px'}
             );
 
             if (el.ref?.current) {
-                observer.observe(el.ref.current);
+                observer.observe(currentElement);
             }
 
-            return () => observer.unobserve(el.ref.current);
+            return () => {
+                if (timer) clearTimeout(timer)
+                observer.unobserve(el.ref.current);
+            }
             
         });
     }, [elemets])

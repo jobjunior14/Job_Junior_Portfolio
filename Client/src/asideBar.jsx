@@ -1,13 +1,17 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
 import { useLangContext } from "./changeLang";
+import { useRef } from "react";
 
 export default function AsideBar ({links}) {
 
     const [isActive, setIsActive]= useState(false);
     const {lang} = useLangContext();
+    const asideRef = useRef();
 
     const handleAsideBar = () => {
+
+
         setIsActive(prev => !prev);
     }
 
@@ -17,7 +21,7 @@ export default function AsideBar ({links}) {
 
     return (
 
-            <aside className={` z-40 justify-center  right-[0%] xl:right-[12%] dark:bg-white bg-black  ${isActive ? 'max-w-60 max-h-60 px-2 bg-opacity-90' : 'max-w-5 h-20 p-0 bg-opacity-60'}  flex items-center fixed top-[40vh] duration-200 transition-all rounded-l-xl overflow-hidden`}>
+            <aside ref={asideRef} className={` z-40 justify-center  right-[0%] xl:right-[12%] dark:bg-white bg-black  ${isActive ? '' : 'max-w-5 h-20 p-0 bg-opacity-60'}  flex items-center fixed top-[40vh] duration-200 transition-all rounded-l-xl overflow-hidden`}>
                 
 
                 <div className= {`flex flex-col  items-start py-3 ${isActive ? 'max-w-60 max-h-60 px-2' : 'max-w-0 max-h-0 p-0'} overflow-hidden transition-all duration-200`}>
