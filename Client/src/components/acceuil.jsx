@@ -660,14 +660,13 @@ function Acceuil () {
                 <meta property="og:image" content={fbcard} />
                 
                 {/* twiter  */}
-                <meta property="og:image" content="https://www.example.com/image.jpg" />
                 <meta name="twitter:card" content={fbcard} />
             </Helmet>
             <main ref={mainA} id='mainHome' className=" w-full overflow-hidden  px-[5%] xl:px-[14%]  py-10 sm:py-14 gap-20 md:gap-28 relative flex flex-col sm:gap-20">
 
 
 
-
+                <img src={fbcard}/>
                 <AsideBar links={navLink}/>
 
                 
