@@ -650,17 +650,17 @@ function Acceuil () {
         <Suspense fallback={<FallBack/>}>
             <Helmet>
                 <title>Job Junior | Acceuil</title>
-                <meta name='description' content='Je suis Job Junior un full stack web developpeur, utilisant la technologie MERN' />
-                <meta name='keywords' content='Job Junior, Job Junior Portfolio, Portfolio, developpeur web, web developer, web design, web development, React developpeur, developpeur react, nodeJS developpeur, MERN developer, devellopeur MERN '/>
+                <meta name="description" content="Je suis Job Junior un full stack web developpeur, utilisant la technologie MERN" />
+                <meta name="keywords" content="Job Junior, Job Junior Portfolio, Portfolio, developpeur web, web developer, web design, web development, React developpeur, developpeur react, nodeJS developpeur, MERN developer, devellopeur MERN"/>
                 {/* fb  */}
                 <meta property="og:url" content="https://https://job-junior-portfolio.onrender.com/" />
                 <meta property="og:type" content="website" />
                 <meta property="og:title" content="Job Junior Portfolio" />
                 <meta property="og:description" content="Villez visitez notre portfolio avec une expérience unique et riche en annimation" />
-                <meta property="og:image" content={'https://job-junior-portfolio.onrender.com/assets/fbcard-evzsVon0.png'} />
+                <meta property="og:image" content="https://job-junior-portfolio.onrender.com/assets/fbcard-evzsVon0.png" />
                 
                 {/* twiter  */}
-                <meta name="twitter:card" content={'https://job-junior-portfolio.onrender.com/assets/fbcard-evzsVon0.png'} />
+                <meta name="twitter:card" content="Job Junior PortFolio" />
             </Helmet>
             <main ref={mainA} id='mainHome' className=" w-full overflow-hidden  px-[5%] xl:px-[14%]  py-10 sm:py-14 gap-20 md:gap-28 relative flex flex-col sm:gap-20">
 
