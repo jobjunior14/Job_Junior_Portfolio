@@ -14,6 +14,7 @@ import FallBack from './utils/fallBackForSuspence';
 import { Link } from 'react-router-dom';
 import withErrorBoundary from '../CustomErrorBounded';
 import LoadingError from './utils/loadingErrorPage';
+import useAnnimator from './utils/annimatorOnScroll';
 
 function Projets () {
 
@@ -341,6 +342,8 @@ function Projets () {
 
         return <ProjetDetailsContainer key={`${index}${prev.title}`} projet={prev} />
     });
+
+    
 
     return (
         <Suspense fallback={<FallBack/>}>
