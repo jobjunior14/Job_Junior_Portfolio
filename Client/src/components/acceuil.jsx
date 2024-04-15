@@ -56,7 +56,7 @@ function Acceuil () {
         en: {
             welcomeText: <span>A <br /><span className=' text-myRed'>Real</span> <br /> Dream</span>,
             welcomeName: <span>Hey! I&apos;m Job Junior a <span className='text-myRed'>Full-stack</span> developper</span>,
-            aboutME: <span> Passionate and experienced Full Stack Developer transforming your ideas into high-performing and intuitive web applications. Utilizing MERN stack (MongoDB, Express, ReactJS, NodeJS), I partner with you from concept to launch to create custom solutions that meet your specific needs. <br /> <a href={jobJuniorCVEN} download={'JOB JUNIOR CV'} className=' underline duration-200 flex items-end gap-1 text-blue-500 hover:text-blue-300'>Read more </a>
+            aboutME: <span> Passionate and experienced Full Stack Developer transforming your ideas into high-performing and intuitive web applications. Utilizing MERN stack (MongoDB, Express, ReactJS, NodeJS), I partner with you from concept to launch to create custom solutions that meet your specific needs. <br /> <a href={jobJuniorCVEN} download={'JOB JUNIOR CV'} className=' underline duration-200 flex items-end gap-1 text-blue-500 hover:text-blue-300'>Download CV </a>
             </span>,
             getInText: 'Get in touch',
             skills: <span>Skills <span className='dark:text-gray-500 text-gray-400'> & </span> Tech.</span>,
@@ -153,7 +153,7 @@ function Acceuil () {
         fr: {
             welcomeText: <span>Un <br /> <span className='text-myRed'>Rêve</span> <br /> Véritable</span>,
             welcomeName: <span>Hey! je suis Job Junior un developpeur <span className='text-myRed'>Full-stack</span></span>,
-            aboutME: <span> Développeur full stack passionné et expérimenté, je transforme vos idées en applications web performantes et intuitives, en utilisant les technologies MERN (MongoDB, Express, ReactJS, NodeJS). De la conception à la mise en ligne, je suis votre partenaire pour créer des solutions sur mesure qui répondent à vos besoins spécifiques. <a href={jobJuniorCVFR} download={'JOB JUNIOR CV'} className=' underline flex items-end gap-1 text-blue-500 hover:text-blue-300 duration-200'>Lire plus </a>
+            aboutME: <span> Développeur full stack passionné et expérimenté, je transforme vos idées en applications web performantes et intuitives, en utilisant les technologies MERN (MongoDB, Express, ReactJS, NodeJS). De la conception à la mise en ligne, je suis votre partenaire pour créer des solutions sur mesure qui répondent à vos besoins spécifiques. <a href={jobJuniorCVFR} download={'JOB JUNIOR CV'} className=' underline flex items-end gap-1 text-blue-500 hover:text-blue-300 duration-200'>Télécharger le CV </a>
             </span>,
             getInText: 'Contactez-moi',
             skills: <span>Compétances <span className='dark:text-gray-500 text-gray-400'> & </span> <br className='sm:hidden' /> Tech.</span>,
