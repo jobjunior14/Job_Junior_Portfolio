@@ -6,7 +6,7 @@ import FallBack from "./utils/fallBackForSuspence";
 import withErrorBoundary from '../CustomErrorBounded';
 import LoadingError from './utils/loadingErrorPage';
 import useAnnimator from "./utils/annimatorOnScroll";
-
+import { Helmet } from "react-helmet";
 function Contacts () {
 
     useEffect(() => {
@@ -130,6 +130,9 @@ function Contacts () {
 
     return (
         <Suspense fallback={<FallBack/>}>
+            <Helmet>
+                <title>Job Junior | Contacts</title>
+            </Helmet>
             <main className=" w-full px-[5%] lg:px-[14%]  py-10 sm:py-14 relative flex flex-col">
 
                 <section className="grid grid-cols-1 sm:grid-cols-2 items-center justify-center gap-14 sm:gap-5 lg:gap-14">

@@ -21,6 +21,8 @@ import withErrorBoundary from '../CustomErrorBounded';
 import LoadingError from './utils/loadingErrorPage';
 import jobJuniorCVFR from '../assets/CV/jobJuniorCVFR.pdf';
 import jobJuniorCVEN from '../assets/CV/jobJuniorCVEN.pdf';
+import {Helmet} from 'react-helmet';
+import fbcard from '../assets/cards/fbcard.png';
 
 function Acceuil () {
 
@@ -646,8 +648,25 @@ function Acceuil () {
 
     return (
         <Suspense fallback={<FallBack/>}>
-
+            <Helmet>
+                <title>Job Junior | Acceuil</title>
+                <meta name='description' content='Je suis Job Junior un full stack web developpeur, utilisant la technologie MERN' />
+                <meta name='keywords' content='Job Junior, Job Junior Portfolio, Portfolio, developpeur web, web developer, web design, web development, React developpeur, developpeur react, nodeJS developpeur, MERN developer, devellopeur MERN '/>
+                {/* fb  */}
+                <meta property="og:url" content="https://https://job-junior-portfolio.onrender.com/" />
+                <meta property="og:type" content="website" />
+                <meta property="og:title" content="Job Junior Portfolio" />
+                <meta property="og:description" content="Villez visitez notre portfolio avec une expérience unique et riche en annimation" />
+                <meta property="og:image" content={fbcard} />
+                
+                {/* twiter  */}
+                <meta property="og:image" content="https://www.example.com/image.jpg" />
+                <meta name="twitter:card" content={fbcard} />
+            </Helmet>
             <main ref={mainA} id='mainHome' className=" w-full overflow-hidden  px-[5%] xl:px-[14%]  py-10 sm:py-14 gap-20 md:gap-28 relative flex flex-col sm:gap-20">
+
+
+
 
                 <AsideBar links={navLink}/>
 

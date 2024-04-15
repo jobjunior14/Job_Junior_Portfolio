@@ -13,7 +13,7 @@ import { Suspense } from 'react';
 import FallBack from './utils/fallBackForSuspence';
 import withErrorBoundary from '../CustomErrorBounded';
 import LoadingError from './utils/loadingErrorPage';
-
+import { Helmet } from 'react-helmet';
 function Projets () {
 
     useEffect(() => {
@@ -345,6 +345,9 @@ function Projets () {
 
     return (
         <Suspense fallback={<FallBack/>}>
+            <Helmet>
+                <title>Job Junior | Projets</title>
+            </Helmet>
             <main className=" w-full px-[5%] xl:px-[14%]  py-10 sm:py-14 gap-20 md:gap-28 relative flex flex-col sm:gap-20">
                 {/* welcom text and image  */}
                 <section className="grid grid-cols-1 sm:grid-cols-2 items-center justify-center gap-14">
