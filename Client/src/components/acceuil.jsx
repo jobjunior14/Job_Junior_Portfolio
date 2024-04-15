@@ -1,6 +1,6 @@
 /* eslint-disable react/no-unescaped-entities */
 
-import { useEffect, useRef, useState, Suspense, useCallback } from 'react';
+import { useEffect, useRef, useState, Suspense } from 'react';
 import jobProfil1 from '../assets/home/jobProfil1.png'
 import avis1 from '../assets/home/avis1.jpg'
 import avis2 from '../assets/home/avis2.jpg'
@@ -9,7 +9,7 @@ import avis4 from '../assets/home/avis4.jpg'
 import webDev from '../assets/home/webDev.png'
 import { useLangContext } from '../changeLang';
 import { Link } from 'react-router-dom';
-import SkillsAndTech from './utils/skillsAndTechComp';
+// import SkillsAndTech from './utils/skillsAndTechComp';
 import Projects from './utils/projects';
 import QuestionResponseToggleText from './utils/questionsComp';
 import _1DegoBar from '../assets/projets/degoBar/_1.jpg';

@@ -58,7 +58,7 @@ function Contacts () {
                 
                 setLoading(true);
                 setServerError(false);
-                const response = await axios.post('https://degobar.onrender.com/api/v1/user/jobjunior', {message});
+                await axios.post('https://degobar.onrender.com/api/v1/user/jobjunior', {message});
     
                 //if there is no error 
                 setServerError('Ok');
