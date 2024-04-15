@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { useState } from "react";
 import jobLogoWhite from '../../assets/navBar/jobLogoWhite.jpg';
 import jobLogoDark from '../../assets/navBar/jobLogoDark.jpg';
@@ -49,10 +49,10 @@ export default function NavBar () {
 
     return (
         <nav className="duration-300 flex justify-between   items-center -top-0 sticky w-full dark:bg-white bg-blackTheme z-50  ">
-
-            <figure className="mx-[5%] xl:mx-[12%] my-2 w-20">
+            
+            <Link to={'/'} className="mx-[5%] xl:mx-[12%] my-2 w-20">
                 <img loading='lazy' src={ theme === 'dark' ? jobLogoWhite : jobLogoDark} alt="Logo Job Junior" className="w-10 xl:w-full" />
-            </figure>
+            </Link>
             
             {/* link on phone  */}
             <div className={`w-full sm:hidden absolute z-50 flex ${toggleNav ? 'h-[100vh] duration-500' : 'h-0 duration-[0.8s]'} overflow-hidden delay-100 ease-out top-14 transition-[height] bg-myRed justify- items-center gap-8 `}>

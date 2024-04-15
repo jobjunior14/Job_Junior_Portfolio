@@ -74,6 +74,7 @@ function Acceuil () {
             backEndDetails: "We put our years of experience at your disposition to develop the back-end of your application ( the invvisible part to the customers and their data) with the latest technologies to give you a better and modern service",
             dataBaseTitle: "Data Base",
             dataBaseDetails: "We ensure the implementation of database management systems for your company, business by make easy their handling and accessibility for a fast and efficient operation for your application",
+            andMoreTitle: 'And more...',
             andMore: "By being professional, we offer you our services for the maintenance of your application dosen't matter if it on backend or frontend; we ensure his upadate with the latest available technologies in time...",
             projectTitle: "Projects",
             projectDetails: "Be dazzled by our projects",
@@ -169,8 +170,9 @@ function Acceuil () {
             frontEndDetails: "Nous mettons à votre disposition nos années d'expérience pour devellopper le front-end de votre application (la partie visible par les clients et les intéraction possible) avec les dernières téchnologies pour vous permetre un meilleur service et morderne",
             backEndDetails: "Nous mettons à votre disposition nos années d'expérience pour devellopper le back-end de votre application (la partie invisible par les clients et leurs données) avec les dernières téchnologies pour vous permetre un meilleur service et morderne",
             dataBaseTitle: "Base des données",
-            dataBaseDetails: "Nous assurons la mise en place des systèmes de gestion de base des données pour votre entreprise, busness en facilitant leurs manipulation et leur accessibilité pour un fonctionnement rapide et efficace de votre entreprise ou busness",
-            andMore: "Tout en étant professionnel, nous vous offrons nos services pour le maintient de votre application que cela puisse etre du coté front-end ou back-end; nous assurons sa mise à jour de l'époque avec les dernière téchnologies...",
+            dataBaseDetails: "Nous assurons la mise en place des systèmes de gestion de base des données pour votre entreprise, business en facilitant leur manipulation et accessibilité pour un fonctionnement rapide et efficace de votre entreprise ou business",
+            andMoreTitle: "Et encore plus...",
+            andMore: "Tout en étant professionnel, nous vous offrons nos services pour le maintient de votre application que cela puisse être du coté front-end ou back-end; nous assurons sa mise à jour avec les dernière téchnologies...",
             projectTitle: "Projets",
             projectDetails: "Soyez ébloui par nos projets",
             SeeMore: "Voir plus",
@@ -876,7 +878,7 @@ function Acceuil () {
 
                             <div className={`h-full w-full duration-700 gap-5 justify-center flex flex-col items-center ${ servicesDetails.andMore ? 'translate-y-[-300%]  opacity-100' : "translate-y-[-100%] opacity-0"}`} style={{flex: 'inherit'}}>
 
-                                <h4 className='font-openSansSemiBold text-[0.875rem] dark:text-gray-900 text-gray-100 '> Maintenance</h4>
+                                <h4 className='font-openSansSemiBold text-[0.875rem] dark:text-gray-900 text-gray-100 '>{translation[lang].andMoreTitle}</h4>
                                 <p className=' font-openSansMedium text-[0.875rem] dark:text-gray-800 text-gray-100 sm:w-full md:w-[80%] lg:w-[70%] xl:w-[60%] leading-6'>{translation[lang].andMore}</p>
                                 <Link to={'/contacts'} className={` ${servicesDetails.andMore ? 'translate-y-0 opacity-100' : 'translate-y-32 opacity-0'} duration-[1.2s] border-myRed border px-4 py-[6px] font-openSansSemiBold text-[0.8rem] hover:bg-myRed hover:bg-opacity-20 rounded-2xl text-white dark:text-black `}>{translation[lang].interessed}</Link>
 
