@@ -44,7 +44,7 @@ export default function LoadingError () {
 
             <img ref={imgref}  src={jobLogoWhite} width={100} height={100} alt="Logo of Job Junior" className=' shadow-md translate-y-[40%] opacity-0 duration-1000 rounded-lg'  />
             <p ref={pRef} className='translate-x-[30%] opacity-0 duration-[1.5s] font-openSansSemiBold text-myRed'>{translation[lang]}</p>
-            <Link ref={linkRef} to={'/'} className='translate-y-[-30%] font-openSansSemiBold opacity-0 duration-[1.8s] text-gray-800 hover:text-blue-500 active:text-opacity-80 underline'>Acceuil</Link>
+            <Link ref={linkRef} to={'/'} className='translate-y-[-30%] font-openSansSemiBold opacity-0 duration-[1.8s] text-gray-800 hover:text-blue-500 active:text-opacity-80 underline'>Accueil</Link>
             <img ref={error404Ref} src={error404} alt=" 404 error image" className='translate-y-[10%] w-[80%] sm:w-[70%] md:w-[60%] lg:w-[50%] xl:w-[40%] 2xl:w-[30%] opacity-0 duration-1000' />
     </div>)
 }

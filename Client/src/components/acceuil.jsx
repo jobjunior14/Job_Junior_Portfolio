@@ -651,7 +651,7 @@ function Acceuil () {
     return (
         <Suspense fallback={<FallBack/>}>
             <Helmet>
-                <title>Job Junior | Acceuil</title>
+                <title>Job Junior | Accueil</title>
                 <meta name="description" content="Je suis Job Junior un full stack web developpeur, utilisant la technologie MERN" />
                 <meta name="keywords" content="Job Junior, Job Junior Portfolio, Portfolio, developpeur web, web developer, web design, web development, React developpeur, developpeur react, nodeJS developpeur, MERN developer, devellopeur MERN"/>
                 {/* fb  */}

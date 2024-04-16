@@ -151,7 +151,7 @@ function Contacts () {
                                     <h3 className=' font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] dark:text-gray-400 text-gray-500'> {translation[lang].getInTouch}</h3>
                                 </div>
 
-                                <a href="mailto:juniorbisim@gamil.com" className='w-full flex gap-3 items-center mt-5 hover:opacity-70 hover:-translate-y-1 duration-150'>
+                                <a href="mailto:juniorbisim@gmail.com" className='w-full flex gap-3 items-center mt-5 hover:opacity-70 hover:-translate-y-1 duration-150'>
                                     {/* adresse mail  */}
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 text-myRed">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
@@ -160,7 +160,7 @@ function Contacts () {
 
 
 
-                                    <h3 className=' font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] dark:text-gray-50 text-gray-800'> juniorbisim@gamil.com</h3>
+                                    <h3 className=' font-openSansSemiBold text-[0.8rem] sm:text-[0.9rem] dark:text-gray-50 text-gray-800'> juniorbisim@gmail.com</h3>
                                 </a>
 
                                 {/* whatsapp and phone number  */}

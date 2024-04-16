@@ -24,7 +24,7 @@ export default function NavBar () {
         },
 
         fr: {
-            home: 'Acceuil',
+            home: 'Accueil',
             projets: 'Projets',
             contacts: 'Contacts',
         },
