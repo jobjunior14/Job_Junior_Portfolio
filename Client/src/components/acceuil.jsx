@@ -763,33 +763,33 @@ function Acceuil() {
   //////All references to make animation on scrolling//////////////////////
   ////////////////////////////////////////////////////////////////////////
   const mainA = useRef(null);
-    const reveRef = useRef(null);
-    const aboutMeSec = useRef(null);
-    const aboutMeText = useRef(null);
-    const aboutMePic = useRef(null);
-    const careerTitle = useRef(null);
-    const satisfedClient = useRef(null);
-    const satisfedClientText = useRef(null);
-    const completProjects = useRef(null);
-    const completProjectsText = useRef(null);
-    const avisSec = useRef(null);
-    const serviceTitle = useRef();
-    const serviceTitle2 = useRef();
-    const serviceImage = useRef();
-    const moddleTextService = useRef();
-    const projetTitle = useRef();
-    const projetTitleLink = useRef();
-    const projectSection = useRef();
-    const whyUsTitle = useRef();
-    const confidentiality1 = useRef();
-    const confidentiality3 = useRef();
-    const confidentiality4 = useRef();
-    const confidentiality5 = useRef();
-    const confidentiality6 = useRef();
-    const confidentiality7 = useRef();
-    const confidentiality8 = useRef();
-    const confidentiality9 = useRef();
-    const Fquestions = useRef();
+  const reveRef = useRef(null);
+  const aboutMeSec = useRef(null);
+  const aboutMeText = useRef(null);
+  const aboutMePic = useRef(null);
+  const careerTitle = useRef(null);
+  const satisfedClient = useRef(null);
+  const satisfedClientText = useRef(null);
+  const completProjects = useRef(null);
+  const completProjectsText = useRef(null);
+  const avisSec = useRef(null);
+  const serviceTitle = useRef();
+  const serviceTitle2 = useRef();
+  const serviceImage = useRef();
+  const moddleTextService = useRef();
+  const projetTitle = useRef();
+  const projetTitleLink = useRef();
+  const projectSection = useRef();
+  const whyUsTitle = useRef();
+  const confidentiality1 = useRef();
+  const confidentiality3 = useRef();
+  const confidentiality4 = useRef();
+  const confidentiality5 = useRef();
+  const confidentiality6 = useRef();
+  const confidentiality7 = useRef();
+  const confidentiality8 = useRef();
+  const confidentiality9 = useRef();
+  const Fquestions = useRef();
   const myQuestions = useRef();
 
   const myDataAnnimator = [
@@ -1038,43 +1038,32 @@ function Acceuil() {
 
   useEffect(() => {
     const imagesLazyLoadedRef = document.querySelectorAll("img");
-    
-    imagesLazyLoadedRef.forEach(el => {
 
+    imagesLazyLoadedRef.forEach((el) => {
       const options = {
         root: null,
-        threshold: 0.3
-      }
+        threshold: 0.3,
+      };
 
-      const cbFb = ([{isIntersecting}]) => {
-
+      const cbFb = ([{ isIntersecting }]) => {
         // eslint-disable-next-line no-undef
-        
 
-          if (el.dataset.src) {
-            el.src = el.dataset.src;
-            el.style.filter = 'blur(3px)';
+        if (el.dataset.src) {
+          el.src = el.dataset.src;
+          el.style.filter = "blur(3px)";
 
-            if (isIntersecting) {
-
-              el.addEventListener('load', () => {
-                el.style.filter = 'blur(0px)';
-                observer.unobserve(el);
-              });
-            }
-    
-    
+          if (isIntersecting) {
+            el.addEventListener("load", () => {
+              el.style.filter = "blur(0px)";
+              observer.unobserve(el);
+            });
           }
-        
-      }
+        }
+      };
 
       const observer = new IntersectionObserver(cbFb, options);
       observer.observe(el);
-
-      
-
     });
-
   }, []);
 
   return (
