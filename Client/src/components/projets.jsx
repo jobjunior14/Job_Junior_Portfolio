@@ -88,7 +88,7 @@ function Projets () {
                             <p>We helped Dego Bar to manage the supply of their drinks stock, people in their debts and the bar&apos;s debts to their suppliers and inflow and outflow of money into the company&apos;s cash register</p>
                             <br />
                             <br />
-                            <p><strong>Téchnologies utilisées </strong></p>
+                            <p><strong>Used Technologies </strong></p>
                             <br />
                             <ul className=' list-inside list-disc'>
                                 <li>ReactJs</li>
