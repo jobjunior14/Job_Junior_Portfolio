@@ -30,6 +30,7 @@ import withErrorBoundary from "../CustomErrorBounded";
 import LoadingError from "./utils/loadingErrorPage";
 import jobJuniorCVFR from "../assets/CV/jobJuniorCVFR.pdf";
 import jobJuniorCVEN from "../assets/CV/jobJuniorCVEN.pdf";
+import nailit from "../assets/projets/Nailit/nailit.jpg";
 import { Helmet } from "react-helmet";
 
 function Acceuil() {
@@ -64,20 +65,15 @@ function Acceuil() {
           <span className="text-myRed">Real</span> <br /> Dream
         </span>
       ),
-      welcomeName: (
-        <span>
-          Hey! I&apos;m Job Junior a{" "}
-          <span className="text-myRed">Full-stack</span> developper
-        </span>
-      ),
+      welcomeName: <span>Hey! I&apos;m Job Junior a, developper</span>,
       aboutME: (
         <span>
           {" "}
-          Passionate and experienced Full Stack Developer transforming your
-          ideas into high-performing and intuitive web applications. Utilizing
-          MERN stack (MongoDB, Express, ReactJS, NodeJS), I partner with you
-          from concept to launch to create custom solutions that meet your
-          specific needs. <br />{" "}
+          "Passionate about front-end development, I am committed to expanding
+          my expertise in back-end technologies to become a well-rounded
+          developer. While advancing my front-end skills, I aim to deepen my
+          proficiency in back-end frameworks and database management,
+          contributing to creating secure and scalable applications." <br />{" "}
           <a
             href={jobJuniorCVEN}
             download={"JOB JUNIOR CV"}
@@ -326,20 +322,16 @@ function Acceuil() {
           Un <br /> <span className="text-myRed">Rêve</span> <br /> Véritable
         </span>
       ),
-      welcomeName: (
-        <span>
-          Hey! je suis Job Junior un developpeur{" "}
-          <span className="text-myRed">Full-stack</span>
-        </span>
-      ),
+      welcomeName: <span>Hey! je suis Job Junior, un developpeur </span>,
       aboutME: (
         <span>
           {" "}
-          Développeur full stack passionné et expérimenté, je transforme vos
-          idées en applications web performantes et intuitives, en utilisant les
-          technologies MERN (MongoDB, Express, ReactJS, NodeJS). De la
-          conception à la mise en ligne, je suis votre partenaire pour créer des
-          solutions sur mesure qui répondent à vos besoins spécifiques.{" "}
+          "Passionné par le développement front-end, je suis déterminé à
+          approfondir mes compétences en technologies back-end pour devenir un
+          développeur polyvalent. Tout en perfectionnant mes compétences en
+          front-end, je vise à renforcer ma maîtrise des frameworks back-end et
+          de la gestion de bases de données, afin de contribuer à la création
+          d'applications sécurisées et évolutives."
           <a
             href={jobJuniorCVFR}
             download={"JOB JUNIOR CV"}
@@ -619,6 +611,24 @@ function Acceuil() {
 
   /////////////////data projects//////////////////////////////////
   const projets = [
+    {
+      image: (
+        <img
+          loading="lazy"
+          data-src={nailit}
+          src={nailit}
+          alt="image of nailit project"
+          className="h-full w-full object-cover rounded-md"
+        />
+      ),
+      title: "Nailit",
+      text: {
+        fr: "Une application complète conçue pour faciliter les connexions fluides entre les clients et les consommateurs. Intégration des bases de données PostgreSQL et MongoDB pour gérer efficacement les données structurées et non structurées. Utilisation de GraphQL pour une récupération de données optimisée, garantissant des interactions front-end réactives et fluides.",
+        en: "A comprehensive application designed to facilitate seamless connections between clients and consumers. Integrated both PostgreSQL and MongoDB databases to manage structured and unstructured data efficiently. Utilized GraphQL for optimized data fetching, ensuring responsive and smooth front-end interactions. ",
+      },
+      linkContent: "Developement",
+      link: "/projects#Dego_Bar",
+    },
     {
       image: (
         <img
